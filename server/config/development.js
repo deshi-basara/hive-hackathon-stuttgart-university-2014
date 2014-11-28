@@ -25,7 +25,7 @@ module.exports = {
 			mysql: {
 			  adapter: 'mysql',
 			  host: 'localhost',
-			  database: 'lobundtadel_plattform_dev',
+			  database: 'hive_dev',
 			  user: 'root',
 			}
 		},
