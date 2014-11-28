@@ -6,7 +6,7 @@ var orm = new Waterline();
 /**
  * Define models to load here.
  */
-var models = ['user_role', 'image', 'like', 'comment', 'shot', 'project', 'user', 'project_user'];
+var models = ['user'];
 
 exports.initialize = function( app ){
 	return function(fn){
@@ -19,8 +19,7 @@ exports.initialize = function( app ){
 		// config
 		app.config.waterline.adapters = { 'mysql': mysql };
 		orm.initialize(app.config.waterline, function(err, models) {
-			if(err) fn(err);
-			
+			if(err) return fn(err);
 			app.models = models.collections;
   			fn();
 		});
