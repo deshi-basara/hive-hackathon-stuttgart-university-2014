@@ -19,6 +19,7 @@
          */
         function submitRegistration() {
 
+            // TODO: read from form
             ctrl.register = {name: "Simon Schuster", mail: "simon.schuster@hs-furtwangen.de", pass: "Simon123", pass2: "Simon123"};
 
             // has the user entered all needed values, otherwise stop

@@ -37,6 +37,7 @@
             // hand data
             AuthService.getAuth(ctrl.login).then(function(success) {
                 // everything went well, redirect
+                // TODO: go to correct Controller
                 $state.go('dash.job');
             }, function(error, status) {
                 // show error message
