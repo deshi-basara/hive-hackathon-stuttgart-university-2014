@@ -37,6 +37,7 @@ client/.tmp
 client/.sass-cache
 client/node_modules
 client/dist
+client/bower_components
 
 # server
 server/node_modules
