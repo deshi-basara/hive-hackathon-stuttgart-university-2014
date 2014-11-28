@@ -1,26 +1,30 @@
 var Waterline = require('waterline');
 
 module.exports = Waterline.Collection.extend({
-  tableName: 'project_user',
+  tableName: 'annotation',
   schema: true,
   connection: 'mysql',
   attributes:{
-    project:{
-      model: 'project'
+    doc:{
+      model: 'doc'
     },
 
-    accepted:{
-      type: 'boolean',
+    owner:{
+      model: 'user'
+    },
+
+    page:{
+      type: 'integer',
       required: true
     },
 
-    rejected:{
-      type: 'boolean',
+    x:{
+      type: 'float',
       required: true
     },
 
-    deleted:{
-      type: 'boolean',
+    y:{
+      type: 'float',
       required: true
     }
   }

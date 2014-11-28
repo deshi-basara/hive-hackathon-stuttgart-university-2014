@@ -1,19 +1,21 @@
 var Waterline = require('waterline');
 
 module.exports = Waterline.Collection.extend({
-  tableName: 'comment',
+  tableName: 'doc',
   schema: true,
   connection: 'mysql',
   attributes:{
-    text:{
-      type: 'string'
+    owner:{
+      model: 'user'
     },
 
-    project:{
-      model: 'project'
+    room:{
+      model: 'room'
     },
-    user:{
-      model: 'user'
+
+    deleted:{
+      type: 'boolean',
+      required: true
     }
   }
 });
