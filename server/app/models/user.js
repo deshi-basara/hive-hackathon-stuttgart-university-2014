@@ -10,13 +10,13 @@ module.exports = Waterline.Collection.extend({
   attributes:{
     username: {
       type: 'string',
-      required: true
+      required: true,
+      unique: true 
     },
 
     email:{
       type: 'email',
-      required: true,
-      /* uncomment only for testing! unique: true */
+      required: true
     },
 
     password: {
@@ -31,7 +31,7 @@ module.exports = Waterline.Collection.extend({
     },
 
     comparePassword: function*(password){
-      return bcrypt.compare(this.password, password);
+      return yield bcrypt.compare(password, this.password);
     }
   },
 

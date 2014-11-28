@@ -13,30 +13,36 @@ function isValidEmail(email){
 module.exports = Risotto.Controller.extend({
 
 	login: function*(params){
-		if(!params.password || !params.email){
-			return yield this.render('user/loginForm', {error: 'Bitte alle Felder ausfüllen'});
+		this.status = 401
+
+		if(!params.password || !params.username){
+			this.body = {
+				error: "All fields are required"
+			};
+			return 
 		}
 
-		var user = yield User.findOne({'email': params.email});
+		var user = yield User.findOne({'username': params.username});
 		
 		if(!user || false == (yield user.comparePassword(params.password))){
-			return yield this.render('user/loginForm', {error: 'Email oder Passwort falsch'});
+			this.body = {
+				error: "Username or Password wrong"
+			};
+			return
 		}
 
 		this.session = {
 			authorized: true,
 			user_id: user.id
 		}
-
-		//user.signInCount = user.signInCount + 1;
-		//yield user.save();
-	
-		this.redirect('/');
+		
+		this.status = 200
+		this.body = {}
 	},
 
 	logout: function*(params){
 		this.session = null;
-		this.redirect('/');
+		this.body = {}
 	},
 
 
@@ -53,7 +59,7 @@ module.exports = Risotto.Controller.extend({
 		*/
 
 		if(!params.password || !params.email || !params.username || !params.role ){
-			//this.status = 403;
+			this.status = 401;
 			this.body = {
 				error: "All fields are required"
 			};
@@ -79,7 +85,6 @@ module.exports = Risotto.Controller.extend({
 			user_id: user.id
 		}
 
-		this.status = 200;
 		this.body = {}
 	}
 })	
