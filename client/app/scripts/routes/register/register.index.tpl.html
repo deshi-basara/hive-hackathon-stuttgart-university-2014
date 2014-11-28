@@ -33,6 +33,4 @@
 
 </div>
 
-<div class="toast animate-show" ng-show="ctrl.showError">
-    <span class="error-msg">Oh Nein! {{ ctrl.errorMsg }}!</span>
-</div>
+<error-message ng-show="ctrl.showError">Registrierung: {{ctrl.errorMsg}}</error-message>
