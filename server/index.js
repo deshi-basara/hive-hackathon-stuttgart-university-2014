@@ -6,5 +6,4 @@ process.title = "[Lob&Tadel]Web";
  */
 
 var Risotto = new require('./risotto');
-
 Risotto.initialize(__dirname);

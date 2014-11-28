@@ -10,16 +10,7 @@ function isValidEmail(email){
 	return /(.+)\.(.+)\@hs\-furtwangen\.de/.test(String(email));
 }
 
-
 module.exports = Risotto.Controller.extend({
-	loginForm: function*(){
-		// renders login form
-		if(this.currentUser){
-			this.redirect('/')
-		} else {
-			yield this.render('user/loginForm');
-		}
-	},
 
 	login: function*(params){
 		if(!params.password || !params.email){
@@ -48,13 +39,6 @@ module.exports = Risotto.Controller.extend({
 		this.redirect('/');
 	},
 
-	/**
-	 * [GET] user/register
-	 */
-
-	registerForm: function*(params){
-		yield this.render('user/registerForm');
-	},
 
 	/**
 	 * [POST] user/register
