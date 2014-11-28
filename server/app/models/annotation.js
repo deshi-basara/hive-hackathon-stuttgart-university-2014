@@ -26,6 +26,11 @@ module.exports = Waterline.Collection.extend({
     y:{
       type: 'float',
       required: true
+    },
+
+    content:{
+      type: 'string',
+      required: true
     }
   }
 });
