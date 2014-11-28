@@ -1,4 +1,5 @@
 module.exports = Risotto.Application.extend({
+	title: 'Hive App',
 	
 	onAuthorizationError : function*(koaContext, next){
 		koaContext.redirect('/');
