@@ -23,6 +23,7 @@
     "gulp-inject": "^1.0.2",
     "gulp-jshint": "^1.8.4",
     "gulp-load-plugins": "^0.6.0",
+    "gulp-ng-annotate": "^0.3.6",
     "gulp-ruby-sass": "^0.7.1",
     "gulp-size": "^1.1.0",
     "gulp-uglify": "^1.0.1",

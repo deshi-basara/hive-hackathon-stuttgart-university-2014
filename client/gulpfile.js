@@ -8,6 +8,7 @@ var $ = require('gulp-load-plugins')();
 var browserSync = require("browser-sync");
 var del = require('del');
 var runSequence = require('run-sequence');
+var ngAnnotate = require('gulp-ng-annotate');
 
 var reload = browserSync.reload;
 
@@ -128,9 +129,13 @@ gulp.task('html', function() {
 	// returns a stream with the concatenated asset files from the build blocks inside the HTML
 	var assets = $.useref.assets({searchPath: '{.tmp,app}'});
 
-	return gulp.src('app/**/*.html')
+	return gulp.src('app/**/**/**/*.html')
 		.pipe(assets)
-		.pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+		// ngAnnotate angular scripts
+	    .pipe($.if('**/main.min.js', ngAnnotate()))
+	    // Concatenate And Minify
+	    //.pipe($.if('**/main.min.js', $.uglify()))
+	    .pipe($.if('**/vendor.min.js', $.uglify()))
 		.pipe($.if('*.css', $.csso()))
 		.pipe(assets.restore()) // brings back the previously filtered out HTML files
 		.pipe($.useref())
@@ -184,10 +189,10 @@ gulp.task('serve', ['styles'], function() {
 
 	// watch for changes in our angular js-files
 	$.watch(['app/scripts/**/**/*.js'], function() {
-		runSequence('inject', ['jshint']);
+		runSequence('inject', []);
 	});
 
-	// watch for images changes
+	// watch for image changes
 	gulp.watch(['app/images/**/*'], reload);
 
 });
@@ -197,5 +202,5 @@ gulp.task('serve', ['styles'], function() {
  * Build minified and optimized distribution files.
  */
 gulp.task('build', ['clean'], function(cb) {
-	runSequence('styles', ['jshint', 'html', 'images', 'fonts', 'copy']);
+	runSequence('styles', ['html', 'images', 'fonts']);
 });
