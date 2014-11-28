@@ -50,7 +50,7 @@
                     line-height: em(40);
                     margin: 2px 6px 2px 6px;
                     cursor: default;
-                    border: 1px solid $glf-grey;
+                    border: 1px solid $hive-grey;
 
                     .file-counter {
                         @include span-columns(1 of 6);
@@ -70,8 +70,8 @@
                 }
 
                 .file-list-item:hover {
-                    background-color: $glf-green;
-                    color: $glf-white;
+                    background-color: $hive-green;
+                    color: $hive-white;
                 }
             }
 

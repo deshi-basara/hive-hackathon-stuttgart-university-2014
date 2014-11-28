@@ -38,37 +38,8 @@ angular
       controllerAs: 'ctrl'
     })
 
-    .state('dash', {
-      url: '',
-      abstract: true,
-      templateUrl: 'scripts/routes/dash/dash.index.tpl.html',
-      controller: 'DashCtrl',
-      controllerAs: 'ctrl'
-    })
-
-    .state('dash.job', {
-      url: '/job',
-      controller: 'JobCtrl',
-      controllerAs: 'ctrl',
-      templateUrl: 'scripts/routes/job/job.index.tpl.html'
-    })
-
-    .state('dash.queue', {
-      url: '/queue',
-      controller: 'QueueCtrl',
-      controllerAs: 'ctrl',
-      templateUrl: 'scripts/routes/queue/queue.index.tpl.html'
-    })
-
-    .state('dash.profiles', {
-      url: '/profile',
-      controller: 'ProfilesCtrl',
-      controllerAs: 'ctrl',
-      templateUrl: 'scripts/routes/profiles/profiles.index.tpl.html'
-    })
-
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('queue');
+  $urlRouterProvider.otherwise('login');
 
 })
 
