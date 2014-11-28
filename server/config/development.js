@@ -10,7 +10,7 @@ module.exports = {
 	},
 
 	socket: {
-		hostname: 'dreix.events',
+		hostname: 'localhost',
 		port: 9002
 	},
 
