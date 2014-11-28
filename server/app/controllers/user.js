@@ -45,24 +45,32 @@ module.exports = Risotto.Controller.extend({
 	 */
 
 	register: function*(params){
-		if(!params.password || !params.email || !isValidEmail(params.email)){
-			return yield this.render('user/registerForm', {error: 'Bitte alle Felder ausfüllen'});
+		/* 	
+			check(params.password, String);
+			check(params.email, String);
+			check(params.username, String);
+			check(params.picture);
+		*/
+
+		if(!params.password || !params.email || !params.username || !params.role ){
+			//this.status = 403;
+			this.body = {
+				error: "All fields are required"
+			};
+			return 
 		}
 
-		var values = params.take('password', 'email');
-
-		// build up username, lastName & firstName from email
-		var username = values.email.replace(/\@hs\-furtwangen\.de/, ''),
-        	name = username.split(/\./);
-
-		values.firstName = name[0].charAt(0).toUpperCase() + name[0].slice(1)
-		values.lastName = name[1].charAt(0).toUpperCase() + name[1].slice(1)
-		values.username = username
+		var values = params.take('password', 'email', 'username', 'role');
 
 		try{
 			var user = yield User.create(values);
 		} catch(err){
-			return yield this.render('user/registerForm', {error: err.details });
+			Risotto.logger.error(err);
+			this.status = 500;
+			this.body = {
+				error: "Server Error"
+			};
+			return 
 		}
 
 		// login & save id
@@ -71,6 +79,7 @@ module.exports = Risotto.Controller.extend({
 			user_id: user.id
 		}
 
-		this.redirect('/' + user.username + '/welcome');
+		this.status = 200;
+		this.body = {}
 	}
 })	
