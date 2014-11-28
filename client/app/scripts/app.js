@@ -1,5 +1,3 @@
-'use strict';
-
 // angular.module is a global place for creating, registering and retrieving Angular modules.
 // 'app' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'.
@@ -11,7 +9,6 @@ angular
   'ngAnimate',
   'ngTable',
   'angularFileUpload',
-  'oitozero.ngSweetAlert',
   'formly'
 ])
 
@@ -83,4 +80,4 @@ angular
     //$state.go('login');
   });
 
-})
+});
