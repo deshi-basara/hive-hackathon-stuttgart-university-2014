@@ -9,6 +9,11 @@ module.exports = {
 		logger : 'HTTP :remote-addr :method :url :status :res[content-length] ":referrer" ":user-agent" :response-time ms'
 	},
 
+	socket: {
+		hostname: 'dreix.events',
+		port: 9002
+	},
+
 	redis : {
 
 	},
@@ -25,8 +30,8 @@ module.exports = {
 			mysql: {
 			  adapter: 'mysql',
 			  host: 'localhost',
-			  database: 'hive_dev',
-			  user: 'root',
+			  database: 'hive-dev',
+			  user: 'hive',
 			}
 		},
 		defaults: {
