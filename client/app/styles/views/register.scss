@@ -1,10 +1,10 @@
 #register {
-    background-color: $glf-dark;
+    background-color: $hive-dark;
 
     @include size(100% 100%);
 
     .register-form {
-        background-color: $glf-green;
+        background-color: $hive-green;
         box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
 
         @include size(40% 48%);
@@ -13,9 +13,9 @@
         @include transform(translate(-50%, -50%));
 
         .register-form-header {
-            background-color: $glf-green;
+            background-color: $hive-green;
             padding-top: 10px;
-            color: $glf-white;
+            color: $hive-white;
             height: em(45);
             line-height: em(45);
             text-align: center;
@@ -41,7 +41,7 @@
                     @include span-columns(3 of 12);
 
                     text-align: right;
-                    color: $glf-white;
+                    color: $hive-white;
                 }
 
                 input {
@@ -49,7 +49,7 @@
                 }
 
                 span {
-                    color: $glf-white;
+                    color: $hive-white;
                     font-size: 1.25em;
                 }
             }
@@ -62,8 +62,8 @@
             text-align: center;
 
             button {
-                background-color: $glf-white;
-                color: $glf-dark;
+                background-color: $hive-white;
+                color: $hive-dark;
             }
         }
 

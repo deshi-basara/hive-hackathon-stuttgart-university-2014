@@ -9,8 +9,8 @@
     box-shadow: none;
     border-radius: 0;
     background: 0 0;
-    border-bottom: 2px solid $glf-white;
-    color: $glf-white;
+    border-bottom: 2px solid $hive-white;
+    color: $hive-white;
     outline: none;
     font-size: em(20);
     font-weight: normal;
@@ -32,7 +32,7 @@ label {
     margin: 10px 1px;
     cursor: pointer;
     text-decoration: none;
-    color: $glf-white;
+    color: $hive-white;
     outline: 0!important;
     box-shadow: 0;
 }
@@ -44,19 +44,19 @@ label {
 }
 
 .button-green {
-    background-color: $glf-green;
+    background-color: $hive-green;
 }
 
 .button-greener {
-    background-color: $glf-greener;
+    background-color: $hive-greener;
 }
 
 .button-red {
-    background-color: $glf-red;
+    background-color: $hive-red;
 }
 
 .button-neutral {
-    background-color: $glf-blue;
+    background-color: $hive-blue;
 }
 
 
@@ -79,11 +79,11 @@ label {
     @include position(fixed, null null 30px null);
     @include size(100% 45px);
 
-    color: $glf-white;
+    color: $hive-white;
     text-align: center;
 
     .error-msg {
-        background-color: $glf-red;
+        background-color: $hive-red;
         box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
         padding: 15px 25px 15px 25px;
 
@@ -97,7 +97,7 @@ label {
  * Section boxes
  */
 .section-box {
-    background-color: $glf-white;
+    background-color: $hive-white;
     box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
     padding: 15px;
     position: relative;
@@ -105,7 +105,7 @@ label {
     .section-box-head {
         height: em(40);
         line-height: em(40);
-        border-bottom: 1px solid $glf-grey;
+        border-bottom: 1px solid $hive-grey;
     }
 
     .section-box-footer {
@@ -113,7 +113,7 @@ label {
         position: absolute;
         bottom: 0px;
         height: em(65);
-        border-top: 1px solid $glf-grey;
+        border-top: 1px solid $hive-grey;
         text-align: right;
     }
 }
