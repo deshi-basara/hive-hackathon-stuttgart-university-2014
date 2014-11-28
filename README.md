@@ -1,4 +1,4 @@
 hackathon-stuttgart-university
 ==============================
 
-Project Repo Team "Amazing" Furtwangen
+For further information, consult the README-files inside /server and /client
