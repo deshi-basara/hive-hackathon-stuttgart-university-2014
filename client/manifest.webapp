@@ -1,0 +1,12 @@
+{
+  "name": "Hive App",
+  "description": "Sharing documents in a classroom made easy!",
+  "launch_path": "/app/index.html",
+  "icons": {
+  },
+  "developer": {
+    "name": "Hive App",
+    "url": ""
+  },
+  "default_locale": "de"
+}
