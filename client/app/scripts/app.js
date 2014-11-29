@@ -25,10 +25,6 @@ angular
   // Set up the various states which the app can be in.
   $stateProvider
 
-    .state('chat', {
-
-    })
-
     .state('login', {
       url: '/login',
       templateUrl: 'scripts/routes/login/login.index.tpl.html',
@@ -93,10 +89,10 @@ angular
   });
 
   // connect the user to the websocket
-  /*SocketService.connect().then(function() {
+  SocketService.connect().then(function() {
     console.log(SocketService.socket);
   }, function() {
     console.log('Es konnte keine Verbindung zum WebSocket hergetsellt werden');
-  });*/
+  });
 
 });

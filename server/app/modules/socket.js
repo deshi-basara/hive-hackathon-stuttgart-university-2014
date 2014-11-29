@@ -125,7 +125,8 @@ function bindClient(client, user){
 		var messageObj = {
 			text: msgText,
 			created_at: new Date(),
-			from: user.id 
+			from: user.id,
+			name: user.username
 		};
 
 		io.to(last(client.rooms))
@@ -172,7 +173,8 @@ function bindClient(client, user){
 	});
 
 	client.on('room:info', function(roomId){
-		client.emit('room:info', Object.keys(rooms[roomId] || {}))
+		// return name and id
+		client.emit('room:info', rooms[roomId] || {})
 	})
 };
 

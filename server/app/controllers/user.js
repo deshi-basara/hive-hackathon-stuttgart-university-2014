@@ -92,5 +92,21 @@ module.exports = Risotto.Controller.extend({
 			authorized: true,
 			user_id: user.id
 		}
+	},
+
+	all: function*(params){
+		this.body = yield User.find({})
+	},
+
+	isCurrentUserProf: function*(params){
+		var currentUser = yield Risotto.models.user.findOne({id: this.session.user_id});
+		
+		if(currentUser.role === 'professor') {
+			console.log(true);
+			return true;
+		} else {
+			console.log(false);
+			return false;
+		}
 	}
 })	

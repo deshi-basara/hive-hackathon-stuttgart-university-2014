@@ -49,6 +49,8 @@
                     service.canvas.height = viewport.height;
                     service.canvas.width = viewport.width;
                 }
+                service.canvas.height = viewport.height;
+                service.canvas.width = viewport.width;
                 var renderContext = {
                     canvasContext: service.ctx,
                     viewport: viewport
