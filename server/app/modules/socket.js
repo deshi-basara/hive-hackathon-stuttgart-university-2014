@@ -1,11 +1,25 @@
 var http = require('http');
 var fs = require('fs');
 var co = require('co');
+var cookieHelper = require('../helpers/cookieHelper');
+
 
 /**
  * Expose the socket Api
  */
 var socket = Risotto.socket = {};
+
+/**
+ *
+ */
+var io; 
+
+
+/**
+ * holds the visible room list
+ *
+ */
+ var rooms = {}
 
 /**
  * Init
@@ -19,7 +33,7 @@ exports.initialize = function( app ){
     	var socketServer = http.createServer();
 
     	// initiate the socket
-		Risotto.socket.io = require('socket.io').listen(socketServer);
+		io = Risotto.socket.io = require('socket.io').listen(socketServer);
 
 		// start listeing for connections on the port
 		socketServer.listen(Risotto.config.socket.port);
@@ -27,7 +41,7 @@ exports.initialize = function( app ){
 		Risotto.logger.log("Socket listening :" + Risotto.config.socket.port);
 
     	// register all socket events
-    	//socket.registerEvents();
+    	socket.registerEvents();
 
 		fn();
     };
@@ -36,50 +50,82 @@ exports.initialize = function( app ){
 /**
  * Register all important socket events.
  */
+
 socket.registerEvents = function() {
-
-	Risotto.socket.io.on('connection', co(function*(socket) {
-
-		console.log('connected');
-
-		// responde with the current ticket count
-		//socket.emit('init-count', {count: count});
-	}));
+	io.on('connection', function(client) {
+		getUser(client, function(err, user){
+			if(err){
+				return Risotto.logger.warn('Non authorized user connected to socket');
+			}
+			bindClient(client, user);
+		});
+	});
 };
 
 /**
- * Subtract newly ordered tickets from the ticket-count and update the ticket-counter.
- * Is called by users that return after their order was paid.
- * @param  {[int]} orderTicketCount [number of tickets the user has ordered]
+ * Bind user events
  */
-socket.ticketOrder = function*(orderTicketCount) {
-	// get the current ticketCount value from redis
-	try {
-		var currentCount = yield Risotto.redis.get('xxx-ticketing:count');
+function bindClient(client, user){
+	/**
+	 * room:create
+	 * @param {String} room
+	 */
 
-		// subtract the orderTicketCount
-		var newCount = currentCount - orderTicketCount;
+	client.on('room:create', function(){
+		// Risotto.models.
+	});
 
-		// update the currentTicketCount
-		Risotto.redis.set('xxx-ticketing:count', newCount);
+	/**
+	 * room:join 
+	 * @param {String} room
+	 */
+	client.on('room:join', function(room){
+		if(room in rooms){
+			//send new user list
+			io.to(room).emit('room:user', []);
+			client.join(room);
+		}
+	});
 
-	} catch(err) {
-		return console.log(err);
+	/**
+	 * remove client from all rooms
+	 */
+	client.on('disconnect', function(){
+
+	});
+
+	client.on('room:leave', function(){
+
+	})
+}
+
+/**
+ * creates a room 
+ */
+
+socket.joinRoom = function(){
+
+};
+
+
+function getUser(client, cb){
+	var cookie =  cookieHelper.get(client, 'koa:sess');
+	var signedCookie = cookieHelper.get(client, 'koa:sess', Risotto.config.http.session.secret);
+
+	if(signedCookie){
+		cookie = signedCookie;
 	}
 
-	// send an update event to all connected sockets
-	Risotto.socket.io.sockets.emit('update-count', {count: newCount});
-};
+	if(!cookie){
+		return cb(new Error('Not authorized'));
+	}
 
-/**
- * Changed the current ticket-count and ticket-counter to the handed value.
- * Is called by admins from the admin-interface.
- * @param  {[int]} newTicketCount [new ticket count]
- */
-socket.adminOrder = function(newTicketCount) {
-		// insert the ticketCount into redis
-		Risotto.redis.set('xxx-ticketing:count', parseInt(newTicketCount));
+	var session = JSON.parse(new Buffer(cookie, 'base64').toString('utf8'));
 
-		// send an update event to all connected sockets (as error-count, for reloading the page)
-		Risotto.socket.io.sockets.emit('error-count');
-};
+	Risotto.models.user.findOne({id: session.user_id}, cb);
+}
+
+
+
+
+

@@ -19,7 +19,8 @@
     "socket.io": "^1.2.1",
     "thunkify": "~2.1.2",
     "underscore": "~1.6.0",
-    "waterline": "^0.10.14"
+    "waterline": "^0.10.14",
+    "keygrip": "~1.0.1"
   },
   "engines": {
     "node": ">=0.8"
