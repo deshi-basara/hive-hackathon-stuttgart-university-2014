@@ -184,7 +184,7 @@ function bindClient(client, user){
 	});
 
 	client.on('pdf:profpage', function(page){
-		var room = last(client);
+		var room = last(client.rooms);
 		io.to(room).emit('pdf:profpage', page);
 	});
 };

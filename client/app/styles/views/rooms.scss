@@ -1,5 +1,6 @@
 #rooms {
 	@include outer-container();
+	height: 70%;
 
 	h1 {
 		margin-top: em(50px);
@@ -36,6 +37,31 @@
 
 	.room-item:hover {
 		background-color: $hive-light-blue;
+	}
+
+	.room-signal {
+		@include span-columns(12 of 12);
+		height: 80%;
+		text-align: center;
+		display: table;
+
+		background-color: $hive-light-blue;
+		border: 2px solid $hive-blue;
+
+		.room-signal-content {
+			display: table-cell;
+			vertical-align: middle;
+
+			h2, h3 {
+				//color: $hive-blue;
+				text-transform: uppercase;
+			}
+
+			i {
+				cursor: pointer;
+				padding: 50px;
+			}
+		}
 	}
 }
 
