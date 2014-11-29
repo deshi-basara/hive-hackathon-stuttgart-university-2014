@@ -29,7 +29,7 @@
     }
 
     #canvasContainer {
-        @include span-columns(6 of 12);
+        @include span-columns(5 of 12);
         position: relative;
     }
 
