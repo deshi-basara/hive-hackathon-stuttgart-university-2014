@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2014 at 03:40 PM
+-- Generation Time: Nov 29, 2014 at 04:38 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `room` (
 `id` int(11) NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `room`
@@ -94,7 +94,9 @@ CREATE TABLE IF NOT EXISTS `room` (
 
 INSERT INTO `room` (`owner`, `name`, `location`, `visible`, `id`, `createdAt`, `updatedAt`) VALUES
 (1, 'room1', 'here', 1, 1, '2014-11-29 12:39:44', '2014-11-29 12:39:44'),
-(1, 'room2', 'there', 1, 2, '2014-11-29 14:35:23', '2014-11-29 14:35:23');
+(1, 'room2', 'there', 1, 2, '2014-11-29 14:35:23', '2014-11-29 14:35:23'),
+(1, 'room3', 'here', 0, 3, '2014-11-29 16:28:26', '2014-11-29 16:28:26'),
+(1, 'room4', 'there', 0, 4, '2014-11-29 16:28:36', '2014-11-29 16:28:36');
 
 -- --------------------------------------------------------
 
@@ -110,14 +112,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   `encrypted_password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`username`, `email`, `role`, `id`, `createdAt`, `updatedAt`, `encrypted_password`) VALUES
-('student', 'student@hs-furtwangen.de', 'student', 1, '2014-11-29 12:14:53', '2014-11-29 12:14:53', 'moin');
+('student', 'student@hs-furtwangen.de', 'student', 1, '2014-11-29 12:14:53', '2014-11-29 12:14:53', 'moin'),
+('professor', 'professor@hs-furtwangen.de', 'professor', 2, '2014-11-29 16:31:09', '2014-11-29 16:31:09', 'moin');
 
 --
 -- Indexes for dumped tables
@@ -165,12 +168,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

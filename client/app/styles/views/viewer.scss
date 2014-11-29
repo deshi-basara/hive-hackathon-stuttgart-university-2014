@@ -5,6 +5,7 @@
 
     .pdfViewer {
         @include size(70% 70%);
+        @include span-columns(7 of 12);
     }
 
     button {
@@ -25,5 +26,19 @@
     #viewerContainer {
         position: relative;
         overflow: hidden;
+        @include span-columns(8 of 12);
+    }
+
+    #userList {
+        @include span-columns(2 of 12);
+
+        ul {
+            list-style: none;
+        }
+    }
+
+    #buttonNav {
+        @include span-columns(8 of 12);
+        @include shift(1);
     }
 }
