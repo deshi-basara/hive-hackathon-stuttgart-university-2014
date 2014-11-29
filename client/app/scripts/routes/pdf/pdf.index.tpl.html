@@ -1,6 +1,8 @@
 <div id="documentViewer">
 	<button id="prev" class="button" ng-click="ctrl.getPrevPage()">Previous</button>
 	<button id="next" class="button" ng-click="ctrl.getNextPage()">Next</button>
+	<button id="zoomIn" class="button" ng-click="ctrl.zoomIn()">+</button>
+	<button id="zoomOut" class="button" ng-click="ctrl.zoomOut()">-</button>
 	&nbsp; &nbsp;
 	<span id="pageCounts">Page: {{ctrl.currentPage}} / {{ctrl.totalPages}}</span>
 

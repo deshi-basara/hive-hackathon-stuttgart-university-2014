@@ -20,6 +20,8 @@
             pageRendering: false,
             pageNumPending: null,
             scale: 0.8,
+            initialScale: 0.8,
+            useInitialScale: true,
             canvas: document.getElementById('viewerCanvas'),
             ctx: document.getElementById('viewerCanvas').getContext('2d'),
 
@@ -27,7 +29,9 @@
             queueRenderPage: queueRenderPage,
             onPrevPage: onPrevPage,
             onNextPage: onNextPage,
-            downloadPDF: downloadPDF
+            downloadPDF: downloadPDF,
+            zoomIn: zoomIn,
+            zoomOut: zoomOut
         };
 
         return service;
@@ -39,8 +43,12 @@
             service.pageRendering = true;
             service.pdfDoc.getPage(num).then(function(page) {
                 var viewport = page.getViewport(service.scale);
-                service.canvas.height = viewport.height;
-                service.canvas.width = viewport.width;
+                if (service.useInitialScale) {
+                    service.scale = service.initialScale;
+                    viewport = page.getViewport(service.scale);
+                    service.canvas.height = viewport.height;
+                    service.canvas.width = viewport.width;
+                }
                 var renderContext = {
                     canvasContext: service.ctx,
                     viewport: viewport
@@ -70,6 +78,7 @@
             }
             service.pageNum--;
             $rootScope.$broadcast('pageChanged', service.pageNum);
+            service.useInitialScale = true;
             queueRenderPage(service.pageNum);
         }
 
@@ -79,6 +88,7 @@
             }
             service.pageNum++;
             $rootScope.$broadcast('pageChanged', service.pageNum);
+            service.useInitialScale = true;
             queueRenderPage(service.pageNum);
         }
 
@@ -88,6 +98,20 @@
                 $rootScope.$broadcast('totalPagesChanged', service.pdfDoc.numPages);
                 renderPage(service.pageNum);
             });
+        }
+
+        function zoomIn() {
+            service.scale = service.scale + 0.1;
+            $rootScope.$broadcast('zoomChanged', 0.1);
+            service.useInitialScale = false;
+            queueRenderPage(service.pageNum);
+        }
+
+        function zoomOut() {
+            service.scale = service.scale - 0.1;
+            $rootScope.$broadcast('zoomChanged', -0.1);
+            service.useInitialScale = false;
+            queueRenderPage(service.pageNum);
         }
     }
 
