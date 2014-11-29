@@ -93,7 +93,9 @@
                     };
                     $scope.ok = function() {
                         modalInstance.close();
-                        ctrl.saveComment($scope.comment);
+                        ctrl.saveComment($scope.comment).then(function(success) {
+                            ctrl.annotations.push($scope.comment);
+                        });
                     }
                 },
                 size: 'sm'

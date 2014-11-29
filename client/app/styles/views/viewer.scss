@@ -24,17 +24,17 @@
 
     #buttonNav {
         @include span-columns(10 of 12);
-        @include shift(1);
         @include omega();
     }
 
     #canvasContainer {
-        @include span-columns(6 of 12);
+        @include span-columns(5 of 12);
         position: relative;
     }
 
     #userList {
         @include span-columns(2 of 12);
+        margin-top: 2em;
 
         ul {
             list-style: none;
