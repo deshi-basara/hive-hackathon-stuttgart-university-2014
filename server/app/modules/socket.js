@@ -78,6 +78,14 @@ socket.getActiveUserForRoom = function(room){
 	return Object.keys(rooms[room]);
 };
 
+
+/**
+ * sendAnnotationToRoom 
+ */
+socket.sendAnnotationToRoom = function(room, annotation){
+	io.to(room).emit('room:annotation', annotation);
+};
+
 /**
  * Bind user events
  */
@@ -120,8 +128,6 @@ function bindClient(client, user){
 	 * room:message
 	 */
 	client.on('room:message', function(msgText){
-		console.log(msgText)
-
 		var messageObj = {
 			text: msgText,
 			created_at: new Date(),
@@ -175,7 +181,12 @@ function bindClient(client, user){
 	client.on('room:info', function(roomId){
 		// return name and id
 		client.emit('room:info', rooms[roomId] || {})
-	})
+	});
+
+	client.on('pdf:profpage', function(page){
+		var room = last(client);
+		io.to(room).emit('pdf:profpage', page);
+	});
 };
 
 
