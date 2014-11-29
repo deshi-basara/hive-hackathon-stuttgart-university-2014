@@ -1,5 +1,10 @@
 <!-- Docs View -->
-Doks
+<section id="doks">
+    <h1>Docs</h1>
+    <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.id)">
+        <span>{{:: dok.name }}</span><i class="fa fa-file-pdf-o"></i>
+    </div>
+</section>
 
 <!-- Modal code -->
 <script type="text/ng-template" id="upload-modal.html">
