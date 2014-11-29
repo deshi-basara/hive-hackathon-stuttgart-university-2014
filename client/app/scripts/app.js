@@ -14,7 +14,8 @@ angular
 
 .constant('config', {
   'name': 'development',
-  'apiUrl': 'http://localhost:1337'
+  'apiUrl': 'http://localhost:1337',
+  'socketUrl': 'http://localhost:9002'
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -23,6 +24,13 @@ angular
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   $stateProvider
+
+    .state('chat', {
+      url: '/chat',
+      templateUrl: 'scripts/routes/chat/chat.index.tpl.html',
+      controller: 'ChatCtrl',
+      controllerAs: 'ctrl'
+    })
 
     .state('login', {
       url: '/login',

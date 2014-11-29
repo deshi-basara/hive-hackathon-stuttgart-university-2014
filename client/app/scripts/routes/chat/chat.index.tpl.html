@@ -1,0 +1,23 @@
+<section id="chat">
+
+	<!-- Chat text area -->
+	<section class="chat-text">
+		<div class="chat-text-users">
+			<div class="chat-text-pic">
+				<img src="images/users/ramona.jpg" class="img-circle">
+			</div>
+			<div class="chat-text-msg">
+				<div class="chat-name">Ramona Nora</div>
+				<div class="chat-time">15:12</div>
+				<p>I love the smell of fresh napalm in the morning</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Chat input area -->
+	<section class="chat-input">
+		<button type="button" class="button" ng-click="ctrl.submitMsg"><i class="fa fa-send fa-2x"></i></button>
+		<textarea ng-model="ctrl.inputMsg">Hi</textarea>
+	</section>
+
+</section>

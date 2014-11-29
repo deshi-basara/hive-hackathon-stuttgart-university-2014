@@ -59,6 +59,12 @@ label {
     background-color: $hive-blue;
 }
 
+.button-clear {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+}
+
 
 /**
  * Centering
@@ -114,4 +120,11 @@ label {
         border-top: 1px solid $hive-grey;
         text-align: right;
     }
+}
+
+/**
+ * Form inputs
+ */
+textarea {
+    border: 1px solid $hive-grey;
 }

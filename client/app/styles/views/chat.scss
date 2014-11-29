@@ -1,0 +1,72 @@
+#chat {
+	width: 80%;
+	height: 100%;
+
+	.chat-text {
+		width: 100%;
+		height: 88%;
+
+		background-color: red;
+
+		.chat-text-users {
+			width: 60%;
+			padding: 12px;
+			margin: 12px;
+
+			box-shadow: $white-z1;
+			border-radius: 2px;
+			overflow: auto;
+
+			.chat-text-pic {
+				@include span-columns(1 of 12);
+
+				img {
+					width: 100%;
+					height: auto;
+				}
+
+			}
+
+			.chat-text-msg {
+				@include span-columns(11 of 12);
+
+				.chat-name {
+					float: left;
+					font-weight: bold;
+					padding-bottom: 5px;
+				}
+
+				.chat-time {
+					float: right;
+				}
+
+				p {
+					float: left;
+					clear: both;
+				}
+			}
+		}
+	}
+
+	.chat-input {
+		position: absolute;
+		width: 80%;
+
+		background-color: #F2F5F6;
+
+		bottom: 0px;
+		height: 60px;
+
+		textarea {
+			float: right;
+			width: 95%;
+		}
+
+		button {
+			float: left;
+			position: absolute;
+			padding: 9px 14px;
+			margin: 0;
+		}
+	}
+}
