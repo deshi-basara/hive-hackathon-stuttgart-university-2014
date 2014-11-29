@@ -120,6 +120,10 @@ function bindClient(client, user){
 			.emit('room:message', messageObj);
 	})
 
+	/**
+	 * room:leave
+	 * for students
+	 */
 	client.on('room:leave', function(){
 		var room = last(client.rooms);
 		if(_.isString(room)){
@@ -128,6 +132,31 @@ function bindClient(client, user){
 		client.leave(room)
 		io.to(room).emit('room:leave', user.id);
 		Risotto.logger.info('[Socket] '+ user.username +' left room:' + room);
+	});
+
+	/**
+	 * room:close
+	 * closes the room
+	 * user has to owner of the room 
+	 */
+	client.on('room:close', function(){
+		var roomId = last(client.rooms)
+
+		Risotto.models.room.findOne({id: roomId}, function(err, room){
+			if(!room.owner === user.user_id){
+				Risotto.logger.warn('[Socket] tries to close room without ownership');
+				return;
+			}
+
+			client.broadcast.to(roomId).emit('room:close');
+			//TODO: kick all clients from that room
+
+			room.visible = false;
+			room.save();
+			
+			delete rooms[roomId];
+			delete roomInfos[roomId];
+		});
 	});
 }
 
