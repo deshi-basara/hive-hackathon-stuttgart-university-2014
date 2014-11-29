@@ -21,7 +21,8 @@ var io;
  */
  var rooms = {
  	1: {}
- }
+ };
+ var roomInfos = {}
 
 /**
  * Init
@@ -71,12 +72,22 @@ socket.registerEvents = function() {
  */
 function bindClient(client, user){
 	/**
-	 * room:create
+	 * room:open
 	 * @param {String} room
 	 */
 
-	client.on('room:create', function(){
-		
+	client.on('room:open', function(roomId){
+		Risotto.models.room.findOne({id: roomId}, function(err, room){
+			if(!room.owner === user.user_id){
+				Risotto.logger.warn('[Socket] tries to open room without ownership');
+				return;
+			}
+
+			room.visible = true;
+			room.save();
+			rooms[roomId] = {};
+			roomInfos[roomId] = room.toJSON();
+		});
 	});
 
 	/**
