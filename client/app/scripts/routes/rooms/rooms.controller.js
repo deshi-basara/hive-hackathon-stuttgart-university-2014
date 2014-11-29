@@ -39,6 +39,8 @@
          */
         function fetchAllRooms() {
             RoomsService.getAllRooms().then(function(rooms) {
+                console.log(rooms);
+
                 ctrl.roomList = rooms;
 
                 $timeout(function() {
@@ -65,7 +67,7 @@
                     $scope.ok = function() {
                         modalInstance.close();
                         //@todo redirect to the selected room
-                        $state.go('room', {roomId: 1})
+                        $state.go('room.chat', {roomId: 1})
                     }
                 },
                 size: 'sm'

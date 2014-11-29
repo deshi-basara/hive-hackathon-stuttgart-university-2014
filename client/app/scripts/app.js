@@ -26,10 +26,7 @@ angular
   $stateProvider
 
     .state('chat', {
-      url: '/chat',
-      templateUrl: 'scripts/routes/chat/chat.index.tpl.html',
-      controller: 'ChatCtrl',
-      controllerAs: 'ctrl'
+
     })
 
     .state('login', {
@@ -43,6 +40,21 @@ angular
       url: '/register',
       templateUrl: 'scripts/routes/register/register.index.tpl.html',
       controller: 'RegisterCtrl',
+      controllerAs: 'ctrl'
+    })
+
+    .state('room', {
+      abstract: true,
+      url: '/room/:roomId',
+      templateUrl: 'scripts/routes/room/room.index.tpl.html',
+      controller: 'RoomCtrl',
+      controllerAs: 'ctrl'
+    })
+
+    .state('room.chat', {
+      url: '/chat',
+      templateUrl: 'scripts/routes/chat/chat.index.tpl.html',
+      controller: 'ChatCtrl',
       controllerAs: 'ctrl'
     })
 
@@ -74,10 +86,10 @@ angular
   });
 
   // connect the user to the websocket
-  SocketService.connect().then(function() {
+  /*SocketService.connect().then(function() {
     console.log(SocketService.socket);
   }, function() {
     console.log('Es konnte keine Verbindung zum WebSocket hergetsellt werden');
-  });
+  });*/
 
 });
