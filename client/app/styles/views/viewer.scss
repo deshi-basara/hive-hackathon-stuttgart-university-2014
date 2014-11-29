@@ -48,6 +48,12 @@
             border: none;
         }
     }
+
+    @media screen and (max-width: 768px) {
+        #userList {
+            display: none;
+        }
+    }
 }
 
 #comment-modal {
