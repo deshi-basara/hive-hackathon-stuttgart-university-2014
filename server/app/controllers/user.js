@@ -65,6 +65,16 @@ module.exports = Risotto.Controller.extend({
 			return 
 		}
 
+		var already = yield User.findOne({'username': params.username});
+
+		if(already){
+			this.status = 401
+			this.body = {
+				error: "There´s already a user with that username"
+			}
+			return
+		}
+
 		var values = params.take('password', 'email', 'username', 'role');
 
 		try{
@@ -73,7 +83,7 @@ module.exports = Risotto.Controller.extend({
 			Risotto.logger.error(err);
 			this.status = 500;
 			this.body = {
-				error: "Server Error"
+				error: err
 			};
 			return 
 		}
