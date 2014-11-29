@@ -60,14 +60,14 @@
             return q.promise;
         }
 
-        function saveComment() {
+        function saveComment(commentModel) {
             var q = $q.defer();
 
             // make the request
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: config.apiUrl + '/annotations/6',
-                withCredentials: true
+                data: commentModel
             }).success(function(data) {
                 q.resolve(data);
             }).error(function(data, status) {
@@ -78,19 +78,10 @@
         }
 
         function openCommentModal(room) {
-
             var modalInstance = $modal.open({
                 templateUrl: 'comment-modal.html',
-                controller: function($scope) {
-                    $scope.room = room;
-                    $scope.ok = function() {
-                        //@todo redirect to the selected room
-                        modalInstance.close();
-                    }
-                },
                 size: 'sm'
             });
-
         }
 
         /**

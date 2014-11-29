@@ -27,12 +27,12 @@
 </div>
 
 <script type="text/ng-template" id="comment-modal.html">
-<div id="room-modal">
+<div id="comment-modal">
     <div class="modal-header">
         <h3 class="modal-title">Kommentar hinzufügen</h3>
     </div>
     <div class="modal-body">
-        Kommentar....
+        <textarea ng-model="ctrl.comment.text"></textarea>
     </div>
     <div class="modal-footer">
         <button class="button button-blue" ng-click="ctrl.saveComment()">SPEICHERN</button>
