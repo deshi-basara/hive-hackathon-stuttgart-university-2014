@@ -10,8 +10,9 @@ module.exports = Risotto.Controller.extend({
 			return
 		}
 
+		var annotation;
 		try{
-			yield Annotation.create({
+			annotation = yield Annotation.create({
 				owner: this.user.id,
 				doc: params.docid,
 				page: params.page,
@@ -20,15 +21,22 @@ module.exports = Risotto.Controller.extend({
 				content: params.content
 			});
 		} catch(err){
+			console.log(err);
 			this.status = 400
 			this.body = {
 				error: err
 			}
 		}
+
+		this.body = annotation;
 	},
 
 	// all annotations by document id
 	allForDocument: function*(params){
-		this.body = yield Annotation.find({ doc: params.docid }).populate('owner')
+		try{
+			this.body = yield Annotation.find({ doc: params.docid }).populate('owner')
+		} catch(err){
+			console.log(err)
+		}
 	}
 });
