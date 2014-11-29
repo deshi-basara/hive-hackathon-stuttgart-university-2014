@@ -5,7 +5,20 @@
 
 		<h1>Mathe 1</h1>
 
-		<!-- Chat event -->
+		<div ng-repeat="event in ctrl.allEvents | orderBy: $index" ng-class="{'chat-text-left': event.side == 'left', 'chat-text-right': event.side != 'left'}">
+			<div class="chat-text-pic">
+				<img src="images/users/ramona.jpg" class="img-circle">
+				<div class="chat-head">
+					<div class="chat-name">{{:: event.name }}</div>
+					<div class="chat-time">{{:: event.created_at | date : 'HH:mm' }}</div>
+				</div>
+			</div>
+			<div class="chat-text-msg">
+				<p>{{:: event.text }}</p>
+			</div>
+		</div>
+
+		<!-- Chat event --
 		<div class="chat-text-event">
 			<div class="chat-text-pic">
 				<img src="images/users/brandon.jpg" class="img-circle">
@@ -15,7 +28,7 @@
 			</div>
 		</div>
 
-		<!-- Chat user msg -->
+		<!-- Chat user msg --
 		<div class="chat-text-left in">
 			<div class="chat-text-pic">
 				<img src="images/users/ramona.jpg" class="img-circle">
@@ -29,7 +42,7 @@
 			</div>
 		</div><!-- / Chat user msg -->
 
-		<!-- Chat own msg -->
+		<!-- Chat own msg --
 		<div class="chat-text-right in">
 			<div class="chat-text-pic">
 				<img src="images/users/svenja.jpg" class="img-circle">
@@ -46,8 +59,8 @@
 
 	<!-- Chat input area -->
 	<section class="chat-input">
-		<button type="button" class="button" ng-click="ctrl.submitMsg"><i class="fa fa-send fa-2x"></i></button>
-		<textarea ng-model="ctrl.inputMsg">Hi</textarea>
+		<button type="button" class="button" ng-click="ctrl.submitMsg()"><i class="fa fa-send fa-2x"></i></button>
+		<textarea ng-model="ctrl.inputMsg" ng-keyup="$event.keyCode == 13 && ctrl.submitMsg()">Hi</textarea>
 	</section>
 
 </section>
