@@ -6,12 +6,12 @@
         .module('app')
         .controller('RegisterCtrl', RegisterCtrl);
 
-    RegisterCtrl.$inject = ['AuthService', '$timeout'];
+    RegisterCtrl.$inject = ['AuthService', '$timeout', '$state'];
 
     /**
      * Handles the login request and potential error feedbacks.
      */
-    function RegisterCtrl(AuthService, $timeout) {
+    function RegisterCtrl(AuthService, $timeout, $state) {
         var ctrl = this;
 
         /**
@@ -20,11 +20,11 @@
         function submitRegistration() {
 
             // TODO: read from form
-            ctrl.register = {name: "Simon Schuster", mail: "simon.schuster@hs-furtwangen.de", pass: "Simon123", pass2: "Simon123"};
+            //ctrl.register = {username: "Simon Schuster", email: "simon.schuster@hs-furtwangen.de", password: "Simon123", password2: "Simon123", role: 'student'};
 
             // has the user entered all needed values, otherwise stop
-            if(ctrl.register.name.length === 0 || ctrl.register.mail.length === 0 ||
-                    ctrl.register.pass.length === 0 || ctrl.register.pass2.length === 0) {
+            if(ctrl.register.username.length === 0 || ctrl.register.email.length === 0 ||
+                    ctrl.register.password.length === 0 || ctrl.register.password2.length === 0) {
 
                 // show an error toast and break
                 ctrl.errorMsg = 'Du hast nicht alle Formular-Felder ausgefüllt';
@@ -51,11 +51,25 @@
                 return;
             }
 
-            // hand data
+            // hand data over
             AuthService.getRegistration(ctrl.register).then(function(success) {
-                console.log(success);
+
+                // everything went well, redirect to the room list
+
+                //@todo give user feedback
+                $state.go('rooms');
+
             }, function(error) {
-                console.log(error);
+
+                // show an error toast and break
+                ctrl.errorMsg = error.error;
+                ctrl.showError = true;
+
+                // hide the toast after 5000ms
+                $timeout(function() {
+                    ctrl.showError = false;
+                }, 5000);
+
             });
 
         }
@@ -68,7 +82,8 @@
                 name: '',
                 mail: '',
                 pass: '',
-                pass2: ''
+                pass2: '',
+                role: 'student'
             },
             showError: false,
 
