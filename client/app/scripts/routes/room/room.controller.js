@@ -14,7 +14,13 @@
     function RoomCtrl($stateParams, RoomsService, SocketService, $rootScope, $timeout) {
         var ctrl = this;
 
-        console.log($stateParams);
+        /**
+         * Initialises all data needed for a room
+         * @return {[type]} [description]
+         */
+        function initRoom() {
+
+        }
 
 
         //////////////////////
