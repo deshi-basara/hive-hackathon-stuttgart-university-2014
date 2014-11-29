@@ -47,6 +47,7 @@
                 ctrl.profPage = 1;
                 SocketService.getProfPageChange(function (page) {
                     ctrl.profPage = page;
+                    $scope.$apply();
                 })
             }
         }
@@ -131,7 +132,6 @@
                 url: config.apiUrl + '/user/role/',
                 withCredentials: true
             }).success(function(data) {
-                console.log(data);
                 q.resolve(data);
             }).error(function(data, status) {
                 q.reject(data, status);
@@ -167,7 +167,7 @@
         function propagateProfPageChange() {
             checkIfUserIsProf().then(function(isProf) {
                 if (isProf) {
-                    SocketService.propagateProfPageChange(ctrl.currentPage);
+                    SocketService.propagateProfPage(ctrl.currentPage);
                 }
             });
         }
