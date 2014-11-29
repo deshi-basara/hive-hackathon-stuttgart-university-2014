@@ -6,12 +6,12 @@
         .module('app')
         .factory('PDFService', PDFService);
 
-    PDFService.$inject = ['$http', 'config', '$q'];
+    PDFService.$inject = ['$http', 'config', '$q', '$rootScope'];
 
     /**
      * Service for handling PDFs
      */
-    function PDFService($http, config, $q) {
+    function PDFService($http, config, $q, $rootScope) {
 
         var service = {
             url: null,
@@ -20,6 +20,8 @@
             pageRendering: false,
             pageNumPending: null,
             scale: 0.8,
+            initialScale: 0.8,
+            useInitialScale: true,
             canvas: document.getElementById('viewerCanvas'),
             ctx: document.getElementById('viewerCanvas').getContext('2d'),
 
@@ -27,7 +29,9 @@
             queueRenderPage: queueRenderPage,
             onPrevPage: onPrevPage,
             onNextPage: onNextPage,
-            downloadPDF: downloadPDF
+            downloadPDF: downloadPDF,
+            zoomIn: zoomIn,
+            zoomOut: zoomOut
         };
 
         return service;
@@ -39,8 +43,12 @@
             service.pageRendering = true;
             service.pdfDoc.getPage(num).then(function(page) {
                 var viewport = page.getViewport(service.scale);
-                service.canvas.height = viewport.height;
-                service.canvas.width = viewport.width;
+                if (service.useInitialScale) {
+                    service.scale = service.initialScale;
+                    viewport = page.getViewport(service.scale);
+                    service.canvas.height = viewport.height;
+                    service.canvas.width = viewport.width;
+                }
                 var renderContext = {
                     canvasContext: service.ctx,
                     viewport: viewport
@@ -53,7 +61,6 @@
                         service.pageNumPending = null;
                     }
                 });
-                document.getElementById('page_num').textContent = service.pageNum;
             });
         }
 
@@ -70,6 +77,8 @@
                 return;
             }
             service.pageNum--;
+            $rootScope.$broadcast('pageChanged', service.pageNum);
+            service.useInitialScale = true;
             queueRenderPage(service.pageNum);
         }
 
@@ -78,15 +87,32 @@
                 return;
             }
             service.pageNum++;
+            $rootScope.$broadcast('pageChanged', service.pageNum);
+            service.useInitialScale = true;
             queueRenderPage(service.pageNum);
         }
 
         function downloadPDF() {
             PDFJS.getDocument(service.url).then(function (pdfDoc_) {
                 service.pdfDoc = pdfDoc_;
-                document.getElementById('page_count').textContent = service.pdfDoc.numPages;
+                $rootScope.$broadcast('totalPagesChanged', service.pdfDoc.numPages);
                 renderPage(service.pageNum);
+                $rootScope.$broadcast('loader.hide');
             });
+        }
+
+        function zoomIn() {
+            service.scale = service.scale + 0.1;
+            $rootScope.$broadcast('zoomChanged', 0.1);
+            service.useInitialScale = false;
+            queueRenderPage(service.pageNum);
+        }
+
+        function zoomOut() {
+            service.scale = service.scale - 0.1;
+            $rootScope.$broadcast('zoomChanged', -0.1);
+            service.useInitialScale = false;
+            queueRenderPage(service.pageNum);
         }
     }
 

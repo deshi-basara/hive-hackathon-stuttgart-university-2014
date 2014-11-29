@@ -2,7 +2,20 @@
 
 	<!-- Chat text area -->
 	<section class="chat-text">
-		<div class="chat-text-users">
+
+		<!-- Chat event -->
+		<div class="chat-text-event">
+			<div class="chat-event">
+				<span class="event-msg">
+					<span>Ramona Nora</span> uploaded File
+					<span class="event-file">Hackathon_2014.pdf</span>
+					<i class="fa fa-file"></i>
+				</span>
+			</div>
+		</div>
+
+		<!-- Chat user msg -->
+		<div class="chat-text-left">
 			<div class="chat-text-pic">
 				<img src="images/users/ramona.jpg" class="img-circle">
 			</div>
@@ -11,7 +24,19 @@
 				<div class="chat-time">15:12</div>
 				<p>I love the smell of fresh napalm in the morning</p>
 			</div>
-		</div>
+		</div><!-- / Chat user msg -->
+
+		<!-- Chat own msg -->
+		<div class="chat-text-right">
+			<div class="chat-text-msg">
+				<div class="chat-time">15:12</div>
+				<div class="chat-name">Brandon</div>
+				<p>I love the smell of fresh napalm in the morning</p>
+			</div>
+			<div class="chat-text-pic">
+				<img src="images/users/ramona.jpg" class="img-circle">
+			</div>
+		</div><!-- / Chat user msg -->
 	</section>
 
 	<!-- Chat input area -->
@@ -20,4 +45,7 @@
 		<textarea ng-model="ctrl.inputMsg">Hi</textarea>
 	</section>
 
+</section>
+<section id="chat-users">
+	test
 </section>

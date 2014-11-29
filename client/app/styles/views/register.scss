@@ -1,10 +1,10 @@
 #register {
-    background-color: $hive-dark;
+    background-color: $hive-white;
 
     @include size(100% 100%);
 
     .register-form {
-        background-color: $hive-blue;
+        background-color: $hive-white;
         box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
 
         @include size(40% 48%);
@@ -14,9 +14,9 @@
         @include span-columns(11 of 12);
 
         .register-form-header {
-            background-color: $hive-blue;
+            background-color: $hive-white;
             padding-top: 10px;
-            color: $hive-white;
+            color: $hive-blue;
             height: em(40);
             line-height: em(45);
             text-align: center;
@@ -41,7 +41,7 @@
                     @include span-columns(4 of 12);
 
                     text-align: right;
-                    color: $hive-white;
+                    color: $hive-blue;
                     bottom: 0em;
                     line-height: 1.5em;
                 }
@@ -51,7 +51,7 @@
                 }
 
                 span {
-                    color: $hive-white;
+                    color: $hive-blue;
                     font-size: 1.25em;
                 }
             }
@@ -64,8 +64,8 @@
             text-align: center;
 
             button {
-                background-color: $hive-white;
-                color: $hive-dark;
+                background-color: $hive-light-blue;
+                color: $hive-blue;
             }
         }
 

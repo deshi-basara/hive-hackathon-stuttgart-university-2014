@@ -1,14 +1,37 @@
 #chat {
-	width: 80%;
+	@include span-columns(9 of 12);
 	height: 100%;
+
+	background-color: $hive-blue;
 
 	.chat-text {
 		width: 100%;
 		height: 88%;
 
-		background-color: red;
+		.chat-text-event {
+			position: relative;
+			width: 80%;
+			margin-left: 10%;
+			border-bottom: 1px solid $hive-white;
 
-		.chat-text-users {
+			.chat-event {
+				text-align: center;
+				color: $hive-white;
+
+				.event-msg {
+					position: relative;
+					top: 10px;
+
+					padding: 0 20px 0 20px;
+
+					background-color: $hive-blue;
+				}
+			}
+		}
+
+		.chat-text-left {
+			position: relative;
+			left: 0;
 			width: 60%;
 			padding: 12px;
 			margin: 12px;
@@ -16,6 +39,16 @@
 			box-shadow: $white-z1;
 			border-radius: 2px;
 			overflow: auto;
+
+			background-color: $hive-white;
+
+			opacity: 0;
+			@include transform(translate3d(0,-30px,0));
+			@include transition(all 0.2s ease-in-out);
+			&.in {
+				@include transform(translate3d(0,0,0));
+				opacity: 1;
+			}
 
 			.chat-text-pic {
 				@include span-columns(1 of 12);
@@ -46,20 +79,76 @@
 				}
 			}
 		}
+
+		.chat-text-right {
+			position: relative;
+			width: 60%;
+			left: 37%;
+			padding: 12px;
+			margin: 12px;
+
+			box-shadow: $white-z1;
+			border-radius: 2px;
+			overflow: auto;
+
+			background-color: $hive-white;
+
+			opacity: 0;
+			@include transform(translate3d(0,-30px,0));
+			@include transition(all 0.2s ease-in-out);
+			&.in {
+				@include transform(translate3d(0,0,0));
+				opacity: 1;
+			}
+
+			.chat-text-pic {
+				@include span-columns(1 of 12);
+
+				img {
+					width: 100%;
+					height: auto;
+				}
+
+			}
+
+			.chat-text-msg {
+				@include span-columns(11 of 12);
+
+				.chat-name {
+					float: right;
+					font-weight: bold;
+					padding-bottom: 5px;
+				}
+
+				.chat-time {
+					float: left;
+				}
+
+				p {
+					float: right;
+					clear: both;
+				}
+			}
+		}
 	}
 
 	.chat-input {
-		position: absolute;
-		width: 80%;
+		position: relative;
+		width: 100%;
 
 		background-color: #F2F5F6;
 
-		bottom: 0px;
-		height: 60px;
+		bottom: -33px;
+		height: 46px;
 
 		textarea {
-			float: right;
-			width: 95%;
+			position: relative;
+			padding-left: 60px;
+			float: left;
+
+			z-index: 1;
+
+			@include fill-parent();
 		}
 
 		button {
@@ -67,6 +156,15 @@
 			position: absolute;
 			padding: 9px 14px;
 			margin: 0;
+
+			z-index: 2;
 		}
 	}
+}
+
+#chat-users {
+	@include span-columns(3 of 12);
+	height: 100%;
+
+	background-color: blue;
 }

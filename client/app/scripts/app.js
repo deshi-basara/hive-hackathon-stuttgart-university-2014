@@ -14,7 +14,7 @@ angular
 
 .constant('config', {
   'name': 'development',
-  'apiUrl': 'http://localhost:1337',
+  'apiUrl': 'http://localhost:8081',
   'socketUrl': 'http://localhost:9002'
 })
 
@@ -46,6 +46,13 @@ angular
       controllerAs: 'ctrl'
     })
 
+    .state('rooms', {
+      url: '/rooms',
+      templateUrl: 'scripts/routes/rooms/rooms.index.tpl.html',
+      controller: 'RoomsCtrl',
+      controllerAs: 'ctrl'
+    })
+
     .state('pdf', {
       url: '/pdf',
       templateUrl: 'scripts/routes/pdf/pdf.index.tpl.html',
@@ -54,16 +61,23 @@ angular
     })
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('login');
+  $urlRouterProvider.otherwise('rooms');
 
 })
 
-.run(function($state, AuthService) {
+.run(function($state, AuthService, SocketService) {
 
   // check if the user has a active session
   AuthService.hasSession().then(function(success) {}, function(error) {
     // no valid session running, redirect to the login
     //$state.go('login');
+  });
+
+  // connect the user to the websocket
+  SocketService.connect().then(function() {
+    console.log('socket connected');
+  }, function() {
+    return alert('Es konnte keine Verbindung zum WebSocket hergetsellt werden');
   });
 
 });

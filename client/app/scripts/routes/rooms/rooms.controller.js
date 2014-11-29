@@ -4,14 +4,14 @@
 
     angular
         .module('app')
-        .controller('ChatCtrl', ChatCtrl);
+        .controller('RoomsCtrl', RoomsCtrl);
 
-    ChatCtrl.$inject = ['SocketService','$timeout'];
+    RoomsCtrl.$inject = ['SocketService','$timeout'];
 
     /**
      * Handles all chat interaction.
      */
-    function ChatCtrl(SocketService, $timeout) {
+    function RoomsCtrl(SocketService, $timeout) {
         var ctrl = this;
 
         /**
@@ -27,21 +27,31 @@
 
                 });*/
             }
-
-            // get all connected user
+            else {
+                // room bootstrapping
+                fetchAllRooms();
+            }
         }
 
-        function getAllUser() {
-            
+        /**
+         * Fetches all available rooms from the socket.
+         * @return {[type]} [description]
+         */
+        function fetchAllRooms() {
+            SocketService.getAllRooms().then(function(rooms) {
+                console.log(rooms);
+            });
         }
 
         //////////////////////
 
         angular.extend(ctrl, {
-            inputMsg: {},
-
-            submitMsg: submitMsg
+            inputMsg: {}
         });
+
+        //////////////////////
+        
+        initChat();
     }
 
 })();

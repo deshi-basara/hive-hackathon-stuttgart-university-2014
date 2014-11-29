@@ -10,8 +10,7 @@
         <!--
             Fonts
         -->
-        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+       <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
         <!--
             Vendor stylesheets
@@ -43,7 +42,7 @@
         <!--
             Custom loader directive
         -->
-        <div ags-loaders></div>
+        <div pre-loader></div>
 
         <!--
             The ui-view directive tells $state where to place the templates
@@ -75,14 +74,25 @@
         <!-- inject:js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/directives/errorMessage.directive.js"></script>
+        <script src="scripts/directives/preLoader.directive.js"></script>
         <script src="scripts/filters/agsBytes.filter.js"></script>
+        <script src="scripts/routes/chat/chat.controller.js"></script>
+        <script src="scripts/routes/chat/chat.service.js"></script>
         <script src="scripts/routes/login/login.controller.js"></script>
-        <script src="scripts/routes/register/register.controller.js"></script>
         <script src="scripts/routes/pdf/pdf.controller.js"></script>
+        <script src="scripts/routes/register/register.controller.js"></script>
+        <script src="scripts/routes/rooms/rooms.controller.js"></script>
+        <script src="scripts/routes/rooms/rooms.service.js"></script>
         <script src="scripts/services/auth/auth.service.js"></script>
         <script src="scripts/services/pdf/pdf.service.js"></script>
+        <script src="scripts/services/socket/socket.service.js"></script>
         <!-- endinject -->
         <!-- endbuild -->
+
+        <!--
+            WebSocket
+        -->
+        <script src="http://localhost:9002/socket.io/socket.io.js"></script>
 
     </body>
 </html>

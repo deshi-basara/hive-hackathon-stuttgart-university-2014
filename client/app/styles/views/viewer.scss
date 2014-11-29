@@ -1,5 +1,5 @@
 #documentViewer {
-    background-color: $hive-dark;
+    background-color: $hive-white;
 
     @include size(100% 100%);
 
@@ -8,11 +8,22 @@
     }
 
     button {
-        background-color: $hive-white;
-        color: $hive-dark;
+        background-color: $hive-light-blue;
+        color: $hive-blue;
     }
 
     #pageCounts {
         color: $hive-white;
+    }
+
+    .annotation {
+        color: $hive-white;
+        background-color: $hive-blue;
+        position: absolute;
+    }
+
+    #viewerContainer {
+        position: relative;
+        overflow: hidden;
     }
 }
