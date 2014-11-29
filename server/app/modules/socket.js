@@ -169,6 +169,10 @@ function bindClient(client, user){
 			delete roomInfos[roomId];
 		});
 	});
+
+	client.on('room:info', function(roomId){
+		client.emit('room:info', Object.keys(rooms[roomId] || {}))
+	})
 };
 
 

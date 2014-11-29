@@ -6,7 +6,7 @@
 	.chat-text {
 		width: 100%;
 		height: 88%;
-
+		line-height: 22px;
 		padding: 25px;
 
 		h1 {
@@ -22,8 +22,29 @@
 				width: 35px;
 				min-width: 30px;
 				height: auto;
-				margin-right: 15px;
+				margin-right: 7px;
+				float:left;
 			}
+
+			.chat-head{
+				float:left;
+				padding-top: 7px;
+
+				.chat-name {
+					float: left;
+					padding-bottom: 2px;
+					color: $hive-grey;
+				}
+
+				.chat-time {
+					float: left;
+					margin-left: 5px;
+					margin-top: 2px;
+					font-size: em(14);
+					color: $hive-light-grey;
+				}
+			}
+
 		}
 
 		.chat-text-event {
@@ -56,23 +77,10 @@
 			.chat-text-msg {
 				float: left;
 				width: 90%;
-
-				.chat-name {
-					float: left;
-					padding-bottom: 2px;
-					color: $hive-grey;
-				}
-
-				.chat-time {
-					float: left;
-					margin-left: 10px;
-					margin-top: 2px;
-					font-size: em(14);
-					color: $hive-blue;
-				}
+				padding-left: 42px;
+				margin-top: -8px;
 
 				p {
-					font-weight: bold;
 					float: left;
 					clear: both;
 				}
@@ -94,30 +102,37 @@
 			}
 
 			.chat-text-pic {
-				float: right !important;
-				margin-left: 15px;
+				img{
+					float:right !important;
+					margin-left:15px;
+				}
+				float:right !important;
+
+				.chat-head{
+					float:right !important;
+					padding-top: 7px;
+
+					.chat-name {
+						float: float !important;
+						padding-bottom: 2px;
+						color: $hive-grey;
+					}
+
+					.chat-time {
+						float: left;
+						margin-left: 5px;
+						margin-top: 2px;
+						font-size: em(14);
+						color: $hive-light-grey;
+					}
+				}
 			}
 
 			.chat-text-msg {
 				float: right;
 				width: 90%;
 
-				.chat-name {
-					float: right;
-					padding-bottom: 2px;
-					color: $hive-grey;
-				}
-
-				.chat-time {
-					float: right;
-					margin-right: 10px;
-					margin-top: 2px;
-					font-size: em(14);
-					color: $hive-blue;
-				}
-
 				p {
-					font-weight: bold;
 					float: right;
 					clear: both;
 				}
