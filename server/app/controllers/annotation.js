@@ -1,4 +1,5 @@
 var Annotation = Risotto.models.annotation;
+var Doc = Risotto.models.doc;
 
 module.exports = Risotto.Controller.extend({
 	beforeFilter: ['authorize', 'user', 'json'],
@@ -29,6 +30,10 @@ module.exports = Risotto.Controller.extend({
 		}
 
 		this.body = annotation;
+		
+		//broadcast annotation
+		var doc = yield Doc.findOne({id: params.docid});
+		Risotto.socket.sendAnnotationToRoom(doc.room, annotation);
 	},
 
 	// all annotations by document id
