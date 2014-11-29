@@ -1,0 +1,46 @@
+#doks {
+	@include outer-container();
+
+	h1 {
+		margin-top: em(20px);
+		color: $hive-blue;
+		text-transform: uppercase;
+	}
+
+	.dok-item {
+		@include span-columns(12 of 12);
+		@include omega(1n);
+
+		border-bottom: 1px solid $hive-grey;
+		font-size: em(18);
+		line-height: em(50);
+		cursor: pointer;
+
+		background-color: $hive-white;
+		@include transition(all 0.5s ease-in-out);
+
+		&.ng-enter {
+			opacity: 0;
+			@include transform(translate3d(0, -50px, 0));
+			@include transition(all 0.3s ease-in-out);
+		}
+		&.ng-enter.ng-enter-active {
+			opacity: 1;
+			@include transform(translate3d(0,0,0));
+		}
+
+		span {
+			padding-left: 10px;
+		}
+
+		i {
+			float: right;
+			margin-right: 20px;
+			margin-top: 17px;
+		}
+	}
+
+	.dok-item:hover {
+		background-color: $hive-light-blue;
+	}
+}

@@ -6,47 +6,33 @@
         .module('app')
         .controller('DoksCtrl', DoksCtrl);
 
-    DoksCtrl.$inject = ['$rootScope','$timeout','$modal', 'DoksService'];
+    DoksCtrl.$inject = ['$rootScope','$timeout','$modal', 'DoksService', '$state'];
 
     /**
      * Handles all chat interaction.
      */
-    function DoksCtrl($rootScope, $timeout, $modal, DoksService) {
+    function DoksCtrl($rootScope, $timeout, $modal, DoksService, $state) {
         var ctrl = this;
 
         /**
-         * Is called when files were selected for uploading.
-         * @param  {[Array]} $file  [Array of files selected]
-         * @return {[type]}         [description]
+         * Fetch all doks from the server.
          */
-        function onFileSelect($files) {
-            console.log('selected');
+        function fetchAllDoks() {
+            DoksService.getAllFiles().then(function(success) {
+                ctrl.dokList = success;
+            }, function(error) {
+                //@todo error handling
+            });
+        }
 
-            return console.log($files);
-
-            // inject files into the view
-            /*ctrl.filesInUploadQueue = $files;
-
-            // foreach file start an upload
-            for(var i = 0; i < ctrl.filesInUploadQueue.length; i++) {
-
-                // set the progress to zero and the status
-                ctrl.filesInUploadQueue[i].progress = parseInt(0);
-                ctrl.filesInUploadQueue[i].status = 'Uploading';
-
-                // upload the current file
-                JobService.uploadFile(ctrl.filesInUploadQueue[i]).then(function(success) {
-
-
-                }, function(error, status) {
-
-                    // server not available
-                    if(status === null) {
-                        return SweetAlert.swal('Der Upload-Server ist nicht erreichbar');
-                    }
-
-                }, null);
-            }*/
+        /**
+         * Redirects to the file-view state and passes the file-id.
+         * @param  {int} fileId [Database id of the file]
+         */
+        function goToFile(fileId) {
+            //@todo real redirect
+            //$state.go('')
+            alert('go to: '+fileId);
         }
 
         /**
@@ -62,7 +48,7 @@
                 controller: function($scope) {
                     $scope.room = room;
                     $scope.onFileSelect = function($files) {
-                        
+
                         // upload the selected file
                         DoksService.uploadFile($files[0]).then(function() {
 
@@ -73,19 +59,23 @@
                 },
                 size: 'sm'
             });
-
         }
 
 
         //////////////////////
 
         angular.extend(ctrl, {
-            onFileSelect: onFileSelect
+            dokList: {},
+
+            goToFile: goToFile,
+            openUploadModal: openUploadModal
         });
 
         //////////////////////
 
-        openUploadModal();
+        //openUploadModal();
+        fetchAllDoks();
+
 
     }
 

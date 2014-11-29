@@ -74,7 +74,7 @@ module.exports = Risotto.Controller.extend({
 			return
 		}
 
-		var values = params.take('password', 'email', 'username', 'role');
+		var values = params.take('password', 'username', 'role');
 
 		try{
 			var user = yield User.create(values);
@@ -100,11 +100,6 @@ module.exports = Risotto.Controller.extend({
 
 	isCurrentUserProf: function*(params){
 		var currentUser = yield Risotto.models.user.findOne({id: this.session.user_id});
-		
-		if(currentUser.role === 'prof') {
-			return true;
-		} else {
-			return false;
-		}
+		this.body = (currentUser.role === 'prof')
 	}
 })	
