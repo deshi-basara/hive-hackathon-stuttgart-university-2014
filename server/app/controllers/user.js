@@ -50,14 +50,13 @@ module.exports = Risotto.Controller.extend({
 	 */
 
 	register: function*(params){
-		/* 	
-			check(params.password, String);
-			check(params.email, String);
-			check(params.username, String);
-			check(params.picture);
-		*/
+		 	
+		/*check(params.password, String);
+		check(params.email, String);
+		check(params.username, String);
+		check(params.role, String);*/
 
-		if(!params.password || !params.email || !params.username || !params.role ){
+		if(!params.password || !params.username || !params.role ){
 			this.status = 401;
 			this.body = {
 				error: "All fields are required"
