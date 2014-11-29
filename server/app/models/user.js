@@ -16,7 +16,7 @@ module.exports = Waterline.Collection.extend({
 
     email:{
       type: 'email',
-      required: true
+      required: false
     },
 
     password: {

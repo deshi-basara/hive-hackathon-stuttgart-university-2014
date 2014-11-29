@@ -58,6 +58,13 @@ angular
       controllerAs: 'ctrl'
     })
 
+    .state('room.doks', {
+      url: '/doks',
+      templateUrl: 'scripts/routes/doks/doks.index.tpl.html',
+      controller: 'DoksCtrl',
+      controllerAs: 'ctrl'
+    })
+
     .state('rooms', {
       url: '/rooms',
       templateUrl: 'scripts/routes/rooms/rooms.index.tpl.html',
