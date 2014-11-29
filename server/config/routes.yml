@@ -6,4 +6,6 @@ routes:
    POST logout: User.logout
 
  POST room: Room.create
- GET room: Room.list
+ GET room: Room.all
+ GET room/user: Room.listForUser
+ GET room/:location: Room.listForLocation

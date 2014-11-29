@@ -23,7 +23,20 @@ module.exports = Risotto.Controller.extend({
 		}
 	},
 
-	list: function*(params){
-		this.body = yield Room.find({})
+	all: function*(params){
+		this.body = yield Room.find({}).populate('owner')
+	},
+
+	listForUser: function*(params){
+		this.body = yield Room.find({ owner: this.user.id }).populate('owner')
+	},
+
+	listForLocation: function*(params){
+		if(!params.location){
+			this.status = 400
+			return
+		}
+
+		//impl
 	}
 });
