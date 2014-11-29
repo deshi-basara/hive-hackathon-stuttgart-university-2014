@@ -94,7 +94,7 @@
                     $scope.ok = function() {
                         modalInstance.close();
                         ctrl.saveComment($scope.comment).then(function(success) {
-                            ctrl.annotations.push($scope.comment);
+                            ctrl.annotations = success;
                         });
                     }
                 },
