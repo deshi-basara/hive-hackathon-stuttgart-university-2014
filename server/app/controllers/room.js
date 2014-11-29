@@ -1,4 +1,5 @@
 var Room = Risotto.models.room;
+var map = require('../helpers/generatorMap');
 
 module.exports = Risotto.Controller.extend({
 	beforeFilter: ['authorize', 'user', 'json'],
@@ -26,7 +27,14 @@ module.exports = Risotto.Controller.extend({
 	},
 
 	find: function*(params){
-		this.body = yield Room.find({id:params.id})
+		var room = yield Room.findOne({id:params.roomid}).populate('owner')
+		room.active = Risotto.socket.getActiveUserForRoom(params.roomid);
+		yield map(room.active, function*(username){
+			var user = yield Risotto.models.user.findOne({username: username});
+			return user.toJSON();
+		});
+
+		this.body = room.toJSON();
 	},
 
 	all: function*(params){

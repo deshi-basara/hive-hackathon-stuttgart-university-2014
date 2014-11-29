@@ -144,7 +144,7 @@ function* buildParams(next){
  */
 function* enableCORS(next){
 	this.set("Access-Control-Allow-Origin", "*");
-  	this.set("Access-Control-Allow-Headers", "X-Requested-With");
+  	this.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
   	if (this.method === 'OPTIONS') {
       this.status = 204;

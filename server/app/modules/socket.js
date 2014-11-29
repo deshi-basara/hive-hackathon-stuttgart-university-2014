@@ -19,9 +19,7 @@ var io;
  * holds the visible room list
  *
  */
- var rooms = {
- 	1: {}
- };
+ var rooms = {1:{}};
  var roomInfos = {}
 
 /**
@@ -65,6 +63,19 @@ socket.registerEvents = function() {
 			bindClient(client, user);
 		});
 	});
+};
+
+/**
+ * getActiveUserForRoom
+ *
+ */
+socket.getActiveUserForRoom = function(room){
+	if(!(room in rooms)){
+		console.log("noot")
+		return []
+	}
+
+	return Object.keys(rooms[room]);
 };
 
 /**
@@ -158,14 +169,6 @@ function bindClient(client, user){
 			delete roomInfos[roomId];
 		});
 	});
-}
-
-/**
- * creates a room 
- */
-
-socket.joinRoom = function(){
-
 };
 
 

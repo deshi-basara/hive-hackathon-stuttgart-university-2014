@@ -22,6 +22,19 @@ module.exports = Waterline.Collection.extend({
     visible:{
       type: 'boolean',
       required: true
+    },
+
+    toJSON: function() {
+      return {
+        owner: this.owner,
+        name:  this.name,
+        location: this.location,
+        visible: this.visible,
+        id: this.id,
+        createdAt: this.createdAt,
+        updatedAt: this.updatedAt,
+        active: this.active || []
+      }
     }
   }
 });
