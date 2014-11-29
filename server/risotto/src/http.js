@@ -3,12 +3,12 @@ var router = require('koa-router');
 var render = require('koa-ejs');
 var serve = require('koa-static');
 var session = require('koa-generic-session');
-var RedisStore = require('koa-redis');
-var redis = require('redis');
+//var RedisStore = require('koa-redis');
+//var redis = require('redis');
 var _ = require('underscore');
 var Params = require('./params');
 var path = require('path');
-var coRedis = require('co-redis');
+//var coRedis = require('co-redis');
 
 /**
  * Expose http.
@@ -19,7 +19,6 @@ var coRedis = require('co-redis');
 module.exports = function(Risotto, routes){
 	return new Http(Risotto, routes);	
 };
-
 
 
 function getFilters(filters, methodName){
@@ -150,6 +149,7 @@ function* errorHandler(next){
   		yield next;
   		if (404 == this.response.status && !this.response.body) this.throw(404);
 	} catch (err) {
+		console.log(err.status, "errorHandler")
   		var status = err.status || 500;
   		this.status = status;
 
@@ -185,10 +185,11 @@ function Http(Risotto, routes){
 	server.use(router(server));
 
 	// reset error handler
-	server.errorHandler = errorHandler;
+	//server.errorHandler = errorHandler;
+	server.use(errorHandler);
 
 	// setup session
-	var redisClient = redis.createClient( 
+	/*var redisClient = redis.createClient( 
 		Risotto.config.redis.port || 6379, 
 		Risotto.config.redis.host || '127.0.0.1',
 		Risotto.config.redis.config || {}
@@ -200,10 +201,10 @@ function Http(Risotto, routes){
 
 	redisClient.on('error', function(err){
 		Risotto.exit('Failed with ' + err);
-	});
+	});*/
 		
 	server.use(session({
-  		store: redisStore
+  		store: session.MemoryStore()
 	}));
 
 	//server.keys = Risotto.config.http.session.secret;
@@ -238,7 +239,7 @@ function Http(Risotto, routes){
 	this.server = server;
 
 	// expose redisClient as `redis` to Risotto
-	Risotto.redis = coRedis(redisClient);
+	// Risotto.redis = coRedis(redisClient);
 
 	this.bind();
 };
