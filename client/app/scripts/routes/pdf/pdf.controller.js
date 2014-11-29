@@ -6,12 +6,12 @@
         .module('app')
         .controller('PDFCtrl', PDFCtrl);
 
-    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config', '$modal'];
+    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config', '$modal', 'SocketService'];
 
     /**
      * Handles the PDF commenting
      */
-    function PDFCtrl(PDFService, $scope, $q, $http, config, $modal) {
+    function PDFCtrl(PDFService, $scope, $q, $http, config, $modal, SocketService) {
         var ctrl = this,
             currentPage = 1,
             totalPages = 1,
@@ -28,12 +28,28 @@
          * Initializes the PDF viewer
          */
         function initPDFViewer() {
-            PDFService.downloadPDF();
-            checkIfUserIsProf().then(function(isProf) {
-                if (isProf) {
-                    ctrl.hideComments = true;
-                }
-            });
+            if(!SocketService.socket) {
+                // try again
+                SocketService.connect().then(function() {
+                    // success, initialize chat
+                    initPDFViewer();
+                }, function() {
+
+                });
+            }
+            else {
+                PDFService.downloadPDF();
+                checkIfUserIsProf().then(function(isProf) {
+                    if (isProf) {
+                        ctrl.hideComments = true;
+                    }
+                });
+                ctrl.profPage = 1;
+                SocketService.getProfPageChange(function (page) {
+                    ctrl.profPage = page;
+                    $scope.$apply();
+                })
+            }
         }
 
         /**
@@ -116,7 +132,6 @@
                 url: config.apiUrl + '/user/role/',
                 withCredentials: true
             }).success(function(data) {
-                console.log(data);
                 q.resolve(data);
             }).error(function(data, status) {
                 q.reject(data, status);
@@ -152,8 +167,7 @@
         function propagateProfPageChange() {
             checkIfUserIsProf().then(function(isProf) {
                 if (isProf) {
-                    console.log('jaaaa');
-                    // TODO send currentPage over socket
+                    SocketService.propagateProfPage(ctrl.currentPage);
                 }
             });
         }

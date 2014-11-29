@@ -20,7 +20,9 @@
             getMsgs: getMsgs,
             getRoomInfo: getRoomInfo,
             joinRoom: joinRoom,
-            submitMsg: submitMsg
+            submitMsg: submitMsg,
+            propagateProfPage: propagateProfPage,
+            getProfPageChange: getProfPageChange
         };
 
         return service;
@@ -48,6 +50,12 @@
             service.socket.on('room:message', function(msgObj) {
                 msgObj.type = 'msg';
                 cb(msgObj);
+            });
+        }
+
+        function getProfPageChange(cb) {
+            service.socket.on('pdf:profpage', function(page) {
+                cb(page);
             });
         }
 
@@ -83,7 +91,12 @@
         }
 
 
-
+        /**
+         * Tells everyone which page the prof is on
+         */
+        function propagateProfPage(page) {
+            service.socket.emit('pdf:profpage', page);
+        }
 
 
 
