@@ -124,20 +124,6 @@
             PDFService.onPrevPage();
          }
 
-         /**
-         * Zooms in
-         */
-         function zoomIn() {
-            PDFService.zoomIn();
-         }
-
-         /**
-         * Zooms out
-         */
-         function zoomOut() {
-            PDFService.zoomOut();
-         }
-
         $scope.$on('pageChanged', function(e, value) {
             ctrl.currentPage = value;
         });
@@ -163,8 +149,8 @@
             getPrevPage: getPrevPage,
             currentPage: currentPage,
             totalPages: totalPages,
-            zoomIn: zoomIn,
-            zoomOut: zoomOut,
+            zoomIn: PDFService.zoomIn,
+            zoomOut: PDFService.zoomOut,
             isMuted: isMuted,
             saveComment: saveComment,
             openCommentModal: openCommentModal
