@@ -21,8 +21,7 @@
 
         initPDFViewer();
         getAnnotationData().then(function(data) {
-            console.log(data);
-            annotations = data;
+            ctrl.annotations = data;
         });
 
         /**
@@ -108,8 +107,8 @@
         $scope.$on('zoomChanged', function(e, zoomStep) {
             ctrl.annotations.forEach(function(item) {
                 if (item.page === ctrl.currentPage) {
-                    item.top = item.top + (60 * zoomStep * (item.top / 55));
-                    item.left = item.left + (50 * zoomStep * (item.left / 40));
+                    item.y = item.y + (60 * zoomStep * (item.y / 55));
+                    item.x = item.x + (50 * zoomStep * (item.x / 40));
                 }
             });
         });
@@ -117,7 +116,6 @@
         //////////////////////
 
         angular.extend(ctrl, {
-            annotations: annotations,
             getNextPage: getNextPage,
             getPrevPage: getPrevPage,
             currentPage: currentPage,

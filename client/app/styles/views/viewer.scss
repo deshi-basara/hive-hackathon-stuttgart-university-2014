@@ -3,18 +3,13 @@
 
     @include size(100% 100%);
 
-    .pdfViewer {
-        @include size(70% 70%);
-        @include span-columns(7 of 12);
-    }
-
     button {
         background-color: $hive-light-blue;
         color: $hive-blue;
     }
 
     #pageCounts {
-        color: $hive-white;
+        color: $hive-black;
     }
 
     .annotation {
@@ -24,9 +19,18 @@
     }
 
     #viewerContainer {
+        @include span-columns(10 of 12);
+    }
+
+    #buttonNav {
+        @include span-columns(10 of 12);
+        @include shift(1);
+        @include omega();
+    }
+
+    #canvasContainer {
+        @include span-columns(6 of 12);
         position: relative;
-        overflow: hidden;
-        @include span-columns(8 of 12);
     }
 
     #userList {
@@ -34,11 +38,14 @@
 
         ul {
             list-style: none;
-        }
-    }
 
-    #buttonNav {
-        @include span-columns(8 of 12);
-        @include shift(1);
+            li {
+                margin-top: 3px;
+            }
+        }
+
+        button {
+            border: none;
+        }
     }
 }
