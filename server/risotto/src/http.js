@@ -124,15 +124,30 @@ function callRoute(route){
 function* buildParams(next){
 	Risotto.logger.info('buildParams');
 	var params = new Params();
-	
+
 	// merge everything
 	params.set( _.extend({},
 		this.params,
 		this.request.query,
 		yield* this.request.urlencoded(),
-		yield* this.request.json(),
-		this.req.files)
+		yield* this.request.json())
 	);
+
+	if('multipart' === this.request.is('multipart')){
+        var parts = this.request.parts();
+        var part;
+                
+        while (part = yield parts) {
+            if (part.length) {
+                params.set(part[0], part[1]);
+            } else {
+            	var path = Path.join(os.tmpDir(), (new Date()).getTime() + "");
+            	yield this.save(part, path); 
+            	part.path = path;
+            	params.setFile(part);
+  			}    
+        }
+    }
 
 	this._params = params;
 	yield next;

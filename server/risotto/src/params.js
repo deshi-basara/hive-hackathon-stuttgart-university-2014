@@ -8,6 +8,12 @@ Params.prototype.set = function(obj) {
 	}
 };
 
+Params.prototype.setFile = function(file){
+	if(!this.files){this.files = []}
+	this.files.push(file);
+};
+
+
 Params.prototype.take = function(/** args */){
 	var taken = {};
 

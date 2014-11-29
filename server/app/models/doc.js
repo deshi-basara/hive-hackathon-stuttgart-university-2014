@@ -6,17 +6,12 @@ module.exports = Waterline.Collection.extend({
   connection: 'mysql',
   attributes:{
     name:{
-      type: 'string',
-      required: true
-    },
-
-    path:{
-      type: 'string',
-      required: true
+      type: 'string'
     },
 
     owner:{
-      model: 'user'
+      model: 'user',
+      required: true
     },
 
     room:{
@@ -25,7 +20,7 @@ module.exports = Waterline.Collection.extend({
 
     deleted:{
       type: 'boolean',
-      required: true
+      required: false
     }
   }
 });
