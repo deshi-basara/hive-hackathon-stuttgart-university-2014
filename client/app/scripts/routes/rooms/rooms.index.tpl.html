@@ -2,9 +2,17 @@
 	<h1>Rooms nearby</h1>
 	<div class="room-item" 	ng-repeat="room in ctrl.roomList"
 							ng-class="{'in': room.in }"
-							ng-click="ctrl.openRoomModal(room)">
+							ng-click="ctrl.openRoomModal(room)"
+                            ng-show="ctrl.hasSignal">
 		<span>{{:: room.name }}</span>
 	</div>
+    <div class="room-signal" ng-hide="ctrl.hasSignal">
+        <div class="room-signal-content">
+            <h2>No rooms were found nearby :-(</h2>
+            <i class="fa fa-microphone fa-4x" ng-click="ctrl.startListening()"></i>
+            <h3>Start listening for rooms</h3>
+        </div>
+    </div>
 </section>
 
 <!-- Modal code -->
