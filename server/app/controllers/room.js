@@ -14,7 +14,7 @@ module.exports = Risotto.Controller.extend({
 				name: params.name,
 				location: params.location,
 				owner: this.user.id,
-				visible: true // change
+				visible: false
 			});
 		} catch(err){
 			console.log(err);
@@ -30,7 +30,11 @@ module.exports = Risotto.Controller.extend({
 	},
 
 	all: function*(params){
-		this.body = yield Room.find({}).populate('owner')
+		if(this.user.role === 'professor') {
+			this.body = yield Room.find({}).populate('owner')
+		} else { // case student
+			this.body = yield Room.find({ visible: true }).populate('owner') // where room.visible = true
+		}
 	},
 
 	listForUser: function*(params){
