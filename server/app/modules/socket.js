@@ -19,9 +19,7 @@ var io;
  * holds the visible room list
  *
  */
- var rooms = {
- 	1: {}
- };
+ var rooms = {};
  var roomInfos = {}
 
 /**
@@ -158,14 +156,6 @@ function bindClient(client, user){
 			delete roomInfos[roomId];
 		});
 	});
-}
-
-/**
- * creates a room 
- */
-
-socket.joinRoom = function(){
-
 };
 
 
