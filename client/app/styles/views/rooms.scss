@@ -1,59 +1,31 @@
 #rooms {
-	width: 100%;
-	height: 100%;
+	@include outer-container();
+
+	h1 {
+		margin-top: em(50px);
+		color: $hive-blue;
+		text-transform: uppercase;
+	}
 
 	.room-item {
-		position: relative;
-		left: 0;
-		width: 98%;
-		padding: 12px;
-		margin-left: 1%;
-		margin-top: 10px;
-		margin-bottom: 10px;
+		@include span-columns(12 of 12);
+		@include omega(1n);
 
-		box-shadow: $white-z1;
-		border-radius: 2px;
-		overflow: auto;
+		border-bottom: 1px solid $hive-grey;
+		font-size: em(18);
+		line-height: em(50);
+		cursor: pointer;
 
-		background-color: $hive-white;
-
-		/*opacity: 0;
-		@include transform(translate3d(0,-30px,0));
+		//opacity: 0;
+		//@include transform(translate3d(0, -50px, 0));
 		@include transition(all 0.2s ease-in-out);
 		&.in {
 			@include transform(translate3d(0,0,0));
 			opacity: 1;
-		}*/
-
-		.room-pic {
-			@include span-columns(1 of 12);
-
-			img {
-				width: 100%;
-				height: auto;
-			}
-
 		}
 
-		.room-data {
-			@include span-columns(11 of 12);
-
-			.room-owner {
-				float: left;
-				font-weight: bold;
-				padding-bottom: 5px;
-			}
-
-			.room-time {
-				float: right;
-			}
-
-			p {
-				float: left;
-				clear: both;
-
-				font-size: em(23);
-			}
+		span {
+			padding-left: 10px;
 		}
 	}
 }

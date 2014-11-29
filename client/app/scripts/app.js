@@ -75,9 +75,9 @@ angular
 
   // connect the user to the websocket
   SocketService.connect().then(function() {
-    console.log('socket connected');
+    console.log(SocketService.socket);
   }, function() {
-    return alert('Es konnte keine Verbindung zum WebSocket hergetsellt werden');
+    console.log('Es konnte keine Verbindung zum WebSocket hergetsellt werden');
   });
 
 });
