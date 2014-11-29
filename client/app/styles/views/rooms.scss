@@ -16,17 +16,26 @@
 		line-height: em(50);
 		cursor: pointer;
 
-		//opacity: 0;
-		//@include transform(translate3d(0, -50px, 0));
-		@include transition(all 0.2s ease-in-out);
-		&.in {
-			@include transform(translate3d(0,0,0));
+		background-color: $hive-white;
+		@include transition(all 0.5s ease-in-out);
+
+		&.ng-enter {
+			opacity: 0;
+			@include transform(translate3d(0, -50px, 0));
+			@include transition(all 0.3s ease-in-out);
+		}
+		&.ng-enter.ng-enter-active {
 			opacity: 1;
+			@include transform(translate3d(0,0,0));
 		}
 
 		span {
 			padding-left: 10px;
 		}
+	}
+
+	.room-item:hover {
+		background-color: $hive-light-blue;
 	}
 }
 
