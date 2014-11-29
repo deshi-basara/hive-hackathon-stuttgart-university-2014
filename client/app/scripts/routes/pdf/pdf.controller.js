@@ -28,12 +28,27 @@
          * Initializes the PDF viewer
          */
         function initPDFViewer() {
-            PDFService.downloadPDF();
-            checkIfUserIsProf().then(function(isProf) {
-                if (isProf) {
-                    ctrl.hideComments = true;
-                }
-            });
+            if(!SocketService.socket) {
+                // try again
+                SocketService.connect().then(function() {
+                    // success, initialize chat
+                    initPDFViewer();
+                }, function() {
+
+                });
+            }
+            else {
+                PDFService.downloadPDF();
+                checkIfUserIsProf().then(function(isProf) {
+                    if (isProf) {
+                        ctrl.hideComments = true;
+                    }
+                });
+                ctrl.profPage = 1;
+                SocketService.getProfPageChange(function (page) {
+                    ctrl.profPage = page;
+                })
+            }
         }
 
         /**
@@ -152,8 +167,7 @@
         function propagateProfPageChange() {
             checkIfUserIsProf().then(function(isProf) {
                 if (isProf) {
-                    console.log('jaaaa');
-                    // TODO send currentPage over socket
+                    SocketService.propagateProfPageChange(ctrl.currentPage);
                 }
             });
         }

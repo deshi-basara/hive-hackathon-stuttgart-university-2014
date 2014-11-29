@@ -51,6 +51,12 @@
             });
         }
 
+        function getProfPageChange(cb) {
+            service.socket.on('pdf:profpage', function(page) {
+                cb(page);
+            }
+        }
+
         /**
          * Request all users from the specified room.
          * @param  {int}      roomId [Database room id]
@@ -83,7 +89,12 @@
         }
 
 
-
+        /**
+         * Tells everyone which page the prof is on
+         */
+        function propagateProfPage(page) {
+            service.socket.emit('pdf:profpage', page);
+        }
 
 
 
