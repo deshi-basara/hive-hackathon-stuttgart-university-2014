@@ -7,7 +7,6 @@ module.exports = Risotto.Controller.extend({
 	beforeFilter: ['authorize', 'user', 'json'],
 
 	create: function*(params) {
-		params.roomid = 1;
 
 		if(!params.roomid){
 			this.status = 400
