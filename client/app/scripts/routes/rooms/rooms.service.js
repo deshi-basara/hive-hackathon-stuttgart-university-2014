@@ -14,7 +14,9 @@
     function RoomsService($http, config, $q, localStorageService) {
 
         var service = {
-            submitMsg: submitMsg
+            urlAllRooms: '/rooms',
+
+            getAllRooms: getAllRooms
         };
 
         return service;
@@ -22,20 +24,16 @@
         ///////////////
 
         /**
-         * Submits an msg to the socket.
-         * @param  {string}  msg [The message the user wants to submit]
+         * Requests all available rooms from the server.
          * @return {promise}     [$q-promise]
          */
-        function submitMsg(msg) {
+        function getAllRooms() {
             var q = $q.defer();
-
-            console.log(registerModel);
 
             // make the request
             $http({
-                method: 'POST',
-                url: config.apiUrl + service.registerUrl,
-                data: registerModel
+                method: 'GET',
+                url: config.apiUrl + service.urlAllRooms
             }).success(function(data) {
                 q.resolve(data);
             }).error(function(data, status) {
