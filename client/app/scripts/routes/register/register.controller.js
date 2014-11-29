@@ -62,7 +62,7 @@
             }, function(error) {
 
                 // show an error toast and break
-                ctrl.errorMsg = error.error;
+                ctrl.errorMsg = error;
                 ctrl.showError = true;
 
                 // hide the toast after 5000ms
