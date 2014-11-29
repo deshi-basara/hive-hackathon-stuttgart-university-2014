@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-process.title = "[Lob&Tadel]Web";
-
 /*
  * webserver
  */
