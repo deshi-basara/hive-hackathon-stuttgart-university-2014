@@ -5,7 +5,7 @@
 		<button id="zoomIn" class="button" ng-click="ctrl.zoomIn()">+</button>
 		<button id="zoomOut" class="button" ng-click="ctrl.zoomOut()">-</button>
 		&nbsp; &nbsp;
-		<span id="pageCounts">Page: {{ctrl.currentPage}} / {{ctrl.totalPages}}</span>
+		<span id="pageCounts">Page: {{ctrl.currentPage}} / {{ctrl.totalPages}} // Prof is at {{ctrl.profPage}}</span>
 	</div>
 
     <div id="viewerContainer">
@@ -18,12 +18,11 @@
         </div>
         <div id="canvasContainer">
             <canvas id="viewerCanvas" ng-click="ctrl.openCommentModal($event)"></canvas>
-        	<div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.y}}px; left: {{annotation.x}}px" ng-show="annotation.page == ctrl.currentPage && !isMuted(annotation.owner)">
+        	<div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.y}}px; left: {{annotation.x}}px" ng-show="annotation.page == ctrl.currentPage && !isMuted(annotation.owner) && !ctrl.hideComments">
 				<span>{{annotation.owner.username}}: {{annotation.content}}</span>
     		</div>
         </div>
     </div>
-    {{$event}}
 </div>
 
 <script type="text/ng-template" id="comment-modal.html">
