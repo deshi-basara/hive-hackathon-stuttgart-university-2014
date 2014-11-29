@@ -6,12 +6,12 @@
         .module('app')
         .factory('PDFService', PDFService);
 
-    PDFService.$inject = ['$http', 'config', '$q'];
+    PDFService.$inject = ['$http', 'config', '$q', '$rootScope'];
 
     /**
      * Service for handling PDFs
      */
-    function PDFService($http, config, $q) {
+    function PDFService($http, config, $q, $rootScope) {
 
         var service = {
             url: null,
@@ -53,7 +53,6 @@
                         service.pageNumPending = null;
                     }
                 });
-                document.getElementById('page_num').textContent = service.pageNum;
             });
         }
 
@@ -70,6 +69,7 @@
                 return;
             }
             service.pageNum--;
+            $rootScope.$broadcast('pageChanged', service.pageNum);
             queueRenderPage(service.pageNum);
         }
 
@@ -78,13 +78,14 @@
                 return;
             }
             service.pageNum++;
+            $rootScope.$broadcast('pageChanged', service.pageNum);
             queueRenderPage(service.pageNum);
         }
 
         function downloadPDF() {
             PDFJS.getDocument(service.url).then(function (pdfDoc_) {
                 service.pdfDoc = pdfDoc_;
-                document.getElementById('page_count').textContent = service.pdfDoc.numPages;
+                $rootScope.$broadcast('totalPagesChanged', service.pdfDoc.numPages);
                 renderPage(service.pageNum);
             });
         }

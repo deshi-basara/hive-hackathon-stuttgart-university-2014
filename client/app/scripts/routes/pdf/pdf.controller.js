@@ -6,13 +6,15 @@
         .module('app')
         .controller('PDFCtrl', PDFCtrl);
 
-    PDFCtrl.$inject = ['PDFService'];
+    PDFCtrl.$inject = ['PDFService', '$scope'];
 
     /**
      * Handles the PDF commenting
      */
-    function PDFCtrl(PDFService) {
-        var ctrl = this;
+    function PDFCtrl(PDFService, $scope) {
+        var ctrl = this,
+            currentPage = 1,
+            totalPages = 1;
         PDFService.url = getPDFUrl();
 
         initPDFViewer();
@@ -59,12 +61,27 @@
             PDFService.onPrevPage();
          }
 
+        $scope.$on('pageChanged', function(e, value) {
+            console.log('This is the angular event ', e);
+            console.log('This is the value ', value);
+            ctrl.currentPage = value;
+        });
+
+        $scope.$on('totalPagesChanged', function(e, value) {
+            console.log('This is the angular event ', e);
+            console.log('This is the value ', value);
+            ctrl.totalPages = value;
+            $scope.$apply();
+        });
+
         //////////////////////
 
         angular.extend(ctrl, {
             annotations: getAnnotationData(),
             getNextPage: getNextPage,
-            getPrevPage: getPrevPage
+            getPrevPage: getPrevPage,
+            currentPage: currentPage,
+            totalPages: totalPages
         });
     }
 

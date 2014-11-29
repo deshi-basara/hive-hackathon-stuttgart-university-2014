@@ -2,13 +2,14 @@
 	<button id="prev" class="button" ng-click="ctrl.getPrevPage()">Previous</button>
 	<button id="next" class="button" ng-click="ctrl.getNextPage()">Next</button>
 	&nbsp; &nbsp;
-	<span id="pageCounts">Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+	<span id="pageCounts">Page: {{ctrl.currentPage}} / {{ctrl.totalPages}}</span>
 
     <div id="viewerContainer">
         <canvas id="viewerCanvas"></canvas>
-        <div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.top}}px; left: {{annotation.left}}px">
-		<span>{{annotation.user}}: {{annotation.comment}}</span>
-    </div>
+
+        <div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.top}}px; left: {{annotation.left}}px" ng-show="annotation.page == ctrl.currentPage">
+			<span>{{annotation.user}}: {{annotation.comment}}</span>
+    	</div>
     </div>
 
 </div>
