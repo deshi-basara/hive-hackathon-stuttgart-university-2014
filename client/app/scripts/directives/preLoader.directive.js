@@ -11,7 +11,7 @@
             link: link,
             scope: true,
             controller: function($scope) {
-                $scope.show = true;
+                $scope.show = false;
             }
         };
         return directive;
