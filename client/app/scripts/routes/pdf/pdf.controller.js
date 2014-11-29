@@ -37,10 +37,10 @@
          */
         function getAnnotationData() {
             var exampleData = [
-                { page: 1, top: 20, left: 30, user: "Foo", comment: "Das ist ein Testkommentar" },
-                { page: 1, top: 50, left: 60, user: "Test", comment: "Hallo?" },
-                { page: 2, top: 50, left: 10, user: "Bar", comment: "Wirklich?" },
-                { page: 2, top: 100, left: 50, user: "Baz", comment: "WORD!" }
+                { page: 1, top: 50, left: 30, user: "Foo", comment: "Das ist ein Testkommentar" },
+                { page: 1, top: 250, left: 60, user: "Test", comment: "Hallo?" },
+                { page: 2, top: 75, left: 10, user: "Bar", comment: "Wirklich?" },
+                { page: 2, top: 150, left: 150, user: "Baz", comment: "WORD!" }
             ];
             return exampleData;
         }

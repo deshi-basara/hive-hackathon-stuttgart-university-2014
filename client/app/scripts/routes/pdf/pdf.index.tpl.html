@@ -6,6 +6,9 @@
 
     <div id="viewerContainer">
         <canvas id="viewerCanvas"></canvas>
+        <div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.top}}px; left: {{annotation.left}}px">
+		<span>{{annotation.user}}: {{annotation.comment}}</span>
+    </div>
     </div>
 
 </div>

@@ -15,4 +15,14 @@
     #pageCounts {
         color: $hive-white;
     }
+
+    .annotation {
+        color: $hive-white;
+        background-color: $hive-blue;
+        position: absolute;
+    }
+
+    #viewerContainer {
+        position: relative;
+    }
 }
