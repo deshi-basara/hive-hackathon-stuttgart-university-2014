@@ -56,25 +56,26 @@ module.exports = Risotto.Controller.extend({
 		check(params.username, String);
 		check(params.role, String);*/
 
-		if(!params.password || !params.username || !params.role ){
-
-			// upload profile pic
-			var file = params.files[0];
-			if(file.mime !== 'image/jpeg'){
-				this.status = 400
-				this.body = {
-					error: 'Only images are allowed'
-				}
-				return;
-			}
-			yield rename(file.path, Risotto.APP + '../uploads/' + doc.id);
-			// endof upload profile pic
-
+		if(!params.password || !params.username){
 			this.status = 401;
 			this.body = {
 				error: "All fields are required"
 			};
 			return 
+		}
+
+		if(!params.role){
+			params.role = 'student'
+		}
+
+		var file = params.files[0];
+		
+		if(/image/.test(file.mime)){
+			this.status = 400
+			this.body = {
+				error: 'Only images are allowed'
+			}
+			return;
 		}
 
 		var already = yield User.findOne({'username': params.username});
@@ -91,6 +92,9 @@ module.exports = Risotto.Controller.extend({
 
 		try{
 			var user = yield User.create(values);
+			yield rename(file.path, Risotto.APP + '../profilePictures/' + user.id);
+			user.profilePicture = user.id
+			yield user.save();
 		} catch(err){
 			Risotto.logger.error(err);
 			this.status = 500;
