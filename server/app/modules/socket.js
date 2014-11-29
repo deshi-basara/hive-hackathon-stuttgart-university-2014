@@ -2,7 +2,7 @@ var http = require('http');
 var fs = require('fs');
 var co = require('co');
 var cookieHelper = require('../helpers/cookieHelper');
-
+var _ = require('underscore');
 
 /**
  * Expose the socket Api
@@ -19,7 +19,9 @@ var io;
  * holds the visible room list
  *
  */
- var rooms = {}
+ var rooms = {
+ 	1: {}
+ }
 
 /**
  * Init
@@ -55,8 +57,10 @@ socket.registerEvents = function() {
 	io.on('connection', function(client) {
 		getUser(client, function(err, user){
 			if(err){
+				client.emit('authError', 'Not authorized');
 				return Risotto.logger.warn('Non authorized user connected to socket');
 			}
+			Risotto.logger.info('[Socket] ' + user.username + ' connected');
 			bindClient(client, user);
 		});
 	});
@@ -72,7 +76,7 @@ function bindClient(client, user){
 	 */
 
 	client.on('room:create', function(){
-		// Risotto.models.
+		
 	});
 
 	/**
@@ -81,22 +85,39 @@ function bindClient(client, user){
 	 */
 	client.on('room:join', function(room){
 		if(room in rooms){
-			//send new user list
-			io.to(room).emit('room:user', []);
+			rooms[room][user.username] = user.id;
 			client.join(room);
+			io.to(room).emit('room:join', user.id);
+			Risotto.logger.info('[Socket] '+ user.username +' joined room:' + room);
+		} else {
+			Risotto.logger.warn('[Socket] '+ user.username +' tried to join non-active room:' + room);
 		}
 	});
 
 	/**
-	 * remove client from all rooms
+	 * room:message
 	 */
-	client.on('disconnect', function(){
+	client.on('room:message', function(msgText){
+		var messageObj = {
+			text: msgText,
+			created_at: new Date(),
+			from: user.id 
+		};
 
-	});
+		client.broadcast
+			.to(last(client.rooms))
+			.emit('room:message', messageObj);
+	})
 
 	client.on('room:leave', function(){
-
-	})
+		var room = last(client.rooms);
+		if(_.isString(room)){
+			return Risotto.logger.warn('[Socket] Client tried to leave a room but was in no room!!');
+		}
+		client.leave(room)
+		io.to(room).emit('room:leave', user.id);
+		Risotto.logger.info('[Socket] '+ user.username +' left room:' + room);
+	});
 }
 
 /**
@@ -126,6 +147,6 @@ function getUser(client, cb){
 }
 
 
-
-
-
+function last(arr){
+	return arr[arr.length-1];
+}
