@@ -1,0 +1,18 @@
+#documentViewer {
+    background-color: $hive-dark;
+
+    @include size(100% 100%);
+
+    .pdfViewer {
+        @include size(70% 70%);
+    }
+
+    button {
+        background-color: $hive-white;
+        color: $hive-dark;
+    }
+
+    #pageCounts {
+        color: $hive-white;
+    }
+}
