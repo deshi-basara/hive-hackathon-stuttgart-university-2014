@@ -46,6 +46,13 @@ angular
       controllerAs: 'ctrl'
     })
 
+    .state('pdf', {
+      url: '/pdf',
+      templateUrl: 'scripts/routes/pdf/pdf.index.tpl.html',
+      controller: 'PDFCtrl',
+      controllerAs: 'ctrl'
+    })
+
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('login');
 
