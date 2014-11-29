@@ -7,7 +7,8 @@ var session = require('koa-generic-session');
 //var redis = require('redis');
 var _ = require('underscore');
 var Params = require('./params');
-var path = require('path');
+var Path = require('path');
+var os = require('os');
 //var coRedis = require('co-redis');
 
 /**

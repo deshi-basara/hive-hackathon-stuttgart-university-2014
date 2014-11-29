@@ -29,6 +29,11 @@
          */
         function initPDFViewer() {
             PDFService.downloadPDF();
+            checkIfUserIsProf().then(function(isProf) {
+                if (isProf) {
+                    ctrl.hideComments = true;
+                }
+            });
         }
 
         /**
@@ -102,6 +107,24 @@
             });
         }
 
+        function checkIfUserIsProf() {
+            var q = $q.defer();
+
+            // make the request
+            $http({
+                method: 'GET',
+                url: config.apiUrl + '/user/role/',
+                withCredentials: true
+            }).success(function(data) {
+                console.log(data);
+                q.resolve(data);
+            }).error(function(data, status) {
+                q.reject(data, status);
+            });
+
+            return q.promise;
+        }
+
         /**
          * Checks if a user is muted
          */
@@ -115,6 +138,7 @@
          */
          function getNextPage() {
             PDFService.onNextPage();
+            propagateProfPageChange();
          }
 
          /**
@@ -122,7 +146,17 @@
          */
          function getPrevPage() {
             PDFService.onPrevPage();
+            propagateProfPageChange();
          }
+
+        function propagateProfPageChange() {
+            checkIfUserIsProf().then(function(isProf) {
+                if (isProf) {
+                    console.log('jaaaa');
+                    // TODO send currentPage over socket
+                }
+            });
+        }
 
         $scope.$on('pageChanged', function(e, value) {
             ctrl.currentPage = value;
