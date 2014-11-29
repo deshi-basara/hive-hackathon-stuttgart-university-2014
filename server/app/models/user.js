@@ -32,6 +32,13 @@ module.exports = Waterline.Collection.extend({
 
     comparePassword: function*(password){
       return yield bcrypt.compare(password, this.password);
+    },
+
+    toJSON: function() {
+      return {
+        username: this.username,
+        id: this.id
+      }
     }
   },
 
