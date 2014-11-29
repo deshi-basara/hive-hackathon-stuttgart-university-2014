@@ -12,8 +12,24 @@
 		line-height: 60px;
 		border-right: 1px solid $hive-white;
 
+		a {
+			@include span-columns(12 of 12);
+		}
+
 		i {
 			color: $hive-blue;
+
+			@include transition(padding-left 0.7s ease-in-out, padding-right 0.7s ease-in-out);
+		}
+	}
+
+	.nav-item:hover, .nav-item.active {
+
+		i {
+			padding-left: 20%;
+			border-bottom: 4px solid $hive-blue;
+			padding-right: 20%;
+			padding-bottom: 15px;
 		}
 	}
 }
