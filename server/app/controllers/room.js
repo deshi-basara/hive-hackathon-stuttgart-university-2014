@@ -13,14 +13,20 @@ module.exports = Risotto.Controller.extend({
 			yield Room.create({
 				name: params.name,
 				location: params.location,
-				owner: this.user.id
+				owner: this.user.id,
+				visible: true // change
 			});
 		} catch(err){
+			console.log(err);
 			this.status = 400
 			this.body = {
 				error: err
 			}
 		}
+	},
+
+	find: function*(params){
+		this.body = yield Room.find({id:params.id})
 	},
 
 	all: function*(params){

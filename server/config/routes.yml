@@ -1,11 +1,20 @@
 routes:
 	# user api
- user:
+ user: #namespace
    POST register: User.register
    POST login: User.login
    POST logout: User.logout
+   GET users: User.all
 
- POST room: Room.create
- GET room: Room.all
+ POST room: Room.create #p
+ GET rooms: Room.all #p
+ GET room/:roomid: Room.find #get http://localhost:8081/room/1
  GET room/user: Room.listForUser
  GET room/:location: Room.listForLocation
+
+ POST doc: Doc.create #p
+ GET docs: Doc.all #p
+ GET docs/:roomid: Doc.allForRoom #p
+
+ POST annotation: Annotation.create #p
+ GET annotations/:docid: Annotation.allForDocument #p
