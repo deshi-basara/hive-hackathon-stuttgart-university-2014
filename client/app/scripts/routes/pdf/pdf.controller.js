@@ -6,18 +6,24 @@
         .module('app')
         .controller('PDFCtrl', PDFCtrl);
 
-    PDFCtrl.$inject = ['PDFService', '$scope'];
+    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config'];
 
     /**
      * Handles the PDF commenting
      */
-    function PDFCtrl(PDFService, $scope) {
+    function PDFCtrl(PDFService, $scope, $q, $http, config) {
         var ctrl = this,
             currentPage = 1,
-            totalPages = 1;
+            totalPages = 1,
+            annotations = null,
+            mutedPeople = [];
         PDFService.url = getPDFUrl();
 
         initPDFViewer();
+        getAnnotationData().then(function(data) {
+            console.log(data);
+            annotations = data;
+        });
 
         /**
          * Initializes the PDF viewer
@@ -35,17 +41,32 @@
         }
 
         /**
-         * Get the data from the server
+         * Get the data for all annotations from the server
+         * @return {promise}     [$q-promise]
          */
         function getAnnotationData() {
-            var exampleData = [
-                { page: 1, top: 50, left: 30, user: "Foo", comment: "Das ist ein Testkommentar" },
-                { page: 1, top: 250, left: 60, user: "Test", comment: "Hallo?" },
-                { page: 2, top: 75, left: 10, user: "Bar", comment: "Wirklich?" },
-                { page: 2, top: 150, left: 150, user: "Baz", comment: "WORD!" }
-            ];
-            return exampleData;
+            var q = $q.defer();
+
+            // make the request
+            $http({
+                method: 'GET',
+                url: config.apiUrl + '/annotations/6'
+            }).success(function(data) {
+                q.resolve(data);
+            }).error(function(data, status) {
+                q.reject(data, status);
+            });
+
+            return q.promise;
         }
+
+        /**
+         * Checks if a user is muted
+         */
+         function isMuted(person) {
+            // TODO: REST Schnittstelle
+            return false;
+         }
 
         /**
          * Renders the next page
@@ -96,13 +117,14 @@
         //////////////////////
 
         angular.extend(ctrl, {
-            annotations: getAnnotationData(),
+            annotations: annotations,
             getNextPage: getNextPage,
             getPrevPage: getPrevPage,
             currentPage: currentPage,
             totalPages: totalPages,
             zoomIn: zoomIn,
-            zoomOut: zoomOut
+            zoomOut: zoomOut,
+            isMuted: isMuted
         });
     }
 

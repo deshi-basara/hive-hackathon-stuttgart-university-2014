@@ -29,3 +29,19 @@
 		}
 	}
 }
+
+#room-modal {
+	border-radius: 1px;
+
+	.modal-body {
+		.created-by {
+			span {
+				font-weight: bold;
+			}
+		}
+
+		.active-user {
+			margin-top: 15px;
+		}
+	}
+}
