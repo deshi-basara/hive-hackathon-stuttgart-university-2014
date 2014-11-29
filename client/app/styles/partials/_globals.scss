@@ -29,7 +29,12 @@ $white-z1: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
 /**
  * Fonts
  */
-$font-primary: 'Lato', sans-serif;
+@include font-face(SourceSansPro, '../../fonts/SourceSansPro-Regular');
+@include font-face(BrandonMed, '../../fonts/brandon_med');
+
+
+$font-primary: 'SourceSansPro';
+$font-secondary:  'BrandonMed'; // Headlines, Input Labels, Buttons
 
 /**
  * Global settings
@@ -40,6 +45,10 @@ html, body {
 
 	font-family: $font-primary;
 	font-weight: 300;
+
+	h1, button, input, textarea {
+		font-family: $font-secondary;
+	}
 }
 
 .main-container {
