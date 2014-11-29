@@ -10,7 +10,7 @@
 
     <div id="viewerContainer">
         <div id="canvasContainer">
-        	<canvas id="viewerCanvas" ng-click="ctrl.openCommentModal()"></canvas>
+        	<canvas id="viewerCanvas" ng-click="ctrl.openCommentModal($event)"></canvas>
 
         	<div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.y}}px; left: {{annotation.x}}px" ng-show="annotation.page == ctrl.currentPage && !isMuted(annotation.owner)">
 				<span>{{annotation.owner.username}}: {{annotation.content}}</span>
@@ -24,6 +24,7 @@
         	</ul>
         </div>
     </div>
+    {{$event}}
 </div>
 
 <script type="text/ng-template" id="comment-modal.html">
@@ -32,7 +33,7 @@
         <h3 class="modal-title">Kommentar hinzufügen</h3>
     </div>
     <div class="modal-body">
-        <textarea ng-model="comment.text"></textarea>
+        <textarea ng-model="comment.content"></textarea>
     </div>
     <div class="modal-footer">
         <button class="button button-blue" ng-click="ok()">SPEICHERN</button>
