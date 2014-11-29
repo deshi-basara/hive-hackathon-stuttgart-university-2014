@@ -189,7 +189,7 @@ gulp.task('serve', ['styles'], function() {
 
 	// watch for changes in our angular js-files
 	$.watch(['app/scripts/**/**/*.js'], function() {
-		runSequence('inject', []);
+		runSequence('inject');
 	});
 
 	// watch for image changes
