@@ -6,7 +6,8 @@ module.exports = {
 		session : {
 			secret : 'Enetilote136'
 		},
-		logger : 'HTTP :remote-addr :method :url :status :res[content-length] ":referrer" ":user-agent" :response-time ms'
+		logger : 'HTTP :remote-addr :method :url :status :res[content-length] ":referrer" ":user-agent" :response-time ms',
+		hostname: 'localhost'
 	},
 
 	socket: {

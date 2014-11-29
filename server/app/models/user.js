@@ -35,9 +35,14 @@ module.exports = Waterline.Collection.extend({
     },
 
     toJSON: function() {
+      var defaultPic = 'http://' 
+      + Risotto.config.http.hostname + ':' 
+      + Risotto.config.http.port + '/assets/image.png'
+      
       return {
         username: this.username,
-        id: this.id
+        id: this.id,
+        picture: this.picture || defaultPic
       }
     }
   },
