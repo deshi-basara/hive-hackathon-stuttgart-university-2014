@@ -48,7 +48,10 @@
                 SocketService.getProfPageChange(function (page) {
                     ctrl.profPage = page;
                     $scope.$apply();
-                })
+                });
+                SocketService.getAnnotationMsg(function (annotations) {
+                    ctrl.annotations = annotations;
+                });
             }
         }
 
@@ -115,7 +118,7 @@
                     $scope.ok = function() {
                         modalInstance.close();
                         ctrl.saveComment($scope.comment).then(function(success) {
-                            ctrl.annotations = success;
+                            SocketService.propagateAnnotationAdded($scope.comment);
                         });
                     }
                 },
