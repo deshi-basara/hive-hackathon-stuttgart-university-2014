@@ -139,6 +139,22 @@ function* buildParams(next){
 }
 
 /**
+ * Middleware
+ * enable CORS
+ */
+function* enableCORS(next){
+	this.set("Access-Control-Allow-Origin", "*");
+  	this.set("Access-Control-Allow-Headers", "X-Requested-With");
+
+  	if (this.method === 'OPTIONS') {
+      this.status = 204;
+    } else {
+      yield next;
+    }
+}  
+  
+
+/**
  * Handler for generic errors.
  * @param {Generator} next
  * @api private
@@ -180,6 +196,8 @@ function Http(Risotto, routes){
 	this.routes = routes;
 
 	var server = koala();
+
+	server.use(enableCORS)
 
 	// mount the router
 	server.use(router(server));

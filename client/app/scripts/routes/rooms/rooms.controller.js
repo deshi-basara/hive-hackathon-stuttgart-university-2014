@@ -6,12 +6,12 @@
         .module('app')
         .controller('RoomsCtrl', RoomsCtrl);
 
-    RoomsCtrl.$inject = ['SocketService','$timeout'];
+    RoomsCtrl.$inject = ['RoomsService','SocketService','$rootScope','$timeout'];
 
     /**
      * Handles all chat interaction.
      */
-    function RoomsCtrl(SocketService, $timeout) {
+    function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout) {
         var ctrl = this;
 
         /**
@@ -20,7 +20,7 @@
          */
         function initChat() {
             // not connected to the socket
-            if(!SocketService.socket) {
+            if(SocketService.socket) {
                 /*SocketService.connect().then(function() {
 
                 }, function() {
@@ -38,19 +38,25 @@
          * @return {[type]} [description]
          */
         function fetchAllRooms() {
-            SocketService.getAllRooms().then(function(rooms) {
-                console.log(rooms);
+            RoomsService.getAllRooms().then(function(rooms) {
+                ctrl.roomList = rooms;
+                $timeout(function() {
+                    $rootScope.$broadcast('loader.hide');
+                }, 500);
+
+            }, function(error) {
+
             });
         }
 
         //////////////////////
 
         angular.extend(ctrl, {
-            inputMsg: {}
+            roomList: {}
         });
 
         //////////////////////
-        
+
         initChat();
     }
 
