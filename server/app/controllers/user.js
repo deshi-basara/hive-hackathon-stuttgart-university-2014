@@ -114,5 +114,13 @@ module.exports = Risotto.Controller.extend({
 	isCurrentUserProf: function*(params){
 		var currentUser = yield Risotto.models.user.findOne({id: this.session.user_id});
 		this.body = (currentUser.role === 'prof')
+	},
+
+	isAuthorized: function*(params){
+		var cSession = this.session.authorized;
+		if (cSession != null) {
+			this.body = true;
+		} else this.body = false;
+		console.log(cSession);
 	}
 })	
