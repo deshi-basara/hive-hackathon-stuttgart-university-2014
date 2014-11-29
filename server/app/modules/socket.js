@@ -182,6 +182,11 @@ function bindClient(client, user){
 		// return name and id
 		client.emit('room:info', rooms[roomId] || {})
 	});
+
+	client.on('pdf:profpage', function(page){
+		var room = last(client);
+		io.to(room).emit('pdf:profpage', page);
+	});
 };
 
 
