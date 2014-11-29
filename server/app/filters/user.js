@@ -6,14 +6,7 @@ Risotto.before('user', function*(){
 	}
 	
 	try{
-		var user = yield User
-			.find({ id: this.session.user_id })
-			.populate('projectOwner')
-			.populate('projectMember')
-			.populate('likes')
-			.populate('comments')
-			.populate('shots')
-
+		var user = yield User.find({ id: this.session.user_id })
 	} catch(err){
 		return console.log(err);
 	}
