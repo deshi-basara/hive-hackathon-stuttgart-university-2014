@@ -72,8 +72,8 @@
                 method: 'POST',
                 url: config.apiUrl + service.loginUrl,
                 data: {
-                    'mail': loginObj.user,
-                    'pass': loginObj.pass
+                    'username': loginObj.username,
+                    'password': loginObj.password
                 }
             }).success(function(data) {
                 q.resolve(data);

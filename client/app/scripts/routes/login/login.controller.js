@@ -18,45 +18,40 @@
          * Submits the form values to the AuthService after validation
          */
         function submitLogin() {
-
             // has the user entered all needed values, otherwise stop
-            if(ctrl.login.user.length === 0 || ctrl.login.pass.length === 0) {
-
-                // show an error toast and break
-                ctrl.errorMsg = 'Du hast nicht alle Formular-Felder ausgefüllt';
-                ctrl.showError = true;
-
-                // hide the toast after 5000ms
-                $timeout(function() {
-                    ctrl.showError = false;
-                }, 5000);
-
-                return;
+            if(ctrl.login.username.length === 0 || ctrl.login.password.length === 0) {
+                return showToast('Du hast nicht alle Formular-Felder ausgefüllt');
             }
 
             // hand data
             AuthService.getAuth(ctrl.login).then(function(success) {
                 // everything went well, redirect
-                // TODO: go to correct Controller
-                $state.go('dash.job');
+                $state.go('rooms');
             }, function(error, status) {
-                // show error message
+                showToast('Username oder Passwort falsch');
             });
-
         }
 
+        function showToast(msg){
+            // show an error toast and break
+            ctrl.errorMsg = msg;
+            ctrl.showError = true;
+
+            // hide the toast after 5000ms
+            $timeout(function() {
+                ctrl.showError = false;
+            }, 5000);  
+        }
 
         //////////////////////
 
         angular.extend(ctrl, {
             login: {
-                user: '',
-                pass: ''
+                username: '',
+                password: ''
             },
             showError: false,
-
             submitLogin: submitLogin
         });
-    }
-
+    }   
 })();

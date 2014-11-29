@@ -9,17 +9,19 @@
 	</div>
 
     <div id="viewerContainer">
-        <canvas id="viewerCanvas"></canvas>
+        <div id="canvasContainer">
+        	<canvas id="viewerCanvas"></canvas>
+
+        	<div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.y}}px; left: {{annotation.x}}px" ng-show="annotation.page == ctrl.currentPage && !isMuted(annotation.owner)">
+				<span>{{annotation.owner.username}}: {{annotation.content}}</span>
+    		</div>
+        </div>
         <div id="userList">
         	<ul>
         	    <li><button ng-click="muteUser(user)">x</button> User1</li>
         	    <li><button ng-click="muteUser(user)">x</button> User2</li>
         	    <li><button ng-click="muteUser(user)">x</button> User3</li>
+        	</ul>
         </div>
-
-        <div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.top}}px; left: {{annotation.left}}px" ng-show="annotation.page == ctrl.currentPage && !isMuted(annotation.owner)">
-			<span>{{annotation.user}}: {{annotation.comment}}</span>
-    	</div>
     </div>
-
 </div>
