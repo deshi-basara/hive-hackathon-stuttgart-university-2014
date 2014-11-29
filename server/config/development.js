@@ -4,7 +4,7 @@ module.exports = {
 		respondWith : 'html',
 		statics : 'app/public/',
 		session : {
-			secret : ''
+			secret : 'Enetilote136'
 		},
 		logger : 'HTTP :remote-addr :method :url :status :res[content-length] ":referrer" ":user-agent" :response-time ms'
 	},
