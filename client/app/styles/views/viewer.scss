@@ -1,5 +1,5 @@
 #documentViewer {
-    background-color: $hive-dark;
+    background-color: $hive-white;
 
     @include size(100% 100%);
 
@@ -8,8 +8,8 @@
     }
 
     button {
-        background-color: $hive-white;
-        color: $hive-dark;
+        background-color: $hive-light-blue;
+        color: $hive-blue;
     }
 
     #pageCounts {

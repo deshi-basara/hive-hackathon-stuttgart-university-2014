@@ -97,6 +97,7 @@
                 service.pdfDoc = pdfDoc_;
                 $rootScope.$broadcast('totalPagesChanged', service.pdfDoc.numPages);
                 renderPage(service.pageNum);
+                $rootScope.$broadcast('loader.hide');
             });
         }
 
