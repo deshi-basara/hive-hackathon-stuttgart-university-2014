@@ -6,12 +6,12 @@
         .module('app')
         .controller('PDFCtrl', PDFCtrl);
 
-    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config'];
+    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config', '$modal'];
 
     /**
      * Handles the PDF commenting
      */
-    function PDFCtrl(PDFService, $scope, $q, $http, config) {
+    function PDFCtrl(PDFService, $scope, $q, $http, config, $modal) {
         var ctrl = this,
             currentPage = 1,
             totalPages = 1,
@@ -49,7 +49,8 @@
             // make the request
             $http({
                 method: 'GET',
-                url: config.apiUrl + '/annotations/6'
+                url: config.apiUrl + '/annotations/6',
+                withCredentials: true
             }).success(function(data) {
                 q.resolve(data);
             }).error(function(data, status) {
@@ -57,6 +58,30 @@
             });
 
             return q.promise;
+        }
+
+        function saveComment(commentModel) {
+            var q = $q.defer();
+
+            // make the request
+            $http({
+                method: 'POST',
+                url: config.apiUrl + '/annotations/6',
+                data: commentModel
+            }).success(function(data) {
+                q.resolve(data);
+            }).error(function(data, status) {
+                q.reject(data, status);
+            });
+
+            return q.promise;
+        }
+
+        function openCommentModal(room) {
+            var modalInstance = $modal.open({
+                templateUrl: 'comment-modal.html',
+                size: 'sm'
+            });
         }
 
         /**
@@ -122,7 +147,9 @@
             totalPages: totalPages,
             zoomIn: zoomIn,
             zoomOut: zoomOut,
-            isMuted: isMuted
+            isMuted: isMuted,
+            saveComment: saveComment,
+            openCommentModal: openCommentModal
         });
     }
 

@@ -57,8 +57,9 @@ html, body {
 }
 
 .nested-container {
-    padding: 30px;
-    height: 100%;
+	position: relative;
+    height: 86%;
+    //margin-top: -70px;
 }
 
 .outer-container{

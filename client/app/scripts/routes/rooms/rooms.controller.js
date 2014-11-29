@@ -6,12 +6,12 @@
         .module('app')
         .controller('RoomsCtrl', RoomsCtrl);
 
-    RoomsCtrl.$inject = ['RoomsService','SocketService','$rootScope','$timeout', '$modal'];
+    RoomsCtrl.$inject = ['RoomsService','SocketService','$rootScope','$timeout', '$modal', '$state'];
 
     /**
      * Handles all chat interaction.
      */
-    function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout, $modal) {
+    function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout, $modal, $state) {
         var ctrl = this;
 
         /**
@@ -39,6 +39,8 @@
          */
         function fetchAllRooms() {
             RoomsService.getAllRooms().then(function(rooms) {
+                console.log(rooms);
+
                 ctrl.roomList = rooms;
 
                 $timeout(function() {
@@ -63,8 +65,9 @@
                 controller: function($scope) {
                     $scope.room = room;
                     $scope.ok = function() {
-                        //@todo redirect to the selected room
                         modalInstance.close();
+                        //@todo redirect to the selected room
+                        $state.go('room.chat', {roomId: 1})
                     }
                 },
                 size: 'sm'
