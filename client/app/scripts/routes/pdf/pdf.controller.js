@@ -68,7 +68,8 @@
             $http({
                 method: 'POST',
                 url: config.apiUrl + '/annotation/',
-                data: commentModel
+                data: commentModel,
+                withCredentials: true
             }).success(function(data) {
                 q.resolve(data);
             }).error(function(data, status) {
