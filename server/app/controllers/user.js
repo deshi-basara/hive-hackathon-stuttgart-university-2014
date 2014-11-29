@@ -11,6 +11,7 @@ function isValidEmail(email){
 }
 
 module.exports = Risotto.Controller.extend({
+	beforeFilter: ['json'],
 
 	login: function*(params){
 		this.status = 401
@@ -37,12 +38,10 @@ module.exports = Risotto.Controller.extend({
 		}
 		
 		this.status = 200
-		this.body = {}
 	},
 
 	logout: function*(params){
 		this.session = null;
-		this.body = {}
 	},
 
 
@@ -84,7 +83,5 @@ module.exports = Risotto.Controller.extend({
 			authorized: true,
 			user_id: user.id
 		}
-
-		this.body = {}
 	}
 })	
