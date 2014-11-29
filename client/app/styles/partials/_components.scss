@@ -60,6 +60,12 @@ label {
     background-color: $hive-blue;
 }
 
+.button-blue {
+    border: 1px solid $hive-blue;
+    background-color: $hive-light-blue;
+    color: $hive-blue;
+}
+
 .button-clear {
     border-color: transparent;
     background: none;

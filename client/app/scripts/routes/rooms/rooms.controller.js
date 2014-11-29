@@ -6,12 +6,12 @@
         .module('app')
         .controller('RoomsCtrl', RoomsCtrl);
 
-    RoomsCtrl.$inject = ['RoomsService','SocketService','$rootScope','$timeout'];
+    RoomsCtrl.$inject = ['RoomsService','SocketService','$rootScope','$timeout', '$modal'];
 
     /**
      * Handles all chat interaction.
      */
-    function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout) {
+    function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout, $modal) {
         var ctrl = this;
 
         /**
@@ -40,6 +40,7 @@
         function fetchAllRooms() {
             RoomsService.getAllRooms().then(function(rooms) {
                 ctrl.roomList = rooms;
+
                 $timeout(function() {
                     $rootScope.$broadcast('loader.hide');
                 }, 500);
@@ -49,10 +50,34 @@
             });
         }
 
+        /**
+         * Opens the room-modal with all the needed data of
+         * the clicked room.
+         * @param  {object} room [Object with all data from the clicked room]
+         * @return {[type]}      [description]
+         */
+        function openRoomModal(room) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'room-modal.html',
+                controller: function($scope) {
+                    $scope.room = room;
+                    $scope.ok = function() {
+                        //@todo redirect to the selected room
+                        modalInstance.close();
+                    }
+                },
+                size: 'sm'
+            });
+
+        }
+
         //////////////////////
 
         angular.extend(ctrl, {
-            roomList: {}
+            roomList: {},
+
+            openRoomModal: openRoomModal
         });
 
         //////////////////////
