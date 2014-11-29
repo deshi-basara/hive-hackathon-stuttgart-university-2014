@@ -61,17 +61,34 @@
             PDFService.onPrevPage();
          }
 
+         /**
+         * Zooms in
+         */
+         function zoomIn() {
+            PDFService.zoomIn();
+         }
+
+         /**
+         * Zooms out
+         */
+         function zoomOut() {
+            PDFService.zoomOut();
+         }
+
         $scope.$on('pageChanged', function(e, value) {
-            console.log('This is the angular event ', e);
-            console.log('This is the value ', value);
             ctrl.currentPage = value;
         });
 
         $scope.$on('totalPagesChanged', function(e, value) {
-            console.log('This is the angular event ', e);
-            console.log('This is the value ', value);
             ctrl.totalPages = value;
             $scope.$apply();
+        });
+
+        $scope.$on('zoomChanged', function(e, zoomStep) {
+            ctrl.annotations.forEach(function(item) {
+                item.top = item.top + (60 * zoomStep * (item.top / 55));
+                item.left = item.left + (50 * zoomStep * (item.left / 40));
+            });
         });
 
         //////////////////////
@@ -81,7 +98,9 @@
             getNextPage: getNextPage,
             getPrevPage: getPrevPage,
             currentPage: currentPage,
-            totalPages: totalPages
+            totalPages: totalPages,
+            zoomIn: zoomIn,
+            zoomOut: zoomOut
         });
     }
 
