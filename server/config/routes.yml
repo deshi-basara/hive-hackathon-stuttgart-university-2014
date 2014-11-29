@@ -4,3 +4,6 @@ routes:
    POST register: User.register
    POST login: User.login
    POST logout: User.logout
+
+ POST room: Room.create
+ GET room: Room.list
