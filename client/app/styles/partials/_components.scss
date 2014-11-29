@@ -9,8 +9,8 @@
     box-shadow: none;
     border-radius: 0;
     background: 0 0;
-    border-bottom: 2px solid $hive-white;
-    color: $hive-white;
+    border-bottom: 2px solid $hive-light-blue;
+    color: $hive-blue;
     outline: none;
     font-size: em(20);
     font-weight: normal;
@@ -35,6 +35,7 @@ label {
     color: $hive-white;
     outline: 0!important;
     box-shadow: 0;
+    border: 1px solid $hive-blue;
 }
 
 .button:hover {

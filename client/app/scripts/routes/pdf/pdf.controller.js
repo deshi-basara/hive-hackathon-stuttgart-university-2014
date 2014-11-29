@@ -86,8 +86,10 @@
 
         $scope.$on('zoomChanged', function(e, zoomStep) {
             ctrl.annotations.forEach(function(item) {
-                item.top = item.top + (60 * zoomStep * (item.top / 55));
-                item.left = item.left + (50 * zoomStep * (item.left / 40));
+                if (item.page === ctrl.currentPage) {
+                    item.top = item.top + (60 * zoomStep * (item.top / 55));
+                    item.left = item.left + (50 * zoomStep * (item.left / 40));
+                }
             });
         });
 
