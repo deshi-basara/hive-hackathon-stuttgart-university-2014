@@ -20,7 +20,9 @@
             getMsgs: getMsgs,
             getRoomInfo: getRoomInfo,
             joinRoom: joinRoom,
-            submitMsg: submitMsg
+            submitMsg: submitMsg,
+            propagateProfPage: propagateProfPage,
+            getProfPageChange: getProfPageChange
         };
 
         return service;
@@ -54,7 +56,7 @@
         function getProfPageChange(cb) {
             service.socket.on('pdf:profpage', function(page) {
                 cb(page);
-            }
+            });
         }
 
         /**

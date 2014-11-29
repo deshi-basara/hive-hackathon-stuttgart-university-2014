@@ -6,12 +6,12 @@
         .module('app')
         .controller('PDFCtrl', PDFCtrl);
 
-    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config', '$modal'];
+    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config', '$modal', 'SocketService'];
 
     /**
      * Handles the PDF commenting
      */
-    function PDFCtrl(PDFService, $scope, $q, $http, config, $modal) {
+    function PDFCtrl(PDFService, $scope, $q, $http, config, $modal, SocketService) {
         var ctrl = this,
             currentPage = 1,
             totalPages = 1,
