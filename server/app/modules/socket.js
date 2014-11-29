@@ -120,14 +120,15 @@ function bindClient(client, user){
 	 * room:message
 	 */
 	client.on('room:message', function(msgText){
+		console.log(msgText)
+
 		var messageObj = {
 			text: msgText,
 			created_at: new Date(),
 			from: user.id 
 		};
 
-		client.broadcast
-			.to(last(client.rooms))
+		io.to(last(client.rooms))
 			.emit('room:message', messageObj);
 	})
 
@@ -159,7 +160,7 @@ function bindClient(client, user){
 				return;
 			}
 
-			client.broadcast.to(roomId).emit('room:close');
+			io.to(roomId).emit('room:close');
 			//TODO: kick all clients from that room
 
 			room.visible = false;

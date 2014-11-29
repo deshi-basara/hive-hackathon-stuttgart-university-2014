@@ -62,7 +62,6 @@
 
         function saveComment(commentModel) {
             var q = $q.defer();
-            console.log('CommentModel: ' + commentModel);
 
             // make the request
             $http({
@@ -79,10 +78,19 @@
             return q.promise;
         }
 
-        function openCommentModal() {
+        function openCommentModal(event) {
+            var x = event.layerX;
+            var y = event.layerY;
             var modalInstance = $modal.open({
                 templateUrl: 'comment-modal.html',
                 controller: function($scope) {
+                    $scope.comment = {
+                        content: "",
+                        page: ctrl.currentPage,
+                        docid: 6,
+                        x: x,
+                        y: y
+                    };
                     $scope.ok = function() {
                         modalInstance.close();
                         ctrl.saveComment($scope.comment);
