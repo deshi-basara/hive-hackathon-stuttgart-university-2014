@@ -19,3 +19,5 @@ routes:
 
  POST annotation: Annotation.create #p
  GET annotations/:docid: Annotation.allForDocument #p
+
+ GET media/:id: Media.serve
