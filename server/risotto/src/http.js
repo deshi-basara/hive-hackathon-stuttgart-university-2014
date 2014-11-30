@@ -237,10 +237,10 @@ function Http(Risotto, routes){
 	redisClient.on('error', function(err){
 		Risotto.exit('Failed with ' + err);
 	});*/
-		
-	server.use(session({
-  		store: session.MemoryStore()
-	}));
+	
+	/*server.use(session({
+  		store: redisStore
+	}));*/
 
 	//server.keys = Risotto.config.http.session.secret;
 	server.keys = _.isArray(Risotto.config.http.session.secret) ? 
