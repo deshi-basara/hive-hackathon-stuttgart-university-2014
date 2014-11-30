@@ -61,6 +61,33 @@
 				cursor: pointer;
 				padding: 50px;
 			}
+
+			.input-group {
+                width: 100%;
+
+                label {
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
+
+                    font-size: em(15);
+                    text-align: left;
+                    color: $hive-blue;
+                    bottom: 0;
+                }
+
+                input {
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
+
+                    margin-top: -10px;
+                }
+
+                .fa {
+                	color: $hive-green;
+                }
+			}
 		}
 	}
 }

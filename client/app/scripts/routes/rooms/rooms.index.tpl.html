@@ -8,6 +8,16 @@
 	</div>
     <div class="room-signal" ng-hide="ctrl.hasSignal">
         <div class="room-signal-content">
+            <div class="input-group" ng-hide="ctrl.roomCreated">
+                <label>Create a new room: </label>
+                <input class="input-text" type="text" ng-model="ctrl.room.name" placeholder="Technische Informatik">
+            </div>
+            <button type="button" class="button button-blue" ng-click="ctrl.saveRoom()" ng-hide="ctrl.roomCreated">Save</button>
+            <button type="button" class="button button-blue" ng-click="ctrl.startBroadcasting()" ng-show="ctrl.roomCreated">Make some noise</button>
+        </div>
+    </div>
+    <div class="room-signal" ng-hide="ctrl.hasSignal">
+        <div class="room-signal-content">
             <h2>No rooms were found nearby :-(</h2>
             <i class="fa fa-microphone fa-4x" ng-click="ctrl.startListening()" ng-show="!ctrl.isListening"></i>
             <i class="fa fa-microphone-slash fa-4x" ng-click="ctrl.startListening()" ng-show="ctrl.isListening"></i>
@@ -16,6 +26,8 @@
     </div>
     <button type="button" class="button-blue" ng-click="ctrl.startBroadcasting()">Create new room</button>
 </section>
+
+<error-message ng-show="ctrl.showError">Create-Room: {{ctrl.errorMsg}}</error-message>
 
 <!-- Modal code -->
 <script type="text/ng-template" id="room-modal.html">
