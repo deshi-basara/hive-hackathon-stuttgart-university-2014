@@ -109,6 +109,11 @@ module.exports = Risotto.Controller.extend({
 			authorized: true,
 			user_id: user.id
 		}
+
+		// return the user_data
+		this.body = {
+			user: user
+		};
 	},
 
 	all: function*(params){
