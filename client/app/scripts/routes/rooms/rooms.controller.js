@@ -90,7 +90,13 @@
             console.log('broadcasting');
             // try to start the sonic server and listen for broadcasts
             try {
-                var SonicSocket = new window.SonicSocket({alphabet: '0123456789'});
+                var SonicSocket = new window.SonicSocket({
+                    alphabet: '0123456789',
+                    coder : new SonicCoder({
+                        freqMax: 16500,
+                        freqMin: 15500
+                    })
+                });
                 SonicSocket.send('1');
             }
             catch(err) {
@@ -105,7 +111,14 @@
             console.log('listening');
             // try to start the sonic server and listen for broadcasts
             try {
-                var SonicServer = new window.SonicServer({alphabet: '0123456789', debug: true});
+                var SonicServer = new window.SonicServer({
+                    alphabet: '0123456789', 
+                    debug: true,
+                    coder : new SonicCoder({
+                        freqMax: 16500,
+                        freqMin: 15500
+                    })
+                });
                 SonicServer.start();
                 SonicServer.on('message', onIncomingChat);
             }
