@@ -83,13 +83,29 @@
         }
 
         /**
-         * Start listening for room-audio transmissions.
+         * Starts broadcasting room-audio transmissions.
+         * @return {[type]} [description]
          */
-        var ALPHABET = ' abcdefghijklmnopqrstuvwxyz';
-        function startListening() {
+        function startBroadcasting() {
+            console.log('broadcasting');
             // try to start the sonic server and listen for broadcasts
             try {
-                var SonicServer = new window.SonicServer({alphabet: ALPHABET, debug: true});
+                var SonicSocket = new window.SonicSocket({alphabet: '0123456789'});
+                SonicSocket.send('1');
+            }
+            catch(err) {
+                return alert(err);
+            }
+        }
+
+        /**
+         * Starts listening for room-audio transmissions.
+         */
+        function startListening() {
+            console.log('listening');
+            // try to start the sonic server and listen for broadcasts
+            try {
+                var SonicServer = new window.SonicServer({alphabet: '0123456789', debug: true});
                 SonicServer.start();
                 SonicServer.on('message', onIncomingChat);
             }
@@ -105,7 +121,8 @@
             roomList: {},
 
             openRoomModal: openRoomModal,
-            startListening: startListening
+            startBroadcasting: startBroadcasting,
+            startListening: startListening,
         });
 
         //////////////////////

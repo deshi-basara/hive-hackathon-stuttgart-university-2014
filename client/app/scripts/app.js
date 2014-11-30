@@ -89,10 +89,10 @@ angular
   });
 
   // connect the user to the websocket
-  SocketService.connect().then(function() {
+  /*SocketService.connect().then(function() {
     console.log(SocketService.socket);
   }, function() {
     console.log('Es konnte keine Verbindung zum WebSocket hergetsellt werden');
-  });
+  });*/
 
 });
