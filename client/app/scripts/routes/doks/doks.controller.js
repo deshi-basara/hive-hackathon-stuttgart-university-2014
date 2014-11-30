@@ -48,17 +48,31 @@
                 controller: function($scope) {
                     $scope.room = room;
                     $scope.onFileSelect = function($files) {
+                        $scope.file = $files[0];
 
                         // upload the selected file
-                        DoksService.uploadFile($files[0]).then(function() {
+                        DoksService.uploadFile($scope.file).then(function() {
+                            modalInstance.close();
 
+                            return fetchAllDoks();
                         }, function() {
-
+                            return showToast('An error during file upload occured');
                         });
                     }
                 },
                 size: 'sm'
             });
+        }
+
+        function showToast(msg){
+            // show an error toast and break
+            ctrl.errorMsg = msg;
+            ctrl.showError = true;
+
+            // hide the toast after 5000ms
+            $timeout(function() {
+                ctrl.showError = false;
+            }, 5000);  
         }
 
 
