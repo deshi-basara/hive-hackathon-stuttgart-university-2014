@@ -4,8 +4,8 @@
     @include size(100% 100%);
 
     .login-form {
-        background-color: $hive-white;
-        box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+        //background-color: $hive-white;
+        //box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
 
         @include size(30% 40%);
         min-height: 274px;
@@ -21,11 +21,12 @@
             line-height: em(45);
             text-align: center;
             font-size: em(24);
+            margin-bottom: 25px;
 
             @include position(relative, 0 0 0 0);
 
-            .headline {
-                padding-left: 12px;
+            h1 {
+                text-transform: uppercase;
             }
         }
 
@@ -37,16 +38,22 @@
                 width: 100%;
 
                 label {
-                    @include span-columns(4 of 12);
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
 
-                    text-align: right;
+                    font-size: em(15);
+                    text-align: left;
                     color: $hive-blue;
                     bottom: 0;
-                    line-height: 1.5em;
                 }
 
                 input {
-                    @include span-columns(5 of 12);
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
+
+                    margin-top: -10px;
                 }
             }
         }

@@ -23,12 +23,22 @@
 		}
 	}
 
-	.nav-item:hover, .nav-item.active {
+	.nav-item.active {
 
 		i {
 			padding-left: 20%;
 			border-bottom: 4px solid $hive-blue;
 			padding-right: 20%;
+			padding-bottom: 15px;
+		}
+	}
+
+	.nav-item:hover {
+
+		i {
+			padding-left: 30%;
+			border-bottom: 4px solid $hive-blue;
+			padding-right: 30%;
 			padding-bottom: 15px;
 		}
 	}

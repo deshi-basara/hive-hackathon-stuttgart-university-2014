@@ -72,15 +72,23 @@
                 },
                 size: 'sm'
             });
+        }
 
+        /**
+         * Start listening for room-audio transmissions.
+         */
+        function startListening() {
+            alert('starting');
         }
 
         //////////////////////
 
         angular.extend(ctrl, {
+            hasSignal: false,
             roomList: {},
 
-            openRoomModal: openRoomModal
+            openRoomModal: openRoomModal,
+            startListening: startListening
         });
 
         //////////////////////

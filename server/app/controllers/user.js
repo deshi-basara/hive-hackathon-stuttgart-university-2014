@@ -121,7 +121,7 @@ module.exports = Risotto.Controller.extend({
 	},
 
 	hasSession: function*(params){
-		if(!this.session || !this.session.user_id){
+		if(!this.session || !this.session.authorized){
 			this.status = 403
 		}
 	}

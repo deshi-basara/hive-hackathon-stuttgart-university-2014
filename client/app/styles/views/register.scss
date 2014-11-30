@@ -4,8 +4,8 @@
     @include size(100% 100%);
 
     .register-form {
-        background-color: $hive-white;
-        box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+        //background-color: $hive-white;
+        //box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
 
         @include size(40% 48%);
         min-height: 374px;
@@ -25,6 +25,7 @@
             @include position(relative, 0 0 0 0);
 
             .headline {
+                display: none;
                 padding-left: 12px;
             }
         }
@@ -36,18 +37,25 @@
             .input-group {
 
                 width: 100%;
+                text-align: left;
 
                 label {
-                    @include span-columns(4 of 12);
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
 
-                    text-align: right;
+                    font-size: em(15);
+                    text-align: left;
                     color: $hive-blue;
-                    bottom: 0em;
-                    line-height: 1.5em;
+                    bottom: 0;
                 }
 
                 input {
-                    @include span-columns(5 of 12);
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
+
+                    margin-top: -10px;
                 }
 
                 span {

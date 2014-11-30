@@ -30,6 +30,11 @@ module.exports = Waterline.Collection.extend({
       required: true
     },
 
+    profilePicture:{
+      type: 'string',
+      required: false
+    },
+
     comparePassword: function*(password){
       return yield bcrypt.compare(password, this.password);
     },

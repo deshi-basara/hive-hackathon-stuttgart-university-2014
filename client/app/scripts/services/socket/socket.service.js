@@ -20,7 +20,11 @@
             getMsgs: getMsgs,
             getRoomInfo: getRoomInfo,
             joinRoom: joinRoom,
-            submitMsg: submitMsg
+            submitMsg: submitMsg,
+            propagateProfPage: propagateProfPage,
+            getProfPageChange: getProfPageChange,
+            getAnnotationMsg: getAnnotationMsg,
+            propagateAnnotationAdded: propagateAnnotationAdded
         };
 
         return service;
@@ -51,6 +55,12 @@
             });
         }
 
+        function getProfPageChange(cb) {
+            service.socket.on('pdf:profpage', function(page) {
+                cb(page);
+            });
+        }
+
         /**
          * Request all users from the specified room.
          * @param  {int}      roomId [Database room id]
@@ -65,6 +75,12 @@
                 return cb(userArray);
             });
         }
+
+        function getAnnotationMsg(cb) {
+            service.socket.on('room:annotation', function(annotations) {
+                cb(annotations);
+            });
+        };
 
         /**
          * Joins the room identified by its database id.
@@ -83,9 +99,16 @@
         }
 
 
+        /**
+         * Tells everyone which page the prof is on
+         */
+        function propagateProfPage(page) {
+            service.socket.emit('pdf:profpage', page);
+        }
 
-
-
+        function propagateAnnotationAdded(annotation) {
+            service.socket.emit('room:annotation', annotation);
+        }
 
     }
 
