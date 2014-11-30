@@ -13,7 +13,7 @@
      */
     function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout, $modal, $state, localStorageService) {
         var ctrl = this;
-        var SonicServer = null;
+        var sserver = null;
 
         /**
          * Check if the user is already connected to the socket
@@ -135,11 +135,11 @@
                     alphabet: '0123456789',
                     coder : new SonicCoder({
                         alphabet: '0123456789',
-                        freqMax: 18000,
-                        freqMin: 15000
+                        freqMax: 19000,
+                        freqMin: 20000
                     })
                 });
-                console.log(ctrl.roomCreated);
+                console.log('##', ctrl.roomCreated);
 
                 SonicSocket.send(ctrl.roomCreated.id);
             }
@@ -154,16 +154,17 @@
         function startListening() {
             // try to start the sonic server and listen for broadcasts
             try {
-                SonicServer = new window.SonicServer({
+                sserver = new window.SonicServer({
                     alphabet: '0123456789',
                     debug: true,
                     coder : new SonicCoder({
-                        freqMax: 18000,
-                        freqMin: 15000
+                        alphabet: '0123456789',
+                        freqMax: 19000,
+                        freqMin: 20000
                     })
                 });
-                SonicServer.start();
-                SonicServer.on('message', onIncomingChat);
+                sserver.start();
+                sserver.on('message', onIncomingChat);
             }
             catch(err) {
                 return showToast(err);
@@ -178,7 +179,7 @@
         function stopListening() {
             // try to stop the sonic server
             try {
-                SonicServer.stop();
+                sserver.stop();
             }
             catch(err) {
                 return alert(err);
