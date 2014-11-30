@@ -50,7 +50,7 @@
                         $scope.file = $files[0];
 
                         // upload the selected file
-                        DoksService.uploadFile($scope.file).then(function() {
+                        DoksService.uploadFile($scope.file, ctrl.currentRoom).then(function() {
                             modalInstance.close();
                             return fetchAllDoks();
                         }, function() {
