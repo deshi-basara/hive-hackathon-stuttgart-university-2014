@@ -18,12 +18,8 @@
             height: em(40);
             line-height: em(45);
             font-size: em(24);
-
+            margin-left: 17%;
             @include position(relative, 0 0 0 0);
-
-            .headline {
-                margin-left: 17%;
-            }
         }
 
         .register-form-input {
