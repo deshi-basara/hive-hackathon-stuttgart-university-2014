@@ -17,12 +17,12 @@ module.exports = Risotto.Controller.extend({
 			params.roomid = parseInt(params.files[0].fieldname);
 		}
 
-		return;
-
 		try{
 			var doc = yield Doc.create({
+				name: params.files[0].filename,
 				room: params.roomid,
-				owner: this.user.id
+				owner: this.user.id,
+				deleted: 0
 			});
 
 			var file = params.files[0];
