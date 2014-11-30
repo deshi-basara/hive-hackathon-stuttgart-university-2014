@@ -17,11 +17,12 @@
             totalPages = 1,
             annotations = null,
             mutedPeople = [];
-        getPDFUrl().then(function(success) {
+        PDFService.url = "../../../test.pdf";
+        initPDFViewer();
+        /*getPDFUrl().then(function(success) {
             PDFService.url = success;
             initPDFViewer();
-        });
-        
+        });*/
         getAnnotationData().then(function(data) {
             ctrl.annotations = data;
         });
@@ -40,6 +41,7 @@
                 });
             }
             else {
+
                 PDFService.downloadPDF();
                 checkIfUserIsProf().then(function(isProf) {
                     if (isProf) {
@@ -70,9 +72,8 @@
             }).success(function(data) {
                 // TODO: create URL from Stream so PDF.js can load it
                 // TODO: for now, we're faking it
-                //var url = window.URL || window.webkitURL;
-                //var pdfURL = url.createObjectURL(data);
-                var pdfURL = "../../../test.pdf";
+                var url = window.URL || window.webkitURL;
+                var pdfURL = url.createObjectURL(data);
                 q.resolve(pdfURL);
             }).error(function(data, status) {
                 q.reject(data, status);
