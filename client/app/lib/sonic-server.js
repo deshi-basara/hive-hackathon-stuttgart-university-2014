@@ -229,14 +229,12 @@
       canvas = document.createElement('canvas');
       document.body.appendChild(canvas);
     }
-    canvas.width = document.body.offsetWidth;
-    canvas.height = 480;
     drawContext = canvas.getContext('2d');
     // Plot the frequency data.
     for (var i = 0; i < this.freqs.length; i++) {
       var value = this.freqs[i];
       // Transform this value (in db?) into something that can be plotted.
-      var height = value + 400;
+      var height = value + canvas.height * 1.5;
       var offset = canvas.height - height - 1;
       var barWidth = canvas.width/this.freqs.length;
       drawContext.fillStyle = 'black';

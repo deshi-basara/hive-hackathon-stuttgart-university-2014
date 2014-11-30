@@ -45,9 +45,6 @@
 		text-align: center;
 		display: table;
 
-		background-color: $hive-light-blue;
-		border: 2px solid $hive-blue;
-
 		.room-signal-content {
 			display: table-cell;
 			vertical-align: middle;
@@ -61,6 +58,15 @@
 				cursor: pointer;
 				padding: 50px;
 			}
+
+			.wave {
+				position: absolute;
+				left: 50%;
+				margin-left: -125px;
+				margin-top: -75px;
+				opacity: 1;
+			}
+
 
 			.input-group {
                 width: 100%;
@@ -87,7 +93,7 @@
                 .fa {
                 	color: $hive-green;
                 }
-			}
+            }
 		}
 	}
 }

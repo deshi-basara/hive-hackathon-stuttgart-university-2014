@@ -68,16 +68,18 @@ module.exports = Risotto.Controller.extend({
 			params.role = 'student'
 		}
 
-		var file = params.files[0];
+		if(params.files){
+			var file = params.files[0];
 		
-		if(/image/.test(file.mime)){
-			this.status = 400
-			this.body = {
-				error: 'Only images are allowed'
+			if(/image/.test(file.mime)){
+				this.status = 400
+				this.body = {
+					error: 'Only images are allowed'
+				}
+				return;
 			}
-			return;
 		}
-
+		
 		var already = yield User.findOne({'username': params.username});
 
 		if(already){
@@ -92,9 +94,12 @@ module.exports = Risotto.Controller.extend({
 
 		try{
 			var user = yield User.create(values);
-			yield rename(file.path, Risotto.APP + '../profilePictures/' + user.id);
-			user.profilePicture = user.id
-			yield user.save();
+			
+			if(file){
+				yield rename(file.path, Risotto.APP + '../profilePictures/' + user.id);
+				user.profilePicture = user.id
+				yield user.save();
+			}
 		} catch(err){
 			Risotto.logger.error(err);
 			this.status = 500;
@@ -110,10 +115,14 @@ module.exports = Risotto.Controller.extend({
 			user_id: user.id
 		}
 
+<<<<<<< HEAD
 		// return the user_data
 		this.body = {
 			user: user
 		};
+=======
+		this.body = user
+>>>>>>> a0c04404835d6d5319bf81c339a6ccc4ed8de3e2
 	},
 
 	all: function*(params){
