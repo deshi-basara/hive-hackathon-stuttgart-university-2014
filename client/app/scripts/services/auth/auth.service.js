@@ -80,16 +80,17 @@
         function getRegistration(registerModel) {
             var q = $q.defer();
 
-            console.log(registerModel);
-
             // make the request
             $http({
                 method: 'POST',
                 url: config.apiUrl + service.registerUrl,
                 data: registerModel
             }).success(function(data) {
-                if(registerModel.role) {
+                if(registerModel.role !== 'student') {
                     localStorageService.set('prof', true);
+                }
+                else {
+                    localStorageService.set('prof', false);
                 }
                 q.resolve(data);
             }).error(function(data, status) {
