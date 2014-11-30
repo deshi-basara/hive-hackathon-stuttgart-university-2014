@@ -88,6 +88,9 @@
                 url: config.apiUrl + service.registerUrl,
                 data: registerModel
             }).success(function(data) {
+                if(registerModel.role) {
+                    localStorageService.set('prof', true);
+                }
                 q.resolve(data);
             }).error(function(data, status) {
                 q.reject(data, status);
