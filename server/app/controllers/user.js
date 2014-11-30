@@ -115,14 +115,10 @@ module.exports = Risotto.Controller.extend({
 			user_id: user.id
 		}
 
-<<<<<<< HEAD
 		// return the user_data
 		this.body = {
 			user: user
 		};
-=======
-		this.body = user
->>>>>>> a0c04404835d6d5319bf81c339a6ccc4ed8de3e2
 	},
 
 	all: function*(params){
