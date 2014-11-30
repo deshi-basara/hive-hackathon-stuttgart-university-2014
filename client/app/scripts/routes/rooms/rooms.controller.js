@@ -139,7 +139,9 @@
                         freqMin: 15000
                     })
                 });
-                SonicSocket.send(ctrl.roomCreated.id.toString());
+                console.log(ctrl.roomCreated);
+
+                SonicSocket.send(ctrl.roomCreated.id);
             }
             catch(err) {
                 return showToast(err);
