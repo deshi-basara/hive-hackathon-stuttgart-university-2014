@@ -43,4 +43,10 @@
 	.dok-item:hover {
 		background-color: $hive-light-blue;
 	}
+
+	button {
+		position: fixed;
+		bottom: 5%;
+		right: 10%;
+	}
 }
