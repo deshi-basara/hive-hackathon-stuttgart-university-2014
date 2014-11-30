@@ -8,11 +8,16 @@ module.exports = Risotto.Controller.extend({
 
 	create: function*(params) {
 
-		if(!params.roomid){
+		if(!params.files[0].fieldname){
 			console.log(params);
 			this.status = 400
 			return
 		}
+		else {
+			params.roomid = parseInt(params.files[0].fieldname);
+		}
+
+		return;
 
 		try{
 			var doc = yield Doc.create({
