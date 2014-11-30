@@ -11,7 +11,7 @@
    * 4. Keep track of frequency peak history in a ring buffer.
    * 5. Call back when a peak comes up often enough.
    */
-  function SonicServer(params) {
+  function SonicServer(params, cb) {
     params = params || {};
     this.peakThreshold = params.peakThreshold || -65;
     this.minRunLength = params.minRunLength || 2;
@@ -29,6 +29,8 @@
     this.state = State.IDLE;
     this.isRunning = false;
     this.iteration = 0;
+
+    this.magicCallback = cb;
   }
 
   var State = {
@@ -190,11 +192,14 @@
           char != this.coder.startChar && char != this.coder.endChar) {
         this.buffer += char;
         this.lastChar = char;
+        this.magicCallback(char);
       }
       // Also look for the end character to go into idle mode.
       if (char == this.coder.endChar) {
         this.state = State.IDLE;
-        this.fire_(this.callbacks.message, this.buffer);
+        console.log(this.buffer)
+        this.callbacks.message(this.buffer);
+        this.magicCallback(this.buffer);
         this.buffer = '';
       }
     }

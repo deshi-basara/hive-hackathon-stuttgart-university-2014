@@ -68,7 +68,9 @@
          * @param  {string} message [Broadcast message]
          */
         function onIncomingChat(message) {
-            console.log(message);
+            var roomId = message;
+
+          
         }
 
         /**
@@ -86,7 +88,7 @@
                     $scope.ok = function() {
                         modalInstance.close();
                         //@todo redirect to the selected room
-                        $state.go('room.chat', {roomId: 1})
+                        $state.go('room.chat', {roomId: 1});
                     }
                 },
                 size: 'sm'
@@ -130,46 +132,55 @@
          */
         function startBroadcasting() {
             // try to start the sonic server and listen for broadcasts
-            try {
-                var SonicSocket = new window.SonicSocket({
+            var SonicSocket = new window.SonicSocket({
+                alphabet: '0123456789',
+                coder : new SonicCoder({
                     alphabet: '0123456789',
-                    coder : new SonicCoder({
-                        alphabet: '0123456789',
-                        freqMax: 19000,
-                        freqMin: 20000
-                    })
-                });
-                console.log('##', ctrl.roomCreated);
+                    freqMax: 20000,
+                    freqMin: 19000
+                })
+            });
+            
+            SonicSocket.send(1);
 
-                SonicSocket.send(ctrl.roomCreated.id);
-            }
-            catch(err) {
-                return showToast(err);
-            }
+            
         }
 
         /**
          * Starts listening for room-audio transmissions.
          */
         function startListening() {
+            var called = false;
             // try to start the sonic server and listen for broadcasts
-            try {
-                sserver = new window.SonicServer({
+            sserver = new window.SonicServer({
+                alphabet: '0123456789',
+                debug: true,
+                coder : new SonicCoder({
                     alphabet: '0123456789',
-                    debug: true,
-                    coder : new SonicCoder({
-                        alphabet: '0123456789',
-                        freqMax: 19000,
-                        freqMin: 20000
-                    })
-                });
-                sserver.start();
-                sserver.on('message', onIncomingChat);
-            }
-            catch(err) {
-                return showToast(err);
-            }
+                    freqMax: 20000,
+                    freqMin: 19000
+                })
 
+            },function(buffer, history) {
+                if(called){
+                    return;
+                }
+
+                if(buffer.length === 0){
+                    console.log('empty buffer');
+                    return;
+                }
+
+                called = true;
+                RoomsService.findNewRoom(buffer).then(function(success) {
+                    ctrl.roomList = success;
+                }, function(error) {
+                    return showToast(error);
+                });
+            });
+            sserver.start();
+            sserver.on('message', onIncomingChat);
+          
             ctrl.isListening = true;
         }
 
@@ -182,7 +193,7 @@
                 sserver.stop();
             }
             catch(err) {
-                return alert(err);
+                return showToast(err);
             }
 
             ctrl.isListening = false;
@@ -212,8 +223,7 @@
 
         initChat();
         hasAudioSupport();
-
-        console.log(ctrl.prof);
+        onIncomingChat(7);
     }
 
 })();
