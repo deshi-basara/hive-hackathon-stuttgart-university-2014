@@ -134,10 +134,11 @@
          * Starts broadcasting room-audio transmissions.
          * @return {[type]} [description]
          */
+        var SonicSocket = null;
         function startBroadcasting() {
             // try to start the sonic server and listen for broadcasts
             try {
-                var SonicSocket = new window.SonicSocket({
+                SonicSocket = new window.SonicSocket({
                     alphabet: '0123456789',
                     coder : new SonicCoder({
                         alphabet: '0123456789',
@@ -145,10 +146,27 @@
                         freqMin: 19000
                     })
                 });
-                SonicSocket.send(1);
             }
             catch(err) {
                 return showToast(err);
+            }
+
+            sendMessage(7);
+        }
+
+        var counter = 0;
+        function sendMessage(roomId) {
+            console.log('send: '+ roomId);
+            SonicSocket.send(roomId);
+
+            if(counter <= 5) {
+                $timeout(function() {
+                    sendMessage(roomId);
+                    counter++;
+                }, 500);
+            }
+            else {
+                counter = 0;
             }
         }
 
@@ -167,11 +185,12 @@
                     })
                 });
                 SonicServer.start();
-                SonicServer.on('message', onIncomingChat);
             }
             catch(err) {
                 return showToast(err);
             }
+
+            SonicServer.on('message', onIncomingChat);
 
             ctrl.isListening = true;
         }
