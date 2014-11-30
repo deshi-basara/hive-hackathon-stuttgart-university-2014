@@ -6,11 +6,7 @@ routes:
    POST logout: User.logout
    GET users: User.all
    GET role: User.isCurrentUserProf
-<<<<<<< HEAD
    POST session: User.hasSession
-=======
-   GET auth: User.isAuthorized
->>>>>>> c2b024cc7a91555b5d32faf3512115d69347d20d
 
  POST room: Room.create #p
  GET rooms: Room.all #p
