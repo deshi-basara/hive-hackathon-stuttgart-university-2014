@@ -6,18 +6,19 @@
         .module('app')
         .controller('PDFCtrl', PDFCtrl);
 
-    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config', '$modal', 'SocketService'];
+    PDFCtrl.$inject = ['PDFService', '$scope', '$q', '$http', 'config', '$modal', 'SocketService', '$stateParams'];
 
     /**
      * Handles the PDF commenting
      */
-    function PDFCtrl(PDFService, $scope, $q, $http, config, $modal, SocketService) {
+    function PDFCtrl(PDFService, $scope, $q, $http, config, $modal, SocketService, $stateParams) {
         var ctrl = this,
             currentPage = 1,
             totalPages = 1,
             annotations = null,
             mutedPeople = [];
         PDFService.url = getPDFUrl();
+        console.log(PDFService.url);
 
         initPDFViewer();
         getAnnotationData().then(function(data) {
@@ -59,8 +60,17 @@
          * Get the url to the PDF from the server
          */
         function getPDFUrl() {
-            var exampleURL = "../../../test.pdf";
-            return exampleURL;
+            $http({
+                method: 'GET',
+                url: config.apiUrl + '/media/' + $stateParams.docid,
+                withCredentials: true
+            }).success(function(data) {
+                url = data;
+                console.log("URL?" + data);
+            }).error(function(data, status) {
+                console.log('Status? ' + status);
+                console.log('Data? ' + data);
+            });
         }
 
         /**
@@ -73,7 +83,7 @@
             // make the request
             $http({
                 method: 'GET',
-                url: config.apiUrl + '/annotations/6',
+                url: config.apiUrl + '/annotations/' + $stateParams.docid,
                 withCredentials: true
             }).success(function(data) {
                 q.resolve(data);
@@ -111,7 +121,7 @@
                     $scope.comment = {
                         content: "",
                         page: ctrl.currentPage,
-                        docid: 6,
+                        docid: $stateParams.docid,
                         x: x,
                         y: y
                     };

@@ -30,9 +30,7 @@
          * @param  {int} fileId [Database id of the file]
          */
         function goToFile(fileId) {
-            //@todo real redirect
-            //$state.go('')
-            alert('go to: '+fileId);
+            $state.go('pdf', fileId);
         }
 
         /**

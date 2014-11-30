@@ -1,7 +1,7 @@
 <!-- Docs View -->
 <section id="doks">
     <h1>Docs</h1>
-    <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.id)">
+    <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.docid)">
         <span>{{:: dok.name }}</span><i class="fa fa-file-pdf-o"></i>
     </div>
 </section>
