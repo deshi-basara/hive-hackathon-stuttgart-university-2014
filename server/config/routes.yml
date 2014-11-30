@@ -3,7 +3,7 @@ routes:
  user: #namespace
    POST register: User.register
    POST login: User.login
-   POST logout: User.logout
+   GET logout: User.logout
    GET users: User.all
    GET role: User.isCurrentUserProf
    POST session: User.hasSession
