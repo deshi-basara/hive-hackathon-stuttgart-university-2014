@@ -10,7 +10,7 @@ routes:
 
  POST room: Room.create #p
  GET rooms: Room.all #p
- GET room/:roomid: Room.find #get http://localhost:8081/room/1
+ POST room/get: Room.find
  GET room/user: Room.listForUser
  GET room/:location: Room.listForLocation
 

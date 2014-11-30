@@ -68,7 +68,13 @@
          * @param  {string} message [Broadcast message]
          */
         function onIncomingChat(message) {
-            console.log(message);
+            var roomId = message;
+
+            RoomsService.findNewRoom(roomId).then(function(success) {
+                ctrl.roomList = success;
+            }, function(error) {
+                return showToast(error);
+            });
         }
 
         /**
@@ -86,7 +92,7 @@
                     $scope.ok = function() {
                         modalInstance.close();
                         //@todo redirect to the selected room
-                        $state.go('room.chat', {roomId: 1})
+                        $state.go('room.chat', {roomId: 1});
                     }
                 },
                 size: 'sm'
@@ -135,13 +141,11 @@
                     alphabet: '0123456789',
                     coder : new SonicCoder({
                         alphabet: '0123456789',
-                        freqMax: 18000,
-                        freqMin: 15000
+                        freqMax: 20000,
+                        freqMin: 19000
                     })
                 });
-                console.log(ctrl.roomCreated);
-
-                SonicSocket.send(ctrl.roomCreated.id);
+                SonicSocket.send(1);
             }
             catch(err) {
                 return showToast(err);
@@ -158,8 +162,8 @@
                     alphabet: '0123456789',
                     debug: true,
                     coder : new SonicCoder({
-                        freqMax: 18000,
-                        freqMin: 15000
+                        freqMax: 20000,
+                        freqMin: 19000
                     })
                 });
                 SonicServer.start();
@@ -181,7 +185,7 @@
                 SonicServer.stop();
             }
             catch(err) {
-                return alert(err);
+                return showToast(err);
             }
 
             ctrl.isListening = false;
@@ -211,8 +215,7 @@
 
         initChat();
         hasAudioSupport();
-
-        console.log(ctrl.prof);
+        onIncomingChat(7);
     }
 
 })();
