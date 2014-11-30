@@ -49,6 +49,11 @@
 			display: table-cell;
 			vertical-align: middle;
 
+			&.search{
+				background: url(/images/mikro_bg.png) no-repeat center 55px;
+			}
+			
+
 			h2, h3 {
 				//color: $hive-blue;
 				text-transform: uppercase;
@@ -62,11 +67,23 @@
 			.wave {
 				position: absolute;
 				left: 50%;
-				margin-left: -125px;
+				margin-left: -192px;
 				margin-top: -75px;
 				opacity: 1;
+				margin-top: -142px;
+				z-index:1;
 			}
 
+			.mik-holder{
+				height:294px;
+
+				img{
+					position:absolute;
+					left:50%;
+					margin-left:-167px;
+					z-index:2;
+				}
+			}
 
 			.input-group {
                 width: 100%;
