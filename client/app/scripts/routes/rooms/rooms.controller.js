@@ -147,12 +147,11 @@
                 return showToast(err);
             }
 
-            sendMessage(7);
+            sendMessage(parseInt(ctrl.roomCreated.id));
         }
 
         var counter = 0;
         function sendMessage(roomId) {
-            console.log('send: '+ roomId);
             SonicSocket.send(roomId);
 
             if(counter <= 5) {
