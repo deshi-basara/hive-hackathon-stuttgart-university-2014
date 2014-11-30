@@ -63,6 +63,18 @@
                     font-size: 1.25em;
                 }
             }
+
+            .input-group2 {
+                .label-prof {
+                    color: $hive-blue;
+                    @include shift(2);
+                }
+
+                .check-prof {
+                    @include shift(0);
+                    margin-left: 15px;
+                }
+            }
         }
 
         .register-form-submit {
