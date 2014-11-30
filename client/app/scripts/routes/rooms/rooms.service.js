@@ -15,8 +15,10 @@
 
         var service = {
             urlAllRooms: '/rooms',
+            urlFindRoom: '/room/get',
             urlSaveRoom: '/room',
 
+            findNewRoom: findNewRoom,
             getAllRooms: getAllRooms,
             submitNewRoom: submitNewRoom
         };
@@ -60,6 +62,29 @@
                 data: {
                     name: name,
                     location: 'empty' //@todo real location
+                }
+            }).success(function(data) {
+                q.resolve(data);
+            }).error(function(data, status) {
+                q.reject(data, status);
+            });
+
+            return q.promise;
+        }
+
+        /**
+         * Finds a new room
+         * @param  {int}    roomId [Room id]
+         */
+        function findNewRoom(roomId) {
+            var q = $q.defer();
+
+            // make the request
+            $http({
+                method: 'POST',
+                url: config.apiUrl + service.urlFindRoom,
+                data: {
+                    roomid: roomId
                 }
             }).success(function(data) {
                 q.resolve(data);

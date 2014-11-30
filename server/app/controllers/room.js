@@ -30,14 +30,15 @@ module.exports = Risotto.Controller.extend({
 	},
 
 	find: function*(params){
-		var room = yield Room.findOne({id:params.roomid}).populate('owner')
-		room.active = Risotto.socket.getActiveUserForRoom(params.roomid);
+		var room = yield Room.findOne({id: params.roomid});
+		/*room.active = Risotto.socket.getActiveUserForRoom(params.roomid);
 		yield map(room.active, function*(username){
 			var user = yield Risotto.models.user.findOne({username: username});
 			return user.toJSON();
-		});
+		});*/
 
-		this.body = room.toJSON();
+		console.log(room);
+		this.body = room;
 	},
 
 	all: function*(params){
