@@ -53,6 +53,14 @@
         }
 
         /**
+         * Is called when the SonicServer receives a broadcast
+         * @param  {string} message [Broadcast message]
+         */
+        function onIncomingChat(message) {
+            console.log(message);
+        }
+
+        /**
          * Opens the room-modal with all the needed data of
          * the clicked room.
          * @param  {object} room [Object with all data from the clicked room]
@@ -77,8 +85,17 @@
         /**
          * Start listening for room-audio transmissions.
          */
+        var ALPHABET = ' abcdefghijklmnopqrstuvwxyz';
         function startListening() {
-            alert('starting');
+            // try to start the sonic server and listen for broadcasts
+            try {
+                var SonicServer = new window.SonicServer({alphabet: ALPHABET, debug: true});
+                SonicServer.start();
+                SonicServer.on('message', onIncomingChat);
+            }
+            catch(err) {
+                return alert(err);
+            }
         }
 
         //////////////////////
