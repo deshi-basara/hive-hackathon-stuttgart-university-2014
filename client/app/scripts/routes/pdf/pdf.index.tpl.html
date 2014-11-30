@@ -9,13 +9,13 @@
 	</div>
 
     <div id="viewerContainer">
-        <div id="userList">
+        <!--<div id="userList">
             <ul>
                 <li><button ng-click="muteUser(user)">x</button> User1</li>
                 <li><button ng-click="muteUser(user)">x</button> User2</li>
                 <li><button ng-click="muteUser(user)">x</button> User3</li>
             </ul>
-        </div>
+        </div>-->
         <div id="canvasContainer">
             <canvas id="viewerCanvas" ng-click="ctrl.openCommentModal($event)"></canvas>
         	<div class="annotation" ng-repeat="annotation in ctrl.annotations" style="top: {{annotation.y}}px; left: {{annotation.x}}px" ng-show="annotation.page == ctrl.currentPage && !isMuted(annotation.owner) && !ctrl.hideComments">

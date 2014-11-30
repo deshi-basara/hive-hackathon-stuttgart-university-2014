@@ -1,26 +1,29 @@
 <!-- Docs View -->
 <section id="doks">
     <h1>Docs</h1>
-    <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.id)">
+    <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.docid)">
         <span>{{:: dok.name }}</span><i class="fa fa-file-pdf-o"></i>
     </div>
+    <button class="button button-circle" ng-click="ctrl.openUploadModal(ctrl.currentRoom)"><i class="fa fa-plus"></i></button>
 </section>
+
+<error-message ng-show="ctrl.showError">File-Upload: {{ctrl.errorMsg}}</error-message>
 
 <!-- Modal code -->
 <script type="text/ng-template" id="upload-modal.html">
 <div id="room-modal">
     <div class="modal-header">
-        <h3 class="modal-title">Datei-Upload</h3>
+        <h3 class="modal-title">File-Upload</h3>
     </div>
     <div class="modal-body">
-    	<div class="created-by">Created By <span>{{:: room.owner.username }}</span>
-    	</div>
-    	<div class="active-user">
-    		{{:: 3 }} Active User
-    	</div>
+        <div class="created-by">Select a file you want to upload</span>
+        </div>
+        <div class="active-user">
+            <progressbar value="progress"></progressbar>
+        </div>
     </div>
     <div class="modal-footer">
-        <button class="button button-blue" ng-file-select="onFileSelect($files)">Join</button>
+        <button class="button button-blue" ng-file-select="onFileSelect($files)">HOCHLADEN</button>
     </div>
 </div>
 </script>

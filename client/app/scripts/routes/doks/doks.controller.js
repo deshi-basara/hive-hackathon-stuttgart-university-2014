@@ -6,13 +6,14 @@
         .module('app')
         .controller('DoksCtrl', DoksCtrl);
 
-    DoksCtrl.$inject = ['$rootScope','$timeout','$modal', 'DoksService', '$state'];
+    DoksCtrl.$inject = ['$rootScope','$timeout','$modal', 'DoksService', '$state', '$stateParams'];
 
     /**
      * Handles all chat interaction.
      */
-    function DoksCtrl($rootScope, $timeout, $modal, DoksService, $state) {
+    function DoksCtrl($rootScope, $timeout, $modal, DoksService, $state, $stateParams) {
         var ctrl = this;
+        ctrl.currentRoom = $stateParams.roomId;
 
         /**
          * Fetch all doks from the server.
@@ -30,9 +31,7 @@
          * @param  {int} fileId [Database id of the file]
          */
         function goToFile(fileId) {
-            //@todo real redirect
-            //$state.go('')
-            alert('go to: '+fileId);
+            $state.go('pdf', fileId);
         }
 
         /**
@@ -48,17 +47,30 @@
                 controller: function($scope) {
                     $scope.room = room;
                     $scope.onFileSelect = function($files) {
+                        $scope.file = $files[0];
 
                         // upload the selected file
-                        DoksService.uploadFile($files[0]).then(function() {
-
+                        DoksService.uploadFile($scope.file).then(function() {
+                            modalInstance.close();
+                            return fetchAllDoks();
                         }, function() {
-
+                            return showToast('An error during file upload occured');
                         });
                     }
                 },
                 size: 'sm'
             });
+        }
+
+        function showToast(msg){
+            // show an error toast and break
+            ctrl.errorMsg = msg;
+            ctrl.showError = true;
+
+            // hide the toast after 5000ms
+            $timeout(function() {
+                ctrl.showError = false;
+            }, 5000);  
         }
 
 
@@ -73,7 +85,6 @@
 
         //////////////////////
 
-        //openUploadModal();
         fetchAllDoks();
 
 

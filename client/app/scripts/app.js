@@ -69,7 +69,7 @@ angular
     })
 
     .state('pdf', {
-      url: '/pdf',
+      url: '/pdf/:docid',
       templateUrl: 'scripts/routes/pdf/pdf.index.tpl.html',
       controller: 'PDFCtrl',
       controllerAs: 'ctrl'
