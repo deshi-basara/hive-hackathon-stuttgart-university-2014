@@ -11,19 +11,22 @@ module.exports = Risotto.Controller.extend({
 		}
 
 		try{
-			yield Room.create({
+			var room = yield Room.create({
 				name: params.name,
 				location: params.location,
 				owner: this.user.id,
 				visible: false
 			});
 		} catch(err){
-			console.log(err);
 			this.status = 400
 			this.body = {
 				error: err
 			}
 		}
+
+		this.body = {
+			room: room
+		};
 	},
 
 	find: function*(params){
