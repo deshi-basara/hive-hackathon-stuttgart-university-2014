@@ -13,6 +13,7 @@
      */
     function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout, $modal, $state) {
         var ctrl = this;
+        var SonicServer = null;
 
         /**
          * Check if the user is already connected to the socket
@@ -50,6 +51,16 @@
             }, function(error) {
 
             });
+        }
+
+        function hasAudioSupport() {
+            var audioContext = window.audioContext || new webkitAudioContext() || null;
+            var audioMedia = navigator.webkitGetUserMedia || null;
+            console.log(audioContext);
+            console.log(audioMedia);
+            if(!audioContext) {
+                return alert('No audio support');
+            }
         }
 
         /**
@@ -93,11 +104,12 @@
                 var SonicSocket = new window.SonicSocket({
                     alphabet: '0123456789',
                     coder : new SonicCoder({
-                        freqMax: 16500,
-                        freqMin: 15500
+                        alphabet: '0123456789',
+                        freqMax: 18000,
+                        freqMin: 15000
                     })
                 });
-                SonicSocket.send('1');
+                SonicSocket.send('1337');
             }
             catch(err) {
                 return alert(err);
@@ -108,15 +120,14 @@
          * Starts listening for room-audio transmissions.
          */
         function startListening() {
-            console.log('listening');
             // try to start the sonic server and listen for broadcasts
             try {
-                var SonicServer = new window.SonicServer({
-                    alphabet: '0123456789', 
+                SonicServer = new window.SonicServer({
+                    alphabet: '0123456789',
                     debug: true,
                     coder : new SonicCoder({
-                        freqMax: 16500,
-                        freqMin: 15500
+                        freqMax: 18000,
+                        freqMin: 15000
                     })
                 });
                 SonicServer.start();
@@ -125,22 +136,42 @@
             catch(err) {
                 return alert(err);
             }
+
+            ctrl.isListening = true;
+        }
+
+        /**
+         * Stops listening fro room-audio transmissions.
+         */
+        function stopListening() {
+            // try to stop the sonic server
+            try {
+                SonicServer.stop();
+            }
+            catch(err) {
+                return alert(err);
+            }
+
+            ctrl.isListening = false;
         }
 
         //////////////////////
 
         angular.extend(ctrl, {
             hasSignal: false,
+            isListening: false,
             roomList: {},
 
             openRoomModal: openRoomModal,
             startBroadcasting: startBroadcasting,
             startListening: startListening,
+            stopListening: stopListening
         });
 
         //////////////////////
 
         initChat();
+        hasAudioSupport();
     }
 
 })();

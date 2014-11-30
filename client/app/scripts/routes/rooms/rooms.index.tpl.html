@@ -9,7 +9,8 @@
     <div class="room-signal" ng-hide="ctrl.hasSignal">
         <div class="room-signal-content">
             <h2>No rooms were found nearby :-(</h2>
-            <i class="fa fa-microphone fa-4x" ng-click="ctrl.startListening()"></i>
+            <i class="fa fa-microphone fa-4x" ng-click="ctrl.startListening()" ng-show="!ctrl.isListening"></i>
+            <i class="fa fa-microphone-slash fa-4x" ng-click="ctrl.startListening()" ng-show="ctrl.isListening"></i>
             <h3>Start listening for rooms</h3>
         </div>
     </div>
