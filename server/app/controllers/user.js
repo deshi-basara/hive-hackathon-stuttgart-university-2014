@@ -122,7 +122,17 @@ module.exports = Risotto.Controller.extend({
 
 	hasSession: function*(params){
 		if(!this.session || !this.session.authorized){
-			this.status = 403
+			this.status = 403;
+			this.body = {
+				error: 'Not authorized'
+			};
+
+			return;
+		}
+		else {
+			this.body = {
+				msg: 'Authorized'
+			};
 		}
 	}
-})	
+});
