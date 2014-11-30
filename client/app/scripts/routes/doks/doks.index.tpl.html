@@ -4,11 +4,7 @@
     <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.docid)">
         <span>{{:: dok.name }}</span><i class="fa fa-file-pdf-o"></i>
     </div>
-<<<<<<< HEAD
-    <button class="button" ng-click="ctrl.openUploadModal(ctrl.currentRoom)">DOKUMENT HOCHLADEN</button>
-=======
-    <button class="button button-circle" ng-click="ctrl.openUploadModal()"><i class="fa fa-plus"></i></button>
->>>>>>> cb32da572fa7074d8ed8022dc655f700053b0a6d
+    <button class="button button-circle" ng-click="ctrl.openUploadModal(ctrl.currentRoom)"><i class="fa fa-plus"></i></button>
 </section>
 
 <error-message ng-show="ctrl.showError">File-Upload: {{ctrl.errorMsg}}</error-message>
@@ -20,20 +16,14 @@
         <h3 class="modal-title">File-Upload</h3>
     </div>
     <div class="modal-body">
-<<<<<<< HEAD
+        <div class="created-by">Select a file you want to upload</span>
+        </div>
+        <div class="active-user">
+            <progressbar value="progress"></progressbar>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="button button-blue" ng-file-select="onFileSelect($files)">HOCHLADEN</button>
-=======
-    	<div class="created-by">Select a file you want to upload</span>
-    	</div>
-    	<div class="active-user">
-            <progressbar value="progress"></progressbar>
-    	</div>
-    </div>
-    <div class="modal-footer">
-        <button class="button button-blue" ng-file-select="onFileSelect($files)">Upload File</button>
->>>>>>> cb32da572fa7074d8ed8022dc655f700053b0a6d
     </div>
 </div>
 </script>

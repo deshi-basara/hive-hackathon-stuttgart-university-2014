@@ -64,11 +64,6 @@
                     'roomid': roomID
                 }
             }).progress(function(evt) {
-<<<<<<< HEAD
-            }).success(function(data) {
-                q.resolve(data);
-            }).error(function(data, status) {
-=======
                 // calculate the progress in percentage and notify
                 fileObj.progress = parseInt(100.00 * evt.loaded / evt.total);
             }).success(function(data) {
@@ -81,7 +76,6 @@
             }).error(function(data, status) {
                 // file upload error
                 fileObj.status = 'Fehler';
->>>>>>> cb32da572fa7074d8ed8022dc655f700053b0a6d
                 q.reject(data, status);
             });
 

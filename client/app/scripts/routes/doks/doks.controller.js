@@ -47,22 +47,14 @@
                 controller: function($scope) {
                     $scope.room = room;
                     $scope.onFileSelect = function($files) {
-<<<<<<< HEAD
-                        // upload the selected file
-                        DoksService.uploadFile($files[0], ctrl.currentRoom).then(function(success) {
-                            ctrl.dokList.push(success);
-                        }, function() {
-=======
                         $scope.file = $files[0];
 
                         // upload the selected file
                         DoksService.uploadFile($scope.file).then(function() {
                             modalInstance.close();
-
                             return fetchAllDoks();
                         }, function() {
                             return showToast('An error during file upload occured');
->>>>>>> cb32da572fa7074d8ed8022dc655f700053b0a6d
                         });
                     }
                 },
