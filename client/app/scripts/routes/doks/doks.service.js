@@ -59,10 +59,7 @@
                 method: 'POST',
                 url: config.apiUrl + service.urlUploadFile,
                 file: fileObj,
-                fileFormDataName: 'docFile',
-                data: {
-                    'roomid': roomID
-                }
+                fileFormDataName: roomID.toString()
             }).progress(function(evt) {
                 // calculate the progress in percentage and notify
                 fileObj.progress = parseInt(100.00 * evt.loaded / evt.total);
