@@ -17,10 +17,11 @@
             totalPages = 1,
             annotations = null,
             mutedPeople = [];
-        PDFService.url = getPDFUrl();
-        console.log(PDFService.url);
-
-        initPDFViewer();
+        getPDFUrl().then(function(success) {
+            PDFService.url = success;
+            initPDFViewer();
+        });
+        
         getAnnotationData().then(function(data) {
             ctrl.annotations = data;
         });
@@ -60,17 +61,24 @@
          * Get the url to the PDF from the server
          */
         function getPDFUrl() {
+            var q = $q.defer();
+
             $http({
                 method: 'GET',
                 url: config.apiUrl + '/media/' + $stateParams.docid,
                 withCredentials: true
             }).success(function(data) {
-                url = data;
-                console.log("URL?" + data);
+                // TODO: create URL from Stream so PDF.js can load it
+                // TODO: for now, we're faking it
+                //var url = window.URL || window.webkitURL;
+                //var pdfURL = url.createObjectURL(data);
+                var pdfURL = "../../../test.pdf";
+                q.resolve(pdfURL);
             }).error(function(data, status) {
-                console.log('Status? ' + status);
-                console.log('Data? ' + data);
+                q.reject(data, status);
             });
+
+            return q.promise;
         }
 
         /**

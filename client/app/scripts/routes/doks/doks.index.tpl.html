@@ -1,7 +1,7 @@
 <!-- Docs View -->
 <section id="doks">
     <h1>Docs</h1>
-    <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.docid)">
+    <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.id)">
         <span>{{:: dok.name }}</span><i class="fa fa-file-pdf-o"></i>
     </div>
     <button class="button button-circle" ng-click="ctrl.openUploadModal(ctrl.currentRoom)"><i class="fa fa-plus"></i></button>

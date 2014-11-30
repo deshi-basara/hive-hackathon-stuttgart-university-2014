@@ -31,7 +31,7 @@
          * @param  {int} fileId [Database id of the file]
          */
         function goToFile(fileId) {
-            $state.go('pdf', fileId);
+            $state.transitionTo("pdf", { docid: fileId.toString() });
         }
 
         /**
