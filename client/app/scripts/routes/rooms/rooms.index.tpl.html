@@ -8,13 +8,17 @@
 	</div>
     <div class="room-signal" ng-hide="ctrl.hasSignal">
         <div class="room-signal-content">
-            <h2>No rooms were found nearby :-(</h2>
-            <i class="fa fa-microphone fa-4x" ng-click="ctrl.startListening()" ng-show="!ctrl.isListening"></i>
-            <i class="fa fa-microphone-slash fa-4x" ng-click="ctrl.startListening()" ng-show="ctrl.isListening"></i>
-            <h3>Start listening for rooms</h3>
+            <img src="/images/mikro.png">
+            <div class="wave">
+                <canvas width=256 height=100></canvas>
+            </div>
+            <div>
+                <p>Hive verwendet ihr Mikrofon um nach umliegenden Räumen zu suchen.</p>
+                <button class="button" ng-click="ctrl.startListening()" ng-show="!ctrl.isListening">Aktiveren</button>
+            </div>
         </div>
     </div>
-    <button type="button" class="button-blue" ng-click="ctrl.startBroadcasting()">Create new room</button>
+    <button type="button" class="button" ng-click="ctrl.startBroadcasting()">Create new room</button>
 </section>
 
 <!-- Modal code -->

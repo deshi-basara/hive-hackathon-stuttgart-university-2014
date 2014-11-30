@@ -58,6 +58,14 @@
 				cursor: pointer;
 				padding: 50px;
 			}
+
+			.wave {
+				position: absolute;
+				left: 50%;
+				margin-left: -125px;
+				margin-top: -75px;
+				opacity: 1;
+			}
 		}
 	}
 }
