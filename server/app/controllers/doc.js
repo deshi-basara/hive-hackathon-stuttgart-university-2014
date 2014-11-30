@@ -9,6 +9,7 @@ module.exports = Risotto.Controller.extend({
 	create: function*(params) {
 
 		if(!params.roomid){
+			console.log(params);
 			this.status = 400
 			return
 		}

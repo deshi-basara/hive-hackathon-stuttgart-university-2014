@@ -6,13 +6,14 @@
         .module('app')
         .controller('DoksCtrl', DoksCtrl);
 
-    DoksCtrl.$inject = ['$rootScope','$timeout','$modal', 'DoksService', '$state'];
+    DoksCtrl.$inject = ['$rootScope','$timeout','$modal', 'DoksService', '$state', '$stateParams'];
 
     /**
      * Handles all chat interaction.
      */
-    function DoksCtrl($rootScope, $timeout, $modal, DoksService, $state) {
+    function DoksCtrl($rootScope, $timeout, $modal, DoksService, $state, $stateParams) {
         var ctrl = this;
+        ctrl.currentRoom = $stateParams.roomId;
 
         /**
          * Fetch all doks from the server.
@@ -46,12 +47,10 @@
                 controller: function($scope) {
                     $scope.room = room;
                     $scope.onFileSelect = function($files) {
-
                         // upload the selected file
-                        DoksService.uploadFile($files[0]).then(function() {
-
+                        DoksService.uploadFile($files[0], ctrl.currentRoom).then(function(success) {
+                            ctrl.dokList.push(success);
                         }, function() {
-
                         });
                     }
                 },
@@ -71,7 +70,6 @@
 
         //////////////////////
 
-        //openUploadModal();
         fetchAllDoks();
 
 

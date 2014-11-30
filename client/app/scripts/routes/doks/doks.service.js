@@ -51,7 +51,7 @@
          * @param  {File Object}  fileObj [File data from angular-file-upload]
          * @return {Promise}               [Resolve: true | Reject: false]
          */
-        function uploadFile(fileObj) {
+        function uploadFile(fileObj, roomID) {
             var q = $q.defer();
 
             // make the request
@@ -59,22 +59,15 @@
                 method: 'POST',
                 url: config.apiUrl + service.urlUploadFile,
                 file: fileObj,
-                fileFormDataName: 'docFile'
+                fileFormDataName: 'docFile',
+                data: {
+                    'roomid': roomID
+                }
             }).progress(function(evt) {
-                // calculate the progress in percentage and notify
-                //fileObj.progress = parseInt(100.00 * evt.loaded / evt.total);
             }).success(function(data) {
-                console.log(data);
-                // file upload complete
-                //fileObj.status = 'Bereit';
-
-                // save the database id of the uploaded file in the queue-array
-                //fileObj.uploadId = data.id;
-                //q.resolve(data);
+                q.resolve(data);
             }).error(function(data, status) {
-                // file upload error
-                //fileObj.status = 'Fehler';
-                //q.reject(data, status);
+                q.reject(data, status);
             });
 
             return q.promise;

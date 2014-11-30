@@ -4,6 +4,7 @@
     <div class="dok-item" ng-repeat="dok in ctrl.dokList" ng-click="ctrl.goToFile(dok.docid)">
         <span>{{:: dok.name }}</span><i class="fa fa-file-pdf-o"></i>
     </div>
+    <button class="button" ng-click="ctrl.openUploadModal(ctrl.currentRoom)">DOKUMENT HOCHLADEN</button>
 </section>
 
 <!-- Modal code -->
@@ -13,14 +14,9 @@
         <h3 class="modal-title">Datei-Upload</h3>
     </div>
     <div class="modal-body">
-    	<div class="created-by">Created By <span>{{:: room.owner.username }}</span>
-    	</div>
-    	<div class="active-user">
-    		{{:: 3 }} Active User
-    	</div>
     </div>
     <div class="modal-footer">
-        <button class="button button-blue" ng-file-select="onFileSelect($files)">Join</button>
+        <button class="button button-blue" ng-file-select="onFileSelect($files)">HOCHLADEN</button>
     </div>
 </div>
 </script>
