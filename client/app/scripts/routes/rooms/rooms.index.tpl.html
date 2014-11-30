@@ -6,14 +6,32 @@
                             ng-show="ctrl.hasSignal">
 		<span>{{:: room.name }}</span>
 	</div>
-    <div class="room-signal" ng-hide="ctrl.hasSignal">
+    <div class="room-signal" ng-show="ctrl.prof">
         <div class="room-signal-content">
-            <h2>No rooms were found nearby :-(</h2>
-            <i class="fa fa-microphone fa-4x" ng-click="ctrl.startListening()"></i>
+            <div class="input-group" ng-hide="ctrl.roomCreated">
+                <label>Create a new room: </label>
+                <input class="input-text" type="text" ng-model="ctrl.room.name" placeholder="Technische Informatik">
+            </div>
+            <button type="button" class="button button-blue" ng-click="ctrl.saveRoom()" ng-hide="ctrl.roomCreated">Save</button>
+            <button type="button" class="button button-blue" ng-click="ctrl.startBroadcasting()" ng-show="ctrl.roomCreated">Make some noise</button>
+        </div>
+    </div>
+    <div class="room-signal" ng-show="!ctrl.prof">
+        <div class="room-signal-content">
             <h3>Start listening for rooms</h3>
+            <img src="/images/mikro.png">
+            <div class="wave">
+                <canvas width=256 height=100></canvas>
+            </div>
+            <div>
+                <p>Hive verwendet ihr Mikrofon um nach umliegenden Räumen zu suchen.</p>
+                <button class="button" ng-click="ctrl.startListening()" ng-show="!ctrl.isListening">Aktiveren</button>
+            </div>
         </div>
     </div>
 </section>
+
+<error-message ng-show="ctrl.showError">Create-Room: {{ctrl.errorMsg}}</error-message>
 
 <!-- Modal code -->
 <script type="text/ng-template" id="room-modal.html">

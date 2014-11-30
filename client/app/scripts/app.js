@@ -80,19 +80,18 @@ angular
 
 })
 
-.run(function($state, AuthService, SocketService) {
+.run(function(AuthService, SocketService, $state) {
 
   // check if the user has a active session
-  AuthService.hasSession().then(function(success) {}, function(error) {
-    // no valid session running, redirect to the login
-    //$state.go('login');
+  AuthService.hasSession().then(function() {}, function() {
+    $state.go('login');
   });
 
   // connect the user to the websocket
-  SocketService.connect().then(function() {
+  /*SocketService.connect().then(function() {
     console.log(SocketService.socket);
   }, function() {
     console.log('Es konnte keine Verbindung zum WebSocket hergetsellt werden');
-  });
+  });*/
 
 });

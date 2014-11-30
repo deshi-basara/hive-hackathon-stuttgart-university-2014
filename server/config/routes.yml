@@ -3,10 +3,10 @@ routes:
  user: #namespace
    POST register: User.register
    POST login: User.login
-   POST logout: User.logout
+   GET logout: User.logout
    GET users: User.all
    GET role: User.isCurrentUserProf
-   GET auth: User.isAuthorized
+   POST session: User.hasSession
 
  POST room: Room.create #p
  GET rooms: Room.all #p

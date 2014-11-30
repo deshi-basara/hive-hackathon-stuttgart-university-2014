@@ -15,8 +15,10 @@
 
         var service = {
             urlAllRooms: '/rooms',
+            urlSaveRoom: '/room',
 
-            getAllRooms: getAllRooms
+            getAllRooms: getAllRooms,
+            submitNewRoom: submitNewRoom
         };
 
         return service;
@@ -34,6 +36,31 @@
             $http({
                 method: 'GET',
                 url: config.apiUrl + service.urlAllRooms
+            }).success(function(data) {
+                q.resolve(data);
+            }).error(function(data, status) {
+                q.reject(data, status);
+            });
+
+            return q.promise;
+        }
+
+        /**
+         * Submits a new room.
+         * @param  {string}  name [Room name]
+         * @return {promise}      [$q-promise]
+         */
+        function submitNewRoom(name) {
+            var q = $q.defer();
+
+            // make the request
+            $http({
+                method: 'POST',
+                url: config.apiUrl + service.urlSaveRoom,
+                data: {
+                    name: name,
+                    location: 'empty' //@todo real location
+                }
             }).success(function(data) {
                 q.resolve(data);
             }).error(function(data, status) {

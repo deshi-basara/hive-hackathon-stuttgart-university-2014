@@ -23,6 +23,7 @@
 label {
     height: em(50);
     line-height: em(50);
+    margin-bottom:0;
 }
 
 .button {
@@ -37,11 +38,13 @@ label {
     box-shadow: inset 1px 1px rgba(255, 255, 255, 0.21);
     border: 1px solid $hive-blue;
     letter-spacing: 0.02em;
+    background: $hive-light-blue;
+    color: $hive-blue;
+    text-transform:uppercase;
 }
 
 .button:hover {
     box-shadow: 0 3px 6px rgba(0,0,0,.16),0 3px 6px rgba(0,0,0,.23);
-
     @include transition(box-shadow .28s cubic-bezier(0.4,0,.2,1));
 }
 

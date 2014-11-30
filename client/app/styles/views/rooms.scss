@@ -45,9 +45,6 @@
 		text-align: center;
 		display: table;
 
-		background-color: $hive-light-blue;
-		border: 2px solid $hive-blue;
-
 		.room-signal-content {
 			display: table-cell;
 			vertical-align: middle;
@@ -61,6 +58,42 @@
 				cursor: pointer;
 				padding: 50px;
 			}
+
+			.wave {
+				position: absolute;
+				left: 50%;
+				margin-left: -125px;
+				margin-top: -75px;
+				opacity: 1;
+			}
+
+
+			.input-group {
+                width: 100%;
+
+                label {
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
+
+                    font-size: em(15);
+                    text-align: left;
+                    color: $hive-blue;
+                    bottom: 0;
+                }
+
+                input {
+                    @include span-columns(8 of 12);
+                    @include shift(2);
+                    @include omega(1n);
+
+                    margin-top: -10px;
+                }
+
+                .fa {
+                	color: $hive-green;
+                }
+            }
 		}
 	}
 }

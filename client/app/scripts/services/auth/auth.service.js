@@ -27,11 +27,6 @@
 
         ///////////////
 
-
-        function generateClientSession() {
-
-        }
-
         /**
          * Checks if the user has a active session and if it is still valid.
          * @return {Boolean}      [True: user is authenticated | False: not authenticated]
@@ -42,19 +37,12 @@
             // make the request
             $http({
                 method: 'POST',
-                url: config.apiUrl + service.sessionUrl
+                url: config.apiUrl + service.sessionUrl,
             }).success(function(data) {
-                q.resolve(data);
+                q.resolve();
             }).error(function(data, status) {
-                q.reject(data, status);
+                q.reject();
             });
-
-            /*if(localStorageService.isSupported) {
-                // fetch 
-            }
-            else {
-                q.reject('storage-error');
-            }*/
 
             return q.promise;
         }
@@ -84,10 +72,6 @@
             return q.promise;
         }
 
-        function setAuth(sessionId) {
-
-        }
-
         /**
          * Submits an registration attemp to the server.
          * @param  {object} registerModel [ngModel with all registration form inputs]
@@ -104,6 +88,9 @@
                 url: config.apiUrl + service.registerUrl,
                 data: registerModel
             }).success(function(data) {
+                if(registerModel.role) {
+                    localStorageService.set('prof', true);
+                }
                 q.resolve(data);
             }).error(function(data, status) {
                 q.reject(data, status);

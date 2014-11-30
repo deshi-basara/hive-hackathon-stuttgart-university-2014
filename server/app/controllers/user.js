@@ -56,20 +56,7 @@ module.exports = Risotto.Controller.extend({
 		check(params.username, String);
 		check(params.role, String);*/
 
-		if(!params.password || !params.username || !params.role ){
-
-			// upload profile pic
-			var file = params.files[0];
-			if(file.mime !== 'image/jpeg'){
-				this.status = 400
-				this.body = {
-					error: 'Only images are allowed'
-				}
-				return;
-			}
-			yield rename(file.path, Risotto.APP + '../uploads/' + doc.id);
-			// endof upload profile pic
-
+		if(!params.password || !params.username){
 			this.status = 401;
 			this.body = {
 				error: "All fields are required"
@@ -77,6 +64,22 @@ module.exports = Risotto.Controller.extend({
 			return 
 		}
 
+		if(!params.role){
+			params.role = 'student'
+		}
+
+		if(params.files){
+			var file = params.files[0];
+		
+			if(/image/.test(file.mime)){
+				this.status = 400
+				this.body = {
+					error: 'Only images are allowed'
+				}
+				return;
+			}
+		}
+		
 		var already = yield User.findOne({'username': params.username});
 
 		if(already){
@@ -91,6 +94,12 @@ module.exports = Risotto.Controller.extend({
 
 		try{
 			var user = yield User.create(values);
+			
+			if(file){
+				yield rename(file.path, Risotto.APP + '../profilePictures/' + user.id);
+				user.profilePicture = user.id
+				yield user.save();
+			}
 		} catch(err){
 			Risotto.logger.error(err);
 			this.status = 500;
@@ -105,6 +114,11 @@ module.exports = Risotto.Controller.extend({
 			authorized: true,
 			user_id: user.id
 		}
+
+		// return the user_data
+		this.body = {
+			user: user
+		};
 	},
 
 	all: function*(params){
@@ -116,11 +130,19 @@ module.exports = Risotto.Controller.extend({
 		this.body = (currentUser.role === 'prof')
 	},
 
-	isAuthorized: function*(params){
-		var cSession = this.session.authorized;
-		if (cSession != null) {
-			this.body = true;
-		} else this.body = false;
-		console.log(cSession);
+	hasSession: function*(params){
+		if(!this.session || !this.session.authorized){
+			this.status = 403;
+			this.body = {
+				error: 'Not authorized'
+			};
+
+			return;
+		}
+		else {
+			this.body = {
+				msg: 'Authorized'
+			};
+		}
 	}
-})	
+});
