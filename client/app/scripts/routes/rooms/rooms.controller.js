@@ -13,7 +13,7 @@
      */
     function RoomsCtrl(RoomsService, SocketService, $rootScope, $timeout, $modal, $state, localStorageService) {
         var ctrl = this;
-        var SonicServer = null;
+        var sserver = null;
 
         /**
          * Check if the user is already connected to the socket
@@ -70,11 +70,7 @@
         function onIncomingChat(message) {
             var roomId = message;
 
-            RoomsService.findNewRoom(roomId).then(function(success) {
-                ctrl.roomList = success;
-            }, function(error) {
-                return showToast(error);
-            });
+          
         }
 
         /**
@@ -174,25 +170,37 @@
          * Starts listening for room-audio transmissions.
          */
         function startListening() {
+            var called = false;
             // try to start the sonic server and listen for broadcasts
-            try {
-                SonicServer = new window.SonicServer({
+            sserver = new window.SonicServer({
+                alphabet: '0123456789',
+                debug: true,
+                coder : new SonicCoder({
                     alphabet: '0123456789',
-                    debug: true,
-                    coder : new SonicCoder({
-                        freqMax: 20000,
-                        freqMin: 19000
-                    })
+                    freqMax: 20000,
+                    freqMin: 19000
+                })
+
+            },function(buffer, history) {
+                if(called){
+                    return;
+                }
+
+                if(buffer.length === 0){
+                    console.log('empty buffer');
+                    return;
+                }
+
+                called = true;
+                RoomsService.findNewRoom(buffer).then(function(success) {
+                    ctrl.roomList = success;
+                }, function(error) {
+                    return showToast(error);
                 });
-                SonicServer.start();
-            }
-            catch(err) {
-                return showToast(err);
-            }
+            });
 
-            SonicServer.on('message', onIncomingChat);
-
-            ctrl.isListening = true;
+            sserver.start();
+            sserver.on('message', onIncomingChat);
         }
 
         /**
@@ -201,7 +209,7 @@
         function stopListening() {
             // try to stop the sonic server
             try {
-                SonicServer.stop();
+                sserver.stop();
             }
             catch(err) {
                 return showToast(err);
